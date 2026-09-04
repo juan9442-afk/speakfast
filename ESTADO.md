@@ -1,7 +1,7 @@
 # ESTADO — SpeakFast
-Última actualización: 2026-09-04 | Sesión actual: 1
+Última actualización: 2026-09-04 | Sesión actual: 1 (cerrando)
 
-⏸️ CHECKPOINT — Última acción completada: RESUMEN FINAL validado pegado por el usuario + ESTADO/FICHA-AVATAR creados / Siguiente acción exacta: iniciar Sesión 1 (leer 02-VALIDACION + 02C-PRICING + 04-ARQUITECTURA + 25 + 26 + 30) — decidir modelo de monetización (matriz A-F), arquitectura de voz/IA sync-async, modelo de datos, auth
+⏸️ CHECKPOINT — Última acción completada: Sesión 1 decidida y documentada (monetización, arquitectura voz/IA, datos, auth, loop) — leídos 02C, 30, 26, SECUENCIA-MAESTRA / Siguiente acción exacta: esperar OK del usuario y arrancar Sesión 2 (identidad visual: leer 16 PASO 0 + 10 + 29 + DESIGN-CORE + 54; producir 3 opciones A/B/C a 375px). Antes de Sesión 3: preguntar gustos visuales + completar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha).
 
 ## Qué es esta app (3 líneas máximo)
 Simulador de entrevistas de trabajo en inglés: el usuario elige su puesto, responde preguntas reales en voz alta con temporizador de presión, y recibe feedback inmediato de fluidez, muletillas ("ehm", "like"), pronunciación y velocidad de habla.
@@ -31,28 +31,32 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Landing: sigue la ESTRUCTURA CANÓNICA de 10 secciones del 19 — carrusel con placeholders hasta que exista la app · footer legal: pendientes
 - Ángulo de venta ganador: "Tu problema no es el inglés. Tu problema es que nunca has entrenado bajo la presión de una entrevista real."
 
-## Estrategia de monetización (Sesión 1 — NO cambiar sin validar)
-- Modelo: PENDIENTE decidir en Sesión 1 (matriz A-F del 02C — educación/preparación profesional; probable onboarding-first: landing → onboarding → preview de resultado → paywall → login)
-- Justificación: pendiente
-- Diseño del paywall: pendiente
-- Trial: 7 días (definido por el usuario) — diseño del puente D1-D7 pendiente
-- Pricing: $5.99/mes mensual | $44.99/año mostrado como ~$3.75/mes ("2 meses gratis")
+## Estrategia de monetización (Sesión 1 — DECIDIDA — NO cambiar sin validar)
+- Modelo: Modelo 2 (Onboarding-first anónimo → preview del resultado → paywall con trial → checkout Hotmart → login magic link → app). Nicho matriz A-F: **A) Educación/Aprendizaje** con fuerte componente de resultado puntual (pasar LA entrevista). Fusión de referencias: Duolingo (hábito/racha/progreso) + Cal AI (fricción mínima, resultado inmediato) + Headspace (onboarding con promesa clara).
+- Justificación: onboarding+paywall de trial = configuración de mayor conversión para suscripción de consumo (State of Subscription Apps). El "aha" (score de fluidez) es inmediato (<5 min) → trial de 7 días encaja con la regla tiempo-a-valor. NO hay free tier permanente más allá de la preview anónima de 1 pregunta: cada simulación tiene costo real de audio (~$0.01) y un "gratis ilimitado" erosionaría el margen del 94%.
+- Diseño del paywall: aparece tras la preview del onboarding (usuario ya grabó 1 respuesta y vio su score). Muestra: su score de partida + "en 7 días, sin traducir" + 2 planes (mensual ancla / anual preseleccionado con badge) + garantía 7 días + 3 bullets de lo que desbloquea (preguntas ilimitadas de tu rol, historial de mejora, respuesta optimizada completa). CTA: "Empezar mi prueba gratis de 7 días". Salida limpia (link "Seguir explorando" → 1 pregunta más gratis, sin dark pattern).
+- Trial: 7 días para mensual y anual (MVP; dual 14/7 revisable con /precios). Durante trial: 3 simulaciones/día. Aviso pre-cobro honesto D6 (in-app + email): fecha y monto exactos + cancelar en 1 tap. Indicador "Día X de 7" discreto, sin countdown de alarma.
+- Puente del trial D1-D7 (borrador, a detallar Sesión 4 con 56): D1 primera simulación completa de 3 preguntas de su rol · D2-D3 primer insight de SUS datos ("tu muletilla recurrente es 'like'") · D4-D5 inversión visible ("llevas 8 prácticas, tu respuesta a 'biggest weakness' bajó de 6 a 2 'ehm'") · D6 aviso pre-cobro · D7 desbloqueo Pro visible.
+- Pricing: mensual $5.99/mes (ancla) · anual $44.99/año mostrado como **$3.75/mes** en grande + label "se cobra $44.99/año", preseleccionado, badge "Mejor valor · ahorras 37%". Descompuesto: "menos de lo que gastas en un café a la semana". ⚠️ Precio/trial/garantía vienen de la investigación del usuario — se CONFIRMAN en FICHA-MERCADO.md con fuente y fecha antes de la landing (Sesión 3) o con /precios.
+- Garantía: 7 días de devolución (estándar Hotmart LATAM) — a confirmar en FICHA-MERCADO.
+- "Regla nunca" del producto (derivada de promesa + avatar, NO se pregunta): (1) nunca guardar ni reproducir la voz del usuario — se transcribe y se borra el audio (privacidad, objeción del avatar) · (2) nunca preguntas fuera del rol elegido · (3) nunca culpa/vergüenza para retener ("tu inglés empeora" ❌) · (4) nunca prometer "trabajo garantizado" ni "inglés fluido en X días" · (5) nunca compartir datos del usuario salvo con el proveedor de STT/LLM, declarado en privacidad.
 
-## Gamificación y retención
-- Loop del hábito: PENDIENTE Sesión 4 (candidato: Gatillo "estoy postulando a un empleo" → Acción "simulación de 10 min" → Recompensa "score de fluidez + respuesta optimizada" → Inversión "banco de preguntas de mi rol + historial de mejora")
-- Mecánicas: pendiente (candidatos: racha diaria de práctica, récord de fluidez, progreso por pregunta clave del rol)
-- Primera victoria (<5 min): elegir puesto ("Frontend Developer") → responder 1 pregunta de 60s en voz alta → score de claridad inmediato + 2 palabras a corregir
-- Notificaciones de re-enganche: pendiente
+## Gamificación y retención (loop DEFINIDO Sesión 1; mecánicas y momentos se construyen Sesión 4-5)
+- Loop del hábito (Hooked): Gatillo externo "recordatorio diario: tu entrevista se acerca, practica 10 min" + interno "ansiedad de una entrevista próxima" → Acción "1 simulación = 3 preguntas de tu rol en voz alta con cronómetro" → Recompensa variable "score de fluidez + conteo de muletillas + respuesta optimizada + comparación con ayer ('bajaste de 6 a 3 ehm')" → Inversión "banco de preguntas de tu rol que se desbloquea + historial de mejora + racha"
+- Memoria (test binario de 24): el prompt de análisis recibe los últimos N intentos del usuario y lo hace explícito ("basado en tus 8 prácticas, tu muletilla recurrente es 'like'"). Si borro tu historial, ¿el feedback de mañana es idéntico? NO → hay memoria real ✓
+- Mecánicas (detallar Sesión 4 con 24): racha diaria de práctica · récord de fluidez por pregunta · progreso "5 preguntas clave de tu rol: 2/5 dominadas"
+- Primera victoria (<5 min, en el onboarding): elegir profesión + rol → responder 1 pregunta de 60s en voz alta → score de fluidez + conteo de muletillas + 2 palabras a corregir
+- Notificaciones de re-enganche (web app: email/WhatsApp, NO push nativo): D1, D3, D7 en hora activa, tope ≤1-2/día. Si no volvió D2-D3, el email usa el DOLOR #1 de FICHA-AVATAR en su lenguaje literal, nunca "te extrañamos".
 
 ## Secuencia maestra de construcción (NO saltar)
-- Estado de la secuencia: nada construido aún — arrancando Sesión 1 (decisiones)
-- Ruta aprobada: `/` → `/onboarding` → `/paywall` → `/login` → `/app` (a confirmar tras Sesión 1)
-- Landing: pendiente — protagonista: la simulación con feedback de fluidez — CTA primario: "Probar mi primera simulación gratis"
-- Onboarding: pendiente — primera decisión: elegir rol/profesión
-- Paywall: pendiente — oferta principal: anual $44.99 con 7 días gratis
-- Login/Auth: pendiente — motivo de pedir cuenta: guardar historial de mejora y banco de preguntas del rol
-- App interna: pendiente — secciones (3-5): Practicar (simulación) · Mi progreso · Banco de preguntas por rol · Ajustes
-- Servicios externos: bloqueados hasta que las puertas anteriores estén aprobadas
+- Estado de la secuencia: Sesión 1 cerrada (decisiones). Nada de UI construido aún. Siguiente: Sesión 2 (identidad visual), luego Sesión 3 (landing).
+- Ruta aprobada: `/` → `/onboarding` → `/paywall` → `/login` → `/app` · legales: `/terminos` `/privacidad`
+- Landing: pendiente — protagonista: la simulación con feedback de fluidez (captura del reporte "Fluidez 85% · usaste 'ehm' 6 veces") — CTA primario: "Probar mi primera simulación gratis"
+- Onboarding: pendiente — 5 micro-pasos + práctica real → (1) profesión (Tech/Marketing/Ventas/Finanzas/Producto-Diseño) (2) rol específico (3) ¿para cuándo tu entrevista? (esta semana/este mes/explorando) (4) ¿qué te pasa al hablar inglés? (me congelo/traduzco/muletillas/vocabulario pobre) (5) demo: responde 1 pregunta 60s en voz alta → score = primera victoria
+- Paywall: pendiente — oferta principal: anual $44.99 mostrado como $3.75/mes con 7 días gratis
+- Login/Auth: pendiente — motivo de pedir cuenta: "guardar tu historial de mejora y desbloquear el banco de preguntas de tu rol" — método: magic link/OTP (link + código 6 díg mismo email)
+- App interna: pendiente — secciones (4): Practicar (simulación de 3 preguntas) · Mi progreso (racha, historial, insights) · Banco de preguntas (por rol, con estado dominada/pendiente) · Cuenta (plan, límites, ajustes de privacidad)
+- Servicios externos: bloqueados hasta que las puertas anteriores estén aprobadas — orden: GitHub → Supabase → IA real (STT+LLM) → Vercel → Resend → dominio → Hotmart
 
 ## Puertas de etapa (aprobación antes de avanzar)
 - Landing: no iniciada
@@ -63,21 +67,30 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Servicios externos: bloqueados
 
 ## Decisiones técnicas (NO re-discutir sin pedirlo el usuario)
-- Framework: PENDIENTE Sesión 1 (probable Next.js App Router — landing SEO + API routes para el BFF de voz/IA)
-- Stack: React + TS + Tailwind v4 + shadcn/ui + Lucide/Phosphor + Motion + Supabase + Vercel (stack pineado 51)
-- Features del MVP: (1) banco de preguntas filtrado por rol/profesión (2) grabador de voz con temporizador de respuesta (3) motor de análisis voz→texto: muletillas + velocidad de habla + claridad (4) reporte de mejora diario
-- NO construir: videollamadas con avatares 3D · salas de chat comunitarias · módulos de gramática escrita
-- Modelo de IA: PENDIENTE (STT para transcripción + LLM para análisis/feedback y "respuesta optimizada"; modelo en env var AI_MODEL) — costo objetivo ~$0.35/usuario/mes
-- Idioma de UI: español latino neutro (mono-idioma). Contenido de práctica en inglés.
+- Framework: **Next.js App Router** — decidido 2026-09-04. Landing con SEO (keywords "english interview practice app", "como pasar entrevista en ingles") + API routes para el BFF de voz/IA + webhook Hotmart. NO cambia a mitad.
+- Stack: React + TS + Tailwind v4 + shadcn/ui + Lucide/Phosphor + Motion + Recharts + Supabase + Vercel (stack pineado 51).
+- Idioma de UI: español latino neutro (mono-idioma). Contenido de práctica (preguntas, respuesta optimizada) en inglés.
+- Features del MVP: (1) banco de preguntas filtrado por rol/profesión (2) grabador de voz con temporizador de respuesta (3) motor de análisis voz→texto: muletillas + velocidad de habla (wpm) + claridad/fluidez + palabras a corregir + respuesta optimizada (4) historial de mejora + racha.
+- NO construir: videollamadas con avatares 3D · salas de chat comunitarias · módulos de gramática escrita.
+- **Arquitectura de voz/IA:** cliente graba (MediaRecorder ~60s, webm/opus) → sube directo a Supabase Storage (signed upload URL, no por la función) → BFF `/api/practice/analyze` → STT (proveedor barato Whisper-class, modelo en env `STT_MODEL`) → 1 llamada LLM (Haiku 4.5 vía `AI_MODEL`, tool-use forzado → JSON: {fluency_score, filler_words[], wpm, clarity_score, words_to_fix[], optimized_answer}) + zod → guarda en `practice_runs`, **borra el audio** (privacidad).
+  - Sync vs async: **SYNC** con skeleton "Analizando tu respuesta…" (STT 60s + 1 Haiku ≈ 6-12s < 15s). Tabla `practice_runs.status` async-ready (reintentos/idempotencia). Streaming del texto de `optimized_answer`.
+  - Costo: ~$0.01/simulación (STT ~$0.006 + Haiku ~$0.004) → 35/mes ≈ $0.35 ✓. Preview anónima: 1 pregunta. Trial: 3/día. Pro: fair-use 10/día. Kill-switch (`ai_calls` + topes diario/mensual en env) + cap en consola del proveedor → Sesión 6.
+- **Modelo de datos (Supabase, RLS en todas las tablas — `for all using ((select auth.uid()) = user_id) with check (...)`, columna user_id indexada):**
+  - `profiles` (id→auth.users, plan text[free|trialing|active|canceled], trial_ends_at, role_category, role_specific, interview_timing, pain_point, created_at)
+  - `questions` (id, role_category, role_specific text[], text_en, difficulty, category text[behavioral|technical|hr], is_active) — contenido semilla; RLS `for select` a authenticated (sin user_id)
+  - `practice_runs` (id, user_id→auth.users, question_id, status[pending|processing|done|failed], transcript, fluency_score, filler_words jsonb, wpm, clarity_score, words_to_fix jsonb, optimized_answer, created_at, idempotency_key unique)
+  - `user_progress` (user_id pk→auth.users, current_streak, longest_streak, last_practice_date, questions_mastered jsonb) — tabla de racha (24)
+  - `ai_calls` → Sesión 6 (kill-switch, def. en 31)
+- **Auth:** Supabase Auth. Primario: magic link/OTP (enlace + código 6 díg en el mismo email), verificado contra DB propia (usuario creado por webhook Hotmart). Ruta de rescate "compré y no me llega" en `/login` desde el día 1. Sesión larga (app de consumo, 30-90 días). Passkey ofrecida tras la primera victoria (no en el primer login). Google OAuth = mejora posterior. Rate limits de la tabla del 26. Middleware SSR canónico de @supabase/ssr; PUBLIC_PATHS = /, /onboarding, /paywall, /login, /auth, /pricing, /terminos, /privacidad; solo /app y API privadas exigen sesión.
 
 ## Sesiones completadas ✅
-- (ninguna)
+- Sesión 1 — validación (ya validada por el usuario), FICHA-AVATAR, modelo de monetización, loop de retención, arquitectura de voz/IA, modelo de datos, auth, secuencia maestra — 2026-09-04. Falta: OK del usuario para pasar a Sesión 2.
 
 ## Sesión en progreso 🔧
-- Sesión 1 — decisiones de producto/negocio y arquitectura. Punto: RESUMEN FINAL cargado; falta leer archivos de fase y decidir monetización + pilares técnicos.
+- (ninguna — esperando OK para Sesión 2)
 
 ## Próximas sesiones 📋
-- Sesión 2: identidad visual y sistema de diseño (3 opciones A/B/C a 375px)
+- Sesión 2: identidad visual y sistema de diseño (3 opciones A/B/C a 375px). Antes: preguntar al usuario gustos visuales / referencias.
 - Sesión 3: página de ventas (10 secciones canónicas)
 - Sesión 4: onboarding + paywall + login
 - Sesión 5: app interna
@@ -89,8 +102,9 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - (ninguno)
 
 ## Pendientes del usuario (acciones que el usuario debe hacer)
-- [ ] Confirmar el resumen de 2 líneas del entendimiento (Sesión 1)
-- [ ] Más adelante: crear cuentas (Supabase, Vercel, Resend, Hotmart), comprar dominio, pegar claves (se guía en Sesión 6)
+- [ ] Aprobar el cierre de Sesión 1 y dar OK para Sesión 2
+- [ ] En Sesión 2: elegir la dirección visual entre 3 opciones (o dar una app/captura de referencia)
+- [ ] Más adelante (Sesión 6): crear cuentas (Supabase, Vercel, Resend, Hotmart), comprar dominio (~$10-15/año), pegar un par de claves — se guía clic por clic
 
 ## Notas para la próxima sesión
 - La idea llegó YA VALIDADA por el usuario con un RESUMEN FINAL completo + avatar detallado. NO re-validar, NO proponer alternativas. El copy de venta se deriva de FICHA-AVATAR.md.

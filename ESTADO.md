@@ -1,7 +1,7 @@
 # ESTADO — SpeakFast
-Última actualización: 2026-09-04 | Sesión actual: 1 (cerrando)
+Última actualización: 2026-09-04 | Sesión actual: 2 (cerrando)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 1 decidida y documentada (monetización, loop + gamificación completa, arquitectura voz/IA, datos, auth) — leídos 02C, 30, 26, 24, SECUENCIA-MAESTRA / Siguiente acción exacta: esperar OK del usuario y arrancar Sesión 2 (identidad visual: leer 16 PASO 0 + 10 + 29 + DESIGN-CORE + 54; producir 3 opciones A/B/C a 375px — la piel NO puede parecer Duolingo). Antes de Sesión 3: preguntar gustos visuales + completar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha).
+⏸️ CHECKPOINT — Última acción completada: Sesión 2 — dirección de arte "El entrenador editorial" (combinación A+F ajustada) APROBADA por el usuario; FICHA-ARTE.md creada. Comparativas archivadas en docs/revisiones/. / Siguiente acción exacta: esperar OK y arrancar Sesión 3 (página de ventas). Antes de escribir copy de landing: completar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha — leer PLANTILLA-FICHA-MERCADO + 02C + 18 + búsqueda web). Luego leer 19 (estructura canónica 10 secciones) + 52 + 55 + 57 (FICHA-AVATAR ya lista) + plantillas-codigo/landing/README.md.
 
 ## Qué es esta app (3 líneas máximo)
 Simulador de entrevistas de trabajo en inglés: el usuario elige su puesto, responde preguntas reales en voz alta con temporizador de presión, y recibe feedback inmediato de fluidez, muletillas ("ehm", "like"), pronunciación y velocidad de habla.
@@ -18,12 +18,13 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Brecha LATAM confirmada: sí — 17 apps parecidas contadas, ninguna 100% enfocada en entrevistas de trabajo en inglés por rol para LATAM
 - Precio de referencia del mercado: $15-$30/mes (nosotros $5.99/mes — precio de penetración)
 
-## Dirección de Arte (Sesión 2 — NO cambiar sin justificación)
-- FICHA-ARTE.md: NO creada aún — se hace en Sesión 2
-- ¿Hubo referencia visual del usuario?: NO (pendiente preguntar gustos visuales en Sesión 2 con opciones A/B/C)
-- Resumen: pendiente
-- Personalidad: pendiente (candidatos del brief: directo / de combate / sin condescendencia)
-- REGISTRO ANTI-REPETICIÓN: pendiente
+## Dirección de Arte (Sesión 2 — COSA JUZGADA — NO cambiar sin OK explícito del usuario)
+- FICHA-ARTE.md: existe y APROBADA por el usuario — 2026-09-04. Dirección: "El entrenador editorial" (combinación A+F ajustada).
+- ¿Hubo referencia visual del usuario?: NO. Fusión de líderes (Headspace + Cal AI + Duolingo + Linear) + protocolo A/B/C (2 rondas + combinación). Restricción del usuario: landing NO estilo "anuncio de curso de trading" (nada de negro+dorado, mayúsculas gritonas, cuentas regresivas falsas).
+- Resumen: modo CLARO cálido · fondo #FAF6EC · superficie #FFFDF7 · texto #241F1A/#7C7568 · **acento principal verde #1F7A5A** (CTA, progreso, deltas positivos, "listo/aprobado") · **2ª nota terracota #B5502F** (SOLO: filo del dato héroe, chips de ícono, subrayado marcador — nunca bloque/barra/botón) · Display **Fraunces** (600) · Body **Figtree** (400-700) · radio cards 18px / botón 13px · sombras suaves tintadas cálidas (no bordes duros) · número héroe grande (46-58px, tabular).
+- Personalidad: **Directo · Exigente · En tu esquina** (coach que corrige sin adornos pero de tu lado; cero mascota, cero culpa, cero confeti infantil). Arquetipo Héroe + toque Sabio/Cuidador. Motion: ease-out suave 280ms, fade puro en titulares, números cuentan sin rebote, spring 0.1 SOLO al dominar pregunta / hito de racha. Máx 1 exclamación por pantalla.
+- Dispositivo ownable: subrayado **marcador** (banco 54 dir. 1) en la palabra que vende + **filo de terracota** 4px en el recuadro del dato héroe.
+- REGISTRO ANTI-REPETICIÓN (29/54): VETADOS para el próximo proyecto del SO → paleta (claro cálido, acento verde #1F7A5A + nota terracota #B5502F) y par tipográfico (Fraunces + Figtree). Dirección del banco 54 usada: #1 "Editorial cálida" (marcador) + #7 "Terracota mediterránea" (la nota de color).
 
 ## Avatar y venta (Sesión 1 — NO cambiar sin validar)
 - FICHA-AVATAR.md: existe — base tomada del RESUMEN FINAL del usuario (2026-09-04). Pendiente: confirmación explícita del usuario del resumen de 2 líneas
@@ -97,14 +98,14 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - **Auth:** Supabase Auth. Primario: magic link/OTP (enlace + código 6 díg en el mismo email), verificado contra DB propia (usuario creado por webhook Hotmart). Ruta de rescate "compré y no me llega" en `/login` desde el día 1. Sesión larga (app de consumo, 30-90 días). Passkey ofrecida tras la primera victoria (no en el primer login). Google OAuth = mejora posterior. Rate limits de la tabla del 26. Middleware SSR canónico de @supabase/ssr; PUBLIC_PATHS = /, /onboarding, /paywall, /login, /auth, /pricing, /terminos, /privacidad; solo /app y API privadas exigen sesión.
 
 ## Sesiones completadas ✅
-- Sesión 1 — validación (ya validada por el usuario), FICHA-AVATAR, modelo de monetización, loop de retención, arquitectura de voz/IA, modelo de datos, auth, secuencia maestra — 2026-09-04. Falta: OK del usuario para pasar a Sesión 2.
+- Sesión 1 — validación, FICHA-AVATAR, monetización, loop + gamificación, arquitectura voz/IA, datos, auth, secuencia maestra — 2026-09-04.
+- Sesión 2 — dirección de arte "El entrenador editorial" APROBADA, FICHA-ARTE.md creada, comparativas A-F archivadas en docs/revisiones/ — 2026-09-04. Falta: OK del usuario para pasar a Sesión 3.
 
 ## Sesión en progreso 🔧
-- (ninguna — esperando OK para Sesión 2)
+- (ninguna — esperando OK para Sesión 3)
 
 ## Próximas sesiones 📋
-- Sesión 2: identidad visual y sistema de diseño (3 opciones A/B/C a 375px). Antes: preguntar al usuario gustos visuales / referencias.
-- Sesión 3: página de ventas (10 secciones canónicas)
+- Sesión 3: página de ventas (10 secciones canónicas del 19). PRIMERO: FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha).
 - Sesión 4: onboarding + paywall + login
 - Sesión 5: app interna
 - Sesión 6: integraciones reales + seguridad
@@ -115,8 +116,8 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - (ninguno)
 
 ## Pendientes del usuario (acciones que el usuario debe hacer)
-- [ ] Aprobar el cierre de Sesión 1 y dar OK para Sesión 2
-- [ ] En Sesión 2: elegir la dirección visual entre 3 opciones (o dar una app/captura de referencia)
+- [ ] Dar OK para arrancar Sesión 3 (página de ventas)
+- [ ] Más adelante (Sesión 3, clave de IA en local): el usuario introduce la clave del proveedor de STT/LLM en el .env local para probar la primera victoria con una generación REAL (no mock) — se guía cuando lleguemos
 - [ ] Más adelante (Sesión 6): crear cuentas (Supabase, Vercel, Resend, Hotmart), comprar dominio (~$10-15/año), pegar un par de claves — se guía clic por clic
 
 ## Notas para la próxima sesión

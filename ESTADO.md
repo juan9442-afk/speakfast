@@ -1,7 +1,7 @@
 # ESTADO — SpeakFast
 Última actualización: 2026-09-04 | Sesión actual: 1 (cerrando)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 1 decidida y documentada (monetización, arquitectura voz/IA, datos, auth, loop) — leídos 02C, 30, 26, SECUENCIA-MAESTRA / Siguiente acción exacta: esperar OK del usuario y arrancar Sesión 2 (identidad visual: leer 16 PASO 0 + 10 + 29 + DESIGN-CORE + 54; producir 3 opciones A/B/C a 375px). Antes de Sesión 3: preguntar gustos visuales + completar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha).
+⏸️ CHECKPOINT — Última acción completada: Sesión 1 decidida y documentada (monetización, loop + gamificación completa, arquitectura voz/IA, datos, auth) — leídos 02C, 30, 26, 24, SECUENCIA-MAESTRA / Siguiente acción exacta: esperar OK del usuario y arrancar Sesión 2 (identidad visual: leer 16 PASO 0 + 10 + 29 + DESIGN-CORE + 54; producir 3 opciones A/B/C a 375px — la piel NO puede parecer Duolingo). Antes de Sesión 3: preguntar gustos visuales + completar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha).
 
 ## Qué es esta app (3 líneas máximo)
 Simulador de entrevistas de trabajo en inglés: el usuario elige su puesto, responde preguntas reales en voz alta con temporizador de presión, y recibe feedback inmediato de fluidez, muletillas ("ehm", "like"), pronunciación y velocidad de habla.
@@ -41,12 +41,23 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Garantía: 7 días de devolución (estándar Hotmart LATAM) — a confirmar en FICHA-MERCADO.
 - "Regla nunca" del producto (derivada de promesa + avatar, NO se pregunta): (1) nunca guardar ni reproducir la voz del usuario — se transcribe y se borra el audio (privacidad, objeción del avatar) · (2) nunca preguntas fuera del rol elegido · (3) nunca culpa/vergüenza para retener ("tu inglés empeora" ❌) · (4) nunca prometer "trabajo garantizado" ni "inglés fluido en X días" · (5) nunca compartir datos del usuario salvo con el proveedor de STT/LLM, declarado en privacidad.
 
-## Gamificación y retención (loop DEFINIDO Sesión 1; mecánicas y momentos se construyen Sesión 4-5)
-- Loop del hábito (Hooked): Gatillo externo "recordatorio diario: tu entrevista se acerca, practica 10 min" + interno "ansiedad de una entrevista próxima" → Acción "1 simulación = 3 preguntas de tu rol en voz alta con cronómetro" → Recompensa variable "score de fluidez + conteo de muletillas + respuesta optimizada + comparación con ayer ('bajaste de 6 a 3 ehm')" → Inversión "banco de preguntas de tu rol que se desbloquea + historial de mejora + racha"
-- Memoria (test binario de 24): el prompt de análisis recibe los últimos N intentos del usuario y lo hace explícito ("basado en tus 8 prácticas, tu muletilla recurrente es 'like'"). Si borro tu historial, ¿el feedback de mañana es idéntico? NO → hay memoria real ✓
-- Mecánicas (detallar Sesión 4 con 24): racha diaria de práctica · récord de fluidez por pregunta · progreso "5 preguntas clave de tu rol: 2/5 dominadas"
-- Primera victoria (<5 min, en el onboarding): elegir profesión + rol → responder 1 pregunta de 60s en voz alta → score de fluidez + conteo de muletillas + 2 palabras a corregir
-- Notificaciones de re-enganche (web app: email/WhatsApp, NO push nativo): D1, D3, D7 en hora activa, tope ≤1-2/día. Si no volvió D2-D3, el email usa el DOLOR #1 de FICHA-AVATAR en su lenguaje literal, nunca "te extrañamos".
+## Gamificación y retención (DISEÑADA Sesión 1 con 24; se construye Sesión 4-5)
+⚠️ RIESGO DE DISEÑO: Carlos ODIA el "Duolingo, juego de niños". La gamificación se viste de **entrenamiento profesional / sparring de entrevista**, NUNCA mascota, gemas, confeti infantil. Copy de coach exigente "en tu esquina", no de animalito triste. Celebraciones sobrias y escasas. Personalidad (candidata, fijar Sesión 2 con 11): directo · exigente · en tu esquina.
+
+- Loop del hábito (Hooked): Gatillo externo "email/WhatsApp: tu entrevista es en N días — 10 min hoy te suben de X% a Y% listo" + interno "ansiedad de una entrevista próxima" → Acción "1 simulación = 3 preguntas de tu rol en voz alta con cronómetro" → Recompensa variable "score de fluidez + conteo de muletillas + respuesta optimizada + récord personal + insight sorpresa ('tu muletilla de la semana es basically')" → Inversión "preguntas clave del rol que se van dominando + historial + racha + Índice de Preparación que sube"
+- Memoria (test binario de 24): el prompt de análisis recibe los últimos N intentos y lo hace explícito ("basado en tus 8 prácticas, tu muletilla recurrente es 'like'"). Si borro tu historial, ¿el feedback de mañana es idéntico? NO → memoria real ✓
+
+- **Mecánica central — Índice de Preparación para la Entrevista (0–100%)**: un solo número siempre visible en el home. Combina: nº de preguntas clave del rol practicadas + fluidez promedio reciente + reducción de muletillas + consistencia (racha). Atado al resultado real: "Estás 71% listo para tu entrevista." Si fijó fecha: "Te quedan 3 días · 71% listo · practica hoy para llegar a ~82%." Es el anti-Duolingo: no son puntos porque sí, es un medidor de estar listo para un trabajo. Goal-gradient tira a 100%.
+- **Racha diaria de entrenamiento**: visible desde el día 2, precargada en 1 tras la primera simulación. Copy en clave de pérdida pero adulto ("No cortes tu racha de 8 días — te falta la sesión de hoy"). 2 "pases de descanso" (= streak freeze, renombrado) tras racha de 7 días; reparación <48h; 1 pase por día perdido. Hitos 7/30/100 días → celebración sobria + desbloqueo (día 7 → "Modo Presión Extrema", cronómetro más duro).
+- **Maestría por pregunta clave del rol**: cada rol tiene ~10 preguntas clave. Estado por pregunta: Sin practicar → En progreso → Dominada (3 prácticas con fluidez ≥ umbral y <2 muletillas). "Preguntas clave de Frontend: 4/10 dominadas." Colección + goal-gradient atados al valor real.
+- **Récord personal por pregunta (vs sí mismo, NUNCA vs otros — sin ligas ni rankings: privacidad + vergüenza del nicho)**: "Tu mejor fluidez en 'Tell me about a challenge': 88% ↑ desde 61%."
+- **Meta diaria seleccionable** (lenguaje de gimnasio): Ligero (1 pregunta) · Estándar (3 = 1 simulación) · Intensivo (2 simulaciones) · Modo entrevista (5 seguidas sin pausa). "Puntos de entrenamiento" (XP) por sesión completada, nunca por abrir la app.
+- **Onboarding gamificado**: los 5 pasos son micro-victorias. Paso 5 (1ª simulación) precarga la racha en 1 y muestra el primer Índice de Preparación ("Tu punto de partida: 34% listo") → gancho al trial: "En 7 días de entrenamiento puedes llegar a ~80%."
+- Número mágico (HIPÓTESIS, validar con datos de 36): 3 simulaciones completas en los primeros 3 días → predice retención. El onboarding y el puente del trial se calibran para empujar a ese umbral.
+- Eventos canónicos (event_log, servidor): streak_extended · streak_frozen · streak_broken · streak_milestone · training_session_completed · question_mastered · personal_record · readiness_updated · reengagement_sent/opened.
+- Primera victoria (<5 min, en el onboarding): elegir profesión + rol → responder 1 pregunta de 60s en voz alta → score de fluidez + conteo de muletillas + 2 palabras a corregir + Índice de Preparación de partida.
+- Notificaciones de re-enganche (web app: email/WhatsApp, NO push nativo): D1, D3, D7 en hora activa, tope ≤1-2/día. Prioridad: racha en riesgo > win-back > insight. Copy: "Tu entrevista es en 4 días. 10 min hoy te suben de 68% a ~78% listo." NUNCA "te extrañamos". Si no volvió D2-D3, usa el DOLOR #1 de FICHA-AVATAR en su lenguaje literal.
+- Prohibido: ligas/rankings globales · gamificar el dinero/sueldo como puntaje · culpa/vergüenza · confeti infantil · mascota · >2 notificaciones/día. Test ético: cada mecánica se traza a "estar listo para la entrevista real" ✓
 
 ## Secuencia maestra de construcción (NO saltar)
 - Estado de la secuencia: Sesión 1 cerrada (decisiones). Nada de UI construido aún. Siguiente: Sesión 2 (identidad visual), luego Sesión 3 (landing).
@@ -55,7 +66,7 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Onboarding: pendiente — 5 micro-pasos + práctica real → (1) profesión (Tech/Marketing/Ventas/Finanzas/Producto-Diseño) (2) rol específico (3) ¿para cuándo tu entrevista? (esta semana/este mes/explorando) (4) ¿qué te pasa al hablar inglés? (me congelo/traduzco/muletillas/vocabulario pobre) (5) demo: responde 1 pregunta 60s en voz alta → score = primera victoria
 - Paywall: pendiente — oferta principal: anual $44.99 mostrado como $3.75/mes con 7 días gratis
 - Login/Auth: pendiente — motivo de pedir cuenta: "guardar tu historial de mejora y desbloquear el banco de preguntas de tu rol" — método: magic link/OTP (link + código 6 díg mismo email)
-- App interna: pendiente — secciones (4): Practicar (simulación de 3 preguntas) · Mi progreso (racha, historial, insights) · Banco de preguntas (por rol, con estado dominada/pendiente) · Cuenta (plan, límites, ajustes de privacidad)
+- App interna: pendiente — secciones (4): Practicar (simulación de 3 preguntas + meta diaria) · Mi progreso (Índice de Preparación, racha, récords personales, insights de muletillas, historial) · Preguntas clave (las ~10 del rol con estado dominada/en progreso/sin practicar) · Cuenta (plan, límites, ajustes de privacidad y notificaciones)
 - Servicios externos: bloqueados hasta que las puertas anteriores estén aprobadas — orden: GitHub → Supabase → IA real (STT+LLM) → Vercel → Resend → dominio → Hotmart
 
 ## Puertas de etapa (aprobación antes de avanzar)
@@ -79,7 +90,9 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
   - `profiles` (id→auth.users, plan text[free|trialing|active|canceled], trial_ends_at, role_category, role_specific, interview_timing, pain_point, created_at)
   - `questions` (id, role_category, role_specific text[], text_en, difficulty, category text[behavioral|technical|hr], is_active) — contenido semilla; RLS `for select` a authenticated (sin user_id)
   - `practice_runs` (id, user_id→auth.users, question_id, status[pending|processing|done|failed], transcript, fluency_score, filler_words jsonb, wpm, clarity_score, words_to_fix jsonb, optimized_answer, created_at, idempotency_key unique)
-  - `user_progress` (user_id pk→auth.users, current_streak, longest_streak, last_practice_date, questions_mastered jsonb) — tabla de racha (24)
+  - `user_progress` (user_id pk→auth.users, xp_total, current_streak, longest_streak, last_active_on date, freezes int default 0, daily_goal int, tz text, readiness_score int) — racha + Índice de Preparación (24). Cliente solo SELECT; mutaciones por RPC estrecha server-side (`claim_action_reward` patrón de 24), nunca recibe XP/racha/readiness como autoridad.
+  - `question_mastery` (user_id, question_id, state text[unpracticed|in_progress|mastered], best_fluency int, practice_count int, primary key(user_id,question_id)) — maestría por pregunta clave. RLS SELECT propio.
+  - `event_log` (eventos canónicos de retención, servidor) — streak_*, training_session_completed, question_mastered, personal_record, readiness_updated, reengagement_*. Lo lee el backoffice (21).
   - `ai_calls` → Sesión 6 (kill-switch, def. en 31)
 - **Auth:** Supabase Auth. Primario: magic link/OTP (enlace + código 6 díg en el mismo email), verificado contra DB propia (usuario creado por webhook Hotmart). Ruta de rescate "compré y no me llega" en `/login` desde el día 1. Sesión larga (app de consumo, 30-90 días). Passkey ofrecida tras la primera victoria (no en el primer login). Google OAuth = mejora posterior. Rate limits de la tabla del 26. Middleware SSR canónico de @supabase/ssr; PUBLIC_PATHS = /, /onboarding, /paywall, /login, /auth, /pricing, /terminos, /privacidad; solo /app y API privadas exigen sesión.
 

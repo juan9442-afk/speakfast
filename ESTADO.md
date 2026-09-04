@@ -1,7 +1,7 @@
 # ESTADO — SpeakFast
 Última actualización: 2026-09-04 | Sesión actual: 2 (cerrando)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 2 — dirección de arte "El entrenador editorial" (combinación A+F ajustada) APROBADA por el usuario; FICHA-ARTE.md creada. Comparativas archivadas en docs/revisiones/. / Siguiente acción exacta: esperar OK y arrancar Sesión 3 (página de ventas). Antes de escribir copy de landing: completar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha — leer PLANTILLA-FICHA-MERCADO + 02C + 18 + búsqueda web). Luego leer 19 (estructura canónica 10 secciones) + 52 + 55 + 57 (FICHA-AVATAR ya lista) + plantillas-codigo/landing/README.md.
+⏸️ CHECKPOINT — Última acción completada: Sesión 2 — dirección de arte "El entrenador editorial" (combinación A+F ajustada) APROBADA por el usuario; FICHA-ARTE.md creada. Comparativas archivadas en docs/revisiones/. / Siguiente acción exacta: esperar OK y arrancar Sesión 3. Paso 1 de Sesión 3 = llenar FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha — leer PLANTILLA-FICHA-MERCADO + 02C + 18 + búsqueda web). Paso 2 = leer 19 (estructura canónica 10 secciones) + 52 + 55 + 57 (la FICHA-AVATAR ya existe y está aprobada) + el README del kit de landing en plantillas-codigo/. Paso 3 = escribir el copy marcado en docs/copy/ y recién ahí construir la página de ventas.
 
 ## Qué es esta app (3 líneas máximo)
 Simulador de entrevistas de trabajo en inglés: el usuario elige su puesto, responde preguntas reales en voz alta con temporizador de presión, y recibe feedback inmediato de fluidez, muletillas ("ehm", "like"), pronunciación y velocidad de habla.
@@ -29,7 +29,7 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 ## Avatar y venta (Sesión 1 — NO cambiar sin validar)
 - FICHA-AVATAR.md: existe — base tomada del RESUMEN FINAL del usuario (2026-09-04). Pendiente: confirmación explícita del usuario del resumen de 2 líneas
 - Resumen: "Carlos", 29, dev/marketer LATAM ganando ~$800/mes, inglés pasivo (lee 90%, habla 30%), quiere trabajo remoto en USD · dolor #1 "Se me pone la mente en blanco cuando me dicen 'Let's switch to English'" · deseo #1 "Triplicar mi sueldo accediendo a vacantes remotas en USA/Europa" · nivel de consciencia: 3 (Solución) · sofisticación: 4 (mercado cansado de "aprende inglés fácil")
-- Landing: sigue la ESTRUCTURA CANÓNICA de 10 secciones del 19 — carrusel con placeholders hasta que exista la app · footer legal: pendientes
+- Página de ventas: pendiente (se hace en Sesión 3). Seguirá la ESTRUCTURA CANÓNICA de 10 secciones del 19; carrusel con placeholders hasta que exista la app; footer legal pendiente.
 - Ángulo de venta ganador: "Tu problema no es el inglés. Tu problema es que nunca has entrenado bajo la presión de una entrevista real."
 
 ## Estrategia de monetización (Sesión 1 — DECIDIDA — NO cambiar sin validar)
@@ -113,7 +113,7 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Sesión 8: adquisición, lanzamiento, backoffice
 
 ## Problemas conocidos ⚠️
-- (ninguno)
+- [auditoría de conversión / docs/copy / garantía / FICHA-MERCADO] `scripts/audit-conversion.sh` reporta 12 "críticos" en la ronda actual, pero son FALSO POSITIVO de alcance: al no existir todavía `app/`, el analizador toma como "superficies de conversión" los `.tsx` del KIT PLANTILLA del propio SO en `plantillas-codigo/landing/` (Hero.tsx, Oferta.tsx, EJEMPLO-page.tsx…), que traen copy placeholder. NO hay página de ventas propia construida aún. Se resuelve solo en Sesión 3, cuando se cree `app/` con la landing real + `docs/copy/*.md` marcado + FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha). Hasta entonces, este hallazgo queda POSPUESTO a propósito. Las comparativas A/B/C en `docs/revisiones/` (direcciones-abc*.html) son artefactos de decisión del protocolo 54, no la landing de producción.
 
 ## Pendientes del usuario (acciones que el usuario debe hacer)
 - [ ] Dar OK para arrancar Sesión 3 (página de ventas)

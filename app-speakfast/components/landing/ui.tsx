@@ -1,0 +1,341 @@
+'use client';
+
+// KIT DE LANDING — ui.tsx
+// Piezas compartidas de las 10 secciones. La estructura premium vive AQUÍ
+// (chips 44px, hairline degradada, checkmarks custom, sticky CTA con safe-area,
+// alternancia base/elevado, reveal con reduced-motion): las secciones componen,
+// no re-estilan. Consume SOLO los tokens de tokens.css.
+
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { AnimatePresence, animate, motion, useInView, useReducedMotion, type Variants } from 'motion/react';
+import { Check, X } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
+/* ── <Accent> — la palabra que vende: texto en el acento principal (verde) +
+   subrayado marcador en la 2ª nota (terracota, --accent-2 — dispositivo
+   ownable de FICHA-ARTE, banco 54 dir. 1: "color del subrayado marcador").
+   En este kit [acento] solo se usa en titulares de sección (H1/H2), nunca en
+   párrafos de cuerpo — por eso el marcador puede ir SIEMPRE en <Accent> sin
+   sobrecargar la vista. */
+export function Accent({ children }: { children: ReactNode }) {
+  return (
+    <span
+      className="text-[var(--accent)] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] px-[0.08em]"
+      style={{
+        backgroundImage:
+          'linear-gradient(transparent 50%, color-mix(in oklab, var(--accent-2) 58%, transparent) 50%)',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* ── <CountUpNumber> — número héroe que cuenta de 0 al valor real al entrar en
+   viewport, UNA sola vez (55 T4: "todo número héroe cuenta... nunca estático").
+   reduced-motion → salta directo al valor final, sin animar. */
+export function CountUpNumber({
+  to,
+  suffix = '',
+  duration = 0.7,
+  className = '',
+}: {
+  to: number;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const enVista = useInView(ref, { once: true, amount: 0.6 });
+  const reduce = useReducedMotion();
+  const [valor, setValor] = useState(0);
+
+  useEffect(() => {
+    if (!enVista) return;
+    if (reduce) {
+      setValor(to);
+      return;
+    }
+    const controles = animate(0, to, {
+      duration,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setValor(Math.round(v)),
+    });
+    return () => controles.stop();
+  }, [enVista, to, duration, reduce]);
+
+  return (
+    <span ref={ref} className={`tabular-nums ${className}`}>
+      {valor}
+      {suffix}
+    </span>
+  );
+}
+
+/* ── <Kicker> — caps 12px/600 tracking +0.08em en acento (máx 1 por sección) ── */
+export function Kicker({ children }: { children: ReactNode }) {
+  return (
+    <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--accent)]">
+      {children}
+    </p>
+  );
+}
+
+/* ── <IconChip> — ícono SVG 22px dentro de chip 44px (55: jamás emoji) ──────
+   tone 'accent' para secciones cálidas · 'muted' para íconos de dolor (§2:
+   neutro apagado, nunca checks verdes). La FORMA la decide --radius-button:
+   una sola forma de chip por página. */
+export function IconChip({ icon: Icono, tone = 'accent' }: { icon: LucideIcon; tone?: 'accent' | 'muted' }) {
+  const acento = tone === 'accent';
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-button)] border ${
+        acento
+          ? 'border-[color-mix(in_oklab,var(--accent)_22%,transparent)] bg-[var(--chip-bg)]'
+          : 'border-[color-mix(in_oklab,var(--text-tertiary)_35%,transparent)] bg-[color-mix(in_oklab,var(--text-tertiary)_12%,transparent)]'
+      }`}
+    >
+      <Icono size={22} strokeWidth={2} color={acento ? 'var(--accent)' : 'var(--text-secondary)'} aria-hidden="true" />
+    </span>
+  );
+}
+
+/* ── <Hairline> — borde degradado 1-2px, técnica padding-box/border-box (49 §13).
+   Señal de "esto importa": máx 1-3 usos por página (plan recomendado, garantía,
+   chip del mecanismo). emphasis = EL elemento de la vista (2px, acento 55%). ── */
+export function Hairline({
+  emphasis = false,
+  surface = 'surface',
+  className = '',
+  children,
+}: {
+  emphasis?: boolean;
+  surface?: 'surface' | 'surface-2' | 'bg';
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`rounded-[var(--radius-card)] ${className}`}
+      style={{
+        border: `${emphasis ? 2 : 1}px solid transparent`,
+        background:
+          `linear-gradient(var(--${surface}), var(--${surface})) padding-box, ` +
+          `linear-gradient(135deg, color-mix(in oklab, var(--accent) ${emphasis ? 55 : 40}%, transparent), transparent 60%) border-box`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── <CheckCustom> — círculo acento 12% + check SVG (55 repertorio #9).
+   Nunca el ✓ del sistema ni emoji. ── */
+export function CheckCustom() {
+  return (
+    <span
+      aria-hidden="true"
+      className="mt-0.5 inline-flex size-[22px] shrink-0 items-center justify-center rounded-full bg-[color-mix(in_oklab,var(--accent)_12%,transparent)]"
+    >
+      <Check size={13} strokeWidth={2.5} color="var(--accent)" aria-hidden="true" />
+    </span>
+  );
+}
+
+/* ── <SectionShell> — ritmo vertical y alternancia base↔elevado (55 T1).
+   64px mobile / 96px desktop; compacta (garantía) 48/64. flush pega las
+   secciones que son UN movimiento visual (problema+agitación). ── */
+export function SectionShell({
+  id,
+  elevacion = 'base',
+  compacta = false,
+  flush = 'none',
+  ariaLabel,
+  className = '',
+  children,
+}: {
+  id?: string;
+  elevacion?: 'base' | 'elevada';
+  compacta?: boolean;
+  flush?: 'none' | 'top' | 'bottom';
+  ariaLabel?: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  const pt = flush === 'top' ? 'pt-0' : compacta ? 'pt-12 md:pt-16' : 'pt-16 md:pt-24';
+  const pb = flush === 'bottom' ? 'pb-8 md:pb-10' : compacta ? 'pb-12 md:pb-16' : 'pb-16 md:pb-24';
+  return (
+    <section
+      id={id}
+      aria-label={ariaLabel}
+      className={`${elevacion === 'elevada' ? 'bg-[var(--surface)]' : ''} ${pt} ${pb} ${className}`}
+    >
+      <div className="mx-auto w-full max-w-[1140px] px-5">{children}</div>
+    </section>
+  );
+}
+
+/* ── useReveal — variants de entrada whileInView con stagger, UNA sola vez,
+   reduced-motion respetado (movimiento fuera, fade dentro — 55 T4). ── */
+export function useReveal(stagger = 0.07): { contenedor: Variants; item: Variants } {
+  const reduce = useReducedMotion();
+  return {
+    contenedor: {
+      hidden: {},
+      visible: { transition: { staggerChildren: reduce ? 0 : stagger } },
+    },
+    item: {
+      hidden: { opacity: 0, y: reduce ? 0 : 20 },
+      visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0.2 : 0.45, ease: [0.16, 1, 0.3, 1] } },
+    },
+  };
+}
+
+/* Props estándar para el contenedor con reveal — evita repetir en cada sección. */
+export const VIEWPORT_ONCE = { once: true, amount: 0.2 } as const;
+
+/* ── <CtaButton> — el CTA vivo del kit: ≥52px, whileTap 0.97, sombra tintada.
+   El texto sobre acento usa --bg: si tu FICHA-ARTE rompe el contraste AA ahí,
+   ajusta los tokens, no el componente. ── */
+export function CtaButton({
+  href,
+  children,
+  alto = 52,
+  fullMobile = true,
+}: {
+  href: string;
+  children: ReactNode;
+  alto?: 52 | 56;
+  fullMobile?: boolean;
+}) {
+  // Estado de espera real (no solo el whileTap): la navegación es un <a href>
+  // de recarga completa — en redes lentas de LATAM el tap puede no dar señal
+  // durante 1-2s. Mostrar un spinner inline evita el "¿le di o no le di?".
+  const [navegando, setNavegando] = useState(false);
+  return (
+    <motion.a
+      whileTap={{ scale: 0.97, opacity: 0.85 }}
+      href={href}
+      aria-busy={navegando}
+      onClick={() => setNavegando(true)}
+      className={`inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] bg-[var(--accent)] px-8 text-[17px] font-semibold text-[var(--bg)] shadow-[0_8px_30px_color-mix(in_oklab,var(--accent)_25%,transparent)] transition-colors duration-150 hover:bg-[color-mix(in_oklab,var(--accent)_88%,var(--text-primary))] [touch-action:manipulation] ${
+        navegando ? 'opacity-80' : ''
+      } ${alto === 56 ? 'h-14' : 'h-[52px]'} ${fullMobile ? 'w-full sm:w-auto' : ''}`}
+    >
+      {navegando && (
+        <span
+          aria-hidden="true"
+          className="size-4 shrink-0 animate-spin rounded-full border-2 border-[var(--bg)] border-t-transparent"
+        />
+      )}
+      {children}
+    </motion.a>
+  );
+}
+
+/* ── <StickyCtaMobile> — barra fija inferior SOLO mobile (55 T2).
+   Aparece cuando el hero sale del viewport; se oculta frente a la oferta y al
+   CTA final; safe-area respetada. DOS estados (T2): antes de ver la oferta el
+   botón hace scroll a #oferta ("ver precios"); después de verla, cambia al CTA
+   comercial — nunca saltar una oferta que la persona todavía no vio. */
+export function StickyCtaMobile({
+  labelComercial,
+  href,
+  labelPre = 'Ver plan y precios',
+  heroId = 'hero',
+  ofertaId = 'oferta',
+  ctaFinalId = 'cta-final',
+}: {
+  labelComercial: string;
+  href: string;
+  labelPre?: string;
+  heroId?: string;
+  ofertaId?: string;
+  ctaFinalId?: string;
+}) {
+  const reduce = useReducedMotion();
+  const [heroVisible, setHeroVisible] = useState(true);
+  const [ofertaVisible, setOfertaVisible] = useState(false);
+  const [ofertaVista, setOfertaVista] = useState(false);
+  const [finalVisible, setFinalVisible] = useState(false);
+  // Control del usuario (heurística Nielsen 3): la barra se puede descartar por
+  // el resto de la sesión — no es obligatoria, solo una ayuda de scroll.
+  const [descartada, setDescartada] = useState(false);
+  // Mismo estado de espera del CtaButton (55 h1) — SOLO aplica cuando el link
+  // ya es una navegación real a `href` (tras ver la oferta); antes de eso es
+  // un scroll-to-anchor local que no necesita spinner.
+  const [navegando, setNavegando] = useState(false);
+
+  useEffect(() => {
+    const observar = (id: string, onChange: (visible: boolean) => void): IntersectionObserver | null => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const io = new IntersectionObserver(
+        (entries) => {
+          const e = entries[0];
+          if (e) onChange(e.isIntersecting);
+        },
+        { threshold: 0.1 }
+      );
+      io.observe(el);
+      return io;
+    };
+    const a = observar(heroId, setHeroVisible);
+    const b = observar(ofertaId, (v) => {
+      setOfertaVisible(v);
+      if (v) setOfertaVista(true);
+    });
+    const c = observar(ctaFinalId, setFinalVisible);
+    return () => {
+      a?.disconnect();
+      b?.disconnect();
+      c?.disconnect();
+    };
+  }, [heroId, ofertaId, ctaFinalId]);
+
+  const visible = !heroVisible && !ofertaVisible && !finalVisible && !descartada;
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: reduce ? 0 : 88, opacity: reduce ? 0 : 1 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: reduce ? 0 : 88, opacity: 0 }}
+          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2 border-t border-[color-mix(in_oklab,var(--text-tertiary)_25%,transparent)] bg-[var(--surface)] px-4 pt-2 pb-[max(12px,env(safe-area-inset-bottom))] md:hidden"
+        >
+          <motion.a
+            whileTap={{ scale: 0.97, opacity: 0.85 }}
+            href={ofertaVista ? href : `#${ofertaId}`}
+            aria-busy={ofertaVista && navegando}
+            onClick={() => {
+              if (ofertaVista) setNavegando(true);
+            }}
+            className={`flex h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-button)] bg-[var(--accent)] text-[16px] font-semibold text-[var(--bg)] [touch-action:manipulation] ${
+              ofertaVista && navegando ? 'opacity-80' : ''
+            }`}
+          >
+            {ofertaVista && navegando && (
+              <span
+                aria-hidden="true"
+                className="size-4 shrink-0 animate-spin rounded-full border-2 border-[var(--bg)] border-t-transparent"
+              />
+            )}
+            {ofertaVista ? labelComercial : labelPre}
+          </motion.a>
+          <button
+            type="button"
+            aria-label="Ocultar esta barra"
+            onClick={() => setDescartada(true)}
+            className="flex size-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] text-[var(--text-tertiary)] [touch-action:manipulation]"
+          >
+            <X size={18} aria-hidden="true" />
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

@@ -1,0 +1,20 @@
+<svg width="250" height="542" viewBox="0 0 250 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tu Índice de Preparación, día a día">
+  <rect width="250" height="542" fill="#FAF6EC"/>
+  <text x="20" y="36" font-family="Arial, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" fill="#7C7568">MI PROGRESO</text>
+  <text x="20" y="66" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#241F1A">Listo para tu entrevista</text>
+  <circle cx="125" cy="182" r="66" fill="none" stroke="#EDE3CC" stroke-width="12"/>
+  <circle cx="125" cy="182" r="66" fill="none" stroke="#1F7A5A" stroke-width="12" stroke-linecap="round" stroke-dasharray="414.7" stroke-dashoffset="120" transform="rotate(-90 125 182)"/>
+  <text x="125" y="176" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#241F1A" text-anchor="middle">71%</text>
+  <text x="125" y="198" font-family="Arial, sans-serif" font-size="11" fill="#7C7568" text-anchor="middle">preparación</text>
+  <rect x="20" y="272" width="98" height="70" rx="14" fill="#FFFDF7" stroke="#E4DAC2" stroke-width="1"/>
+  <text x="34" y="296" font-family="Arial, sans-serif" font-size="10.5" font-weight="700" fill="#7C7568">RACHA</text>
+  <text x="34" y="326" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#B5502F">8 días</text>
+  <rect x="132" y="272" width="98" height="70" rx="14" fill="#FFFDF7" stroke="#E4DAC2" stroke-width="1"/>
+  <text x="146" y="296" font-family="Arial, sans-serif" font-size="10.5" font-weight="700" fill="#7C7568">DOMINADAS</text>
+  <text x="146" y="326" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#241F1A">4/10</text>
+  <text x="20" y="376" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#241F1A">Tu muletilla de la semana</text>
+  <rect x="20" y="390" width="210" height="46" rx="13" fill="#F2EBDA"/>
+  <text x="34" y="418" font-family="Arial, sans-serif" font-size="13" fill="#241F1A">"like" — apareció en 4 de 5 sesiones</text>
+  <rect x="20" y="480" width="210" height="46" rx="13" fill="#1F7A5A"/>
+  <text x="55" y="509" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#FAF6EC">Practicar hoy</text>
+</svg>

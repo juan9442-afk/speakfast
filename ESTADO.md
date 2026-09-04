@@ -1,7 +1,7 @@
 # ESTADO — SpeakFast
-Última actualización: 2026-09-04 | Sesión actual: 2 (cerrando)
+Última actualización: 2026-09-04 | Sesión actual: 3 (cerrada — esperando OK para Sesión 4)
 
-⏸️ CHECKPOINT — Última acción completada: Sesión 3 paso 1 — FICHA-MERCADO.md creada y llena con fuentes reales (precio, trial, garantía, medios de pago LATAM, ciclo de decisión) — garantía ajustada de 7 a 15 días por regla dura de Hotmart. / Siguiente acción exacta: leer 19 (estructura canónica 10 secciones) + 52 (copy) + 55 (layout) + plantillas-codigo/landing/README.md, luego escribir el copy marcado en docs/copy/ y construir la página de ventas con el kit.
+⏸️ CHECKPOINT — Última acción completada: Sesión 3 — página de ventas construida, verificada a 375px y APROBADA por el revisor-visual independiente tras 6 rondas de correcciones reales (Usabilidad 36/40 · Craft 18/20 · Copy 19/20 — VEREDICTO: LISTA). Proyecto Next.js vive en `app-speakfast/`. / Siguiente acción exacta: pedir al usuario el OK para Sesión 4 (onboarding + paywall + login) y, aparte, los 3 DATOS DEL RESPONSABLE (nombre/razón social, país, email de contacto legal) que faltan en `/privacidad` y `/terminos` — es lo único que la IA no puede inventar (47).
 
 ## Qué es esta app (3 líneas máximo)
 Simulador de entrevistas de trabajo en inglés: el usuario elige su puesto, responde preguntas reales en voz alta con temporizador de presión, y recibe feedback inmediato de fluidez, muletillas ("ehm", "like"), pronunciación y velocidad de habla.
@@ -61,9 +61,9 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Prohibido: ligas/rankings globales · gamificar el dinero/sueldo como puntaje · culpa/vergüenza · confeti infantil · mascota · >2 notificaciones/día. Test ético: cada mecánica se traza a "estar listo para la entrevista real" ✓
 
 ## Secuencia maestra de construcción (NO saltar)
-- Estado de la secuencia: Sesión 1 cerrada (decisiones). Nada de UI construido aún. Siguiente: Sesión 2 (identidad visual), luego Sesión 3 (landing).
-- Ruta aprobada: `/` → `/onboarding` → `/paywall` → `/login` → `/app` · legales: `/terminos` `/privacidad`
-- Landing: pendiente — protagonista: la simulación con feedback de fluidez (captura del reporte "Fluidez 85% · usaste 'ehm' 6 veces") — CTA primario: "Probar mi primera simulación gratis"
+- Estado de la secuencia: Sesión 1-2 cerradas (decisiones + arte). Sesión 3 (landing) CONSTRUIDA y APROBADA. Siguiente: Sesión 4 (onboarding + paywall + login).
+- Ruta aprobada: `/` → `/onboarding` → `/paywall` → `/login` → `/app` · legales: `/terminos` `/privacidad` `/reembolsos` `/aviso-ia`
+- Landing: ✅ CONSTRUIDA (`app-speakfast/app/page.tsx`, 10 secciones del kit) y APROBADA por revisor-visual — protagonista: mockup del resultado (72/100 de fluidez) — CTA primario: "Probar mi primera simulación"
 - Onboarding: pendiente — 5 micro-pasos + práctica real → (1) profesión (Tech/Marketing/Ventas/Finanzas/Producto-Diseño) (2) rol específico (3) ¿para cuándo tu entrevista? (esta semana/este mes/explorando) (4) ¿qué te pasa al hablar inglés? (me congelo/traduzco/muletillas/vocabulario pobre) (5) demo: responde 1 pregunta 60s en voz alta → score = primera victoria
 - Paywall: pendiente — oferta principal: anual $44.99 mostrado como $3.75/mes con 7 días gratis
 - Login/Auth: pendiente — motivo de pedir cuenta: "guardar tu historial de mejora y desbloquear el banco de preguntas de tu rol" — método: magic link/OTP (link + código 6 díg mismo email)
@@ -71,7 +71,7 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Servicios externos: bloqueados hasta que las puertas anteriores estén aprobadas — orden: GitHub → Supabase → IA real (STT+LLM) → Vercel → Resend → dominio → Hotmart
 
 ## Puertas de etapa (aprobación antes de avanzar)
-- Landing: no iniciada
+- Landing: ✅ aprobada (revisor-visual — Usabilidad 36/40 · Craft 18/20 · Copy 19/20 — VEREDICTO: LISTA, 2026-09-04)
 - Onboarding: no iniciada
 - Paywall: no iniciada
 - Login/Auth: no iniciada
@@ -99,13 +99,13 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 
 ## Sesiones completadas ✅
 - Sesión 1 — validación, FICHA-AVATAR, monetización, loop + gamificación, arquitectura voz/IA, datos, auth, secuencia maestra — 2026-09-04.
-- Sesión 2 — dirección de arte "El entrenador editorial" APROBADA, FICHA-ARTE.md creada, comparativas A-F archivadas en docs/revisiones/ — 2026-09-04. Falta: OK del usuario para pasar a Sesión 3.
+- Sesión 2 — dirección de arte "El entrenador editorial" APROBADA, FICHA-ARTE.md creada, comparativas A-F archivadas en docs/revisiones/ — 2026-09-04.
+- Sesión 3 — FICHA-MERCADO.md creada (precio/trial/garantía con fuente) · copy marcado completo en `docs/copy/landing.md` · landing construida en `app-speakfast/` (Next.js, kit tematizado con FICHA-ARTE) · 4 mockups SVG honestos · páginas legales creadas (con placeholders de datos del responsable) · verificada a 375px con Playwright y APROBADA por revisor-visual tras 6 rondas de correcciones (Usabilidad 36/40 · Craft 18/20 · Copy 19/20 — VEREDICTO: LISTA) — 2026-09-04.
 
 ## Sesión en progreso 🔧
-- (ninguna — esperando OK para Sesión 3)
+- (ninguna — esperando OK para Sesión 4)
 
 ## Próximas sesiones 📋
-- Sesión 3: página de ventas (10 secciones canónicas del 19). PRIMERO: FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha).
 - Sesión 4: onboarding + paywall + login
 - Sesión 5: app interna
 - Sesión 6: integraciones reales + seguridad
@@ -113,11 +113,16 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Sesión 8: adquisición, lanzamiento, backoffice
 
 ## Problemas conocidos ⚠️
-- [auditoría de conversión / docs/copy / garantía / FICHA-MERCADO] `scripts/audit-conversion.sh` reporta 12 "críticos" en la ronda actual, pero son FALSO POSITIVO de alcance: al no existir todavía `app/`, el analizador toma como "superficies de conversión" los `.tsx` del KIT PLANTILLA del propio SO en `plantillas-codigo/landing/` (Hero.tsx, Oferta.tsx, EJEMPLO-page.tsx…), que traen copy placeholder. NO hay página de ventas propia construida aún. Se resuelve solo en Sesión 3, cuando se cree `app/` con la landing real + `docs/copy/*.md` marcado + FICHA-MERCADO.md (precio/trial/garantía con fuente y fecha). Hasta entonces, este hallazgo queda POSPUESTO a propósito. Las comparativas A/B/C en `docs/revisiones/` (direcciones-abc*.html) son artefactos de decisión del protocolo 54, no la landing de producción.
+- [datos legales pendientes] `/privacidad` y `/terminos` (`app-speakfast/app/`) tienen contenido real pero con `[pendiente]` en 3 datos que solo el usuario puede dar: nombre/razón social del responsable, país desde el que opera, email de contacto legal. No se puede publicar la landing con esos placeholders visibles.
+- [email de soporte placeholder] el copy usa `soporte@speakfast.app` como email de contacto — confirmar con el usuario si ese dominio/correo existe o hay que reemplazarlo antes de publicar.
+- [5 pendientes menores de pulido, aceptados por el revisor como no-bloqueantes — quedan para Sesión 7]: (1) el botón "×" de `StickyCtaMobile` no se reactiva al bajar a una sección nueva tras cerrarse, (2) los verbos de los 6 CTA no son 100% consistentes (Probar/Empezar/Elegir), (3) la card Anual en Oferta puede verse algo apretada con 2 badges a la vez, (4) el screenshot de página completa (375px) tiene un artefacto de captura menor, (5) el overlay "N" de Next.js Dev Tools aparece en las capturas de desarrollo (no aparece en producción).
+- [herramienta de screenshots] los tools `mcp__Claude_Browser__*` dieron capturas poco confiables (dobles/en blanco) cuando el panel no estaba al frente; para cualquier verificación visual futura usar Playwright MCP (`mcp__playwright__browser_navigate/resize/take_screenshot/evaluate`, ya configurado en `.mcp.json`) y siempre `scrollTo({behavior:'instant'})` — el `scroll-behavior: smooth` de tokens.css puede desincronizar la captura si no se fuerza instantáneo.
 
 ## Pendientes del usuario (acciones que el usuario debe hacer)
-- [ ] Dar OK para arrancar Sesión 3 (página de ventas)
-- [ ] Más adelante (Sesión 3, clave de IA en local): el usuario introduce la clave del proveedor de STT/LLM en el .env local para probar la primera victoria con una generación REAL (no mock) — se guía cuando lleguemos
+- [ ] Dar los 3 datos del responsable legal para `/privacidad` y `/terminos`: nombre o razón social, país desde el que opera, email de contacto legal
+- [ ] Confirmar si `soporte@speakfast.app` es un correo/dominio real o hay que reemplazarlo
+- [ ] Dar OK para arrancar Sesión 4 (onboarding + paywall + login)
+- [ ] Más adelante (clave de IA en local): el usuario introduce la clave del proveedor de STT/LLM en el .env local para probar la primera victoria con una generación REAL (no mock) — se guía cuando lleguemos
 - [ ] Más adelante (Sesión 6): crear cuentas (Supabase, Vercel, Resend, Hotmart), comprar dominio (~$10-15/año), pegar un par de claves — se guía clic por clic
 
 ## Notas para la próxima sesión

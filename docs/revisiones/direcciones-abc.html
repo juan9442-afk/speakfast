@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcciones de arte A/B/C — SpeakFast</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&family=Big+Shoulders+Text:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;500;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 500px at 15% -10%, #24303a 0%, transparent 60%),
+      radial-gradient(1000px 460px at 100% 0%, #2b2530 0%, transparent 55%),
+      #14161a;
+    color: #e9e9ee;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    padding: 40px 22px 72px;
+  }
+  .cabecera { max-width: 1240px; margin: 0 auto 6px; }
+  .cabecera .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8a94a2; }
+  .cabecera h1 { font-size: 27px; font-weight: 700; letter-spacing: -0.015em; margin-top: 8px; color: #f4f4f7; }
+  .cabecera p.sub { margin-top: 8px; font-size: 14px; color: #9aa0ab; max-width: 74ch; line-height: 1.55; }
+
+  .salidas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .salidas span {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid #343841; border-radius: 999px;
+    padding: 7px 13px; font-size: 12.5px; font-weight: 600; color: #b9bec8;
+    background: #1c1f25;
+  }
+  .salidas b { color: #f0f0f3; }
+  .aviso-fuentes { max-width: 1240px; margin: 12px auto 32px; font-size: 12.5px; color: #7d828d; line-height: 1.5; }
+
+  .opciones { max-width: 1240px; margin: 0 auto; display: grid; gap: 44px;
+              grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+  .opcion { display: flex; flex-direction: column; gap: 18px; }
+
+  .meta { background: #1b1e24; border: 1px solid #2c313a; border-radius: 16px; padding: 20px; }
+  .meta .letra {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 9px; font-weight: 800; font-size: 16px;
+    color: #14161a; background: #f4f4f7; margin-right: 9px;
+  }
+  .meta h2 { display: flex; align-items: center; font-size: 18px; font-weight: 700; color: #f4f4f7; }
+  .meta .direccion { margin-top: 8px; font-size: 12.5px; color: #9aa0ab; line-height: 1.5; }
+  .meta .direccion b { color: #cfd3da; font-weight: 600; }
+  .hipotesis { margin-top: 12px; font-size: 12.5px; line-height: 1.55; color: #b9bec8;
+               border-left: 2px solid #3a3f49; padding-left: 10px; }
+  .hipotesis strong { color: #e9e9ee; }
+  ul.tokens { margin-top: 12px; list-style: none; font-size: 11.5px; color: #7d828d;
+              font-family: ui-monospace, monospace; line-height: 1.8; }
+  .paleta { display: flex; gap: 6px; margin-top: 12px; }
+  .paleta i { width: 26px; height: 26px; border-radius: 7px; display: block; border: 1px solid rgb(255 255 255 / 0.14); }
+
+  .especimen { margin-top: 14px; border-top: 1px solid #2c313a; padding-top: 12px; }
+  .especimen .esp-display { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: #f0f0f3; }
+  .especimen .esp-body { margin-top: 5px; font-size: 13px; color: #b9bec8; }
+
+  .marco-par { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+
+  .telefono {
+    width: 300px;
+    aspect-ratio: 9 / 19.5;
+    border: 10px solid #0c0d10;
+    border-radius: 44px;
+    box-shadow: 0 30px 70px rgb(0 0 0 / 0.45), inset 0 0 0 2px #23252c;
+    overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .isla {
+    position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+    width: 84px; height: 22px; background: #0c0d10; border-radius: 999px; z-index: 5;
+  }
+  .statusbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px 4px; font-size: 12.5px; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .statusbar .der { display: flex; align-items: center; gap: 5px; }
+  .home-indicator {
+    position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+    width: 108px; height: 5px; border-radius: 999px; opacity: 0.78;
+  }
+  .pantalla { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .etq-frame { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7d828d; }
+
+  .chip-icono { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
+  .cta { display: flex; align-items: center; justify-content: center; height: 46px; font-size: 14.5px; font-weight: 700; letter-spacing: 0.01em; }
+
+  /* landing hero mini-frame */
+  .landing {
+    width: 300px; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 20px 44px rgb(0 0 0 / 0.34); position: relative;
+  }
+  .landing .lp { padding: 22px 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .landing .lbadge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .landing h5 { font-size: 22px; line-height: 1.16; letter-spacing: -0.015em; }
+  .landing p.lsub { font-size: 12.5px; line-height: 1.5; }
+  .landing .lcta { height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+  .landing .lnote { font-size: 10.5px; text-align: center; opacity: 0.8; }
+
+  /* ============================ OPCIÓN A — El entrenador claro ============================ */
+  .op-a {
+    --bg: #faf6ec; --surface: #fffdf7; --sunk: #f3ecdb;
+    --text-1: #241f1a; --text-2: #7c7568;
+    --accent: #1f7a5a;            /* verde "listo/aprobado" */
+    --accent-2: #e08a2b;          /* ámbar racha */
+    --radius-card: 18px; --radius-btn: 13px;
+    --font-display: 'Fraunces', monospace;
+    --font-body: 'Figtree', monospace;
+    --sh: 44 40 30;
+  }
+  .op-a .especimen .esp-display { font-family: var(--font-display); }
+  .op-a .especimen .esp-body { font-family: var(--font-body); }
+  .op-a .telefono { background: var(--bg); }
+  .op-a .pantalla { font-family: var(--font-body); color: var(--text-1); padding: 0 18px; }
+  .op-a .statusbar { color: var(--text-1); }
+  .op-a .home-indicator { background: var(--text-1); }
+  .op-a .eyebrow { margin-top: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-2); text-transform: uppercase; }
+  .op-a h3.tt {
+    font-family: var(--font-display); font-size: 24px; font-weight: 600;
+    line-height: 1.14; letter-spacing: -0.01em; margin-top: 4px;
+  }
+  .op-a .marcador {
+    background: linear-gradient(transparent 58%, color-mix(in oklab, var(--accent) 24%, transparent) 58%);
+    padding: 0 .08em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+  .op-a .heroe {
+    margin-top: 14px; border-radius: var(--radius-card); padding: 15px 16px;
+    border: 1.5px solid transparent;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0)) padding-box,
+      linear-gradient(135deg, color-mix(in oklab, var(--accent) 42%, transparent), transparent 62%) border-box,
+      var(--surface) padding-box;
+    box-shadow: 0 1px 2px rgb(var(--sh) / 0.06), 0 12px 28px -12px rgb(var(--sh) / 0.20);
+  }
+  .op-a .heroe .label { font-size: 11px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; }
+  .op-a .heroe .dato { font-family: var(--font-display); font-size: 46px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .op-a .heroe .dato small { font-size: 15px; font-weight: 600; color: var(--text-2); }
+  .op-a .heroe .insight { margin-top: 6px; font-size: 12px; color: var(--accent); font-weight: 700; }
+  .op-a .card {
+    margin-top: 9px; background: var(--surface); border-radius: var(--radius-card);
+    border: 1px solid color-mix(in oklab, var(--text-2) 18%, transparent);
+    padding: 11px 13px; display: flex; gap: 11px; align-items: flex-start;
+    box-shadow: 0 1px 2px rgb(var(--sh) / 0.05);
+  }
+  .op-a .chip-icono { width: 38px; height: 38px; border-radius: var(--radius-btn);
+    background: color-mix(in oklab, var(--accent) 11%, transparent);
+    border: 1px solid color-mix(in oklab, var(--accent) 24%, transparent); }
+  .op-a .card h4 { font-size: 13.5px; font-weight: 700; }
+  .op-a .card p { margin-top: 2px; font-size: 12px; color: var(--text-2); line-height: 1.45; }
+  .op-a .card .tag-ok { color: var(--accent); font-weight: 700; }
+  .op-a .prep {
+    margin-top: 11px; background: var(--sunk); border-radius: 14px; padding: 11px 13px;
+  }
+  .op-a .prep .prow { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; }
+  .op-a .prep .ptrack { margin-top: 7px; height: 8px; border-radius: 999px; background: color-mix(in oklab, var(--text-2) 20%, transparent); overflow: hidden; }
+  .op-a .prep .pfill { height: 100%; width: 71%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 70%, var(--accent-2))); }
+  .op-a .cta {
+    margin-top: auto; margin-bottom: 24px; border-radius: var(--radius-btn);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 88%, #fff), var(--accent));
+    color: #fdfdf9;
+    box-shadow: 0 2px 8px color-mix(in oklab, var(--accent) 36%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.25);
+  }
+  /* landing A */
+  .op-a .landing { background: var(--bg); }
+  .op-a .landing .lp { color: var(--text-1); }
+  .op-a .landing .lbadge { color: var(--accent); }
+  .op-a .landing h5 { font-family: var(--font-display); font-weight: 600; }
+  .op-a .landing p.lsub { color: var(--text-2); }
+  .op-a .landing .lcta { background: var(--accent); color: #fdfdf9; }
+  .op-a .landing .lnote { color: var(--text-2); }
+
+  /* ============================ OPCIÓN B — Sala de sparring ============================ */
+  .op-b {
+    --bg: #111310; --surface: #1b1e18; --sunk: #0c0e0b;
+    --text-1: #f1ede4; --text-2: #8f9689;
+    --accent: #e8590c;           /* naranja pista */
+    --accent-2: #5dbb7e;         /* verde "dominada" */
+    --radius-card: 14px; --radius-btn: 11px;
+    --font-display: 'Big Shoulders Text', monospace;
+    --font-body: 'Barlow', monospace;
+    --sh: 0 0 0;
+  }
+  .op-b .especimen .esp-display { font-family: var(--font-display); font-weight: 800; }
+  .op-b .especimen .esp-body { font-family: var(--font-body); }
+  .op-b .telefono { background: var(--bg); }
+  .op-b .pantalla { font-family: var(--font-body); color: var(--text-1); padding: 0 16px; }
+  .op-b .statusbar { color: var(--text-1); }
+  .op-b .home-indicator { background: var(--text-1); }
+  .op-b .eyebrow { margin-top: 10px; font-family: var(--font-body); font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .op-b h3.tt {
+    font-family: var(--font-display); font-size: 40px; font-weight: 800; line-height: 0.94;
+    letter-spacing: 0.005em; text-transform: uppercase; margin-top: 4px;
+  }
+  .op-b h3.tt small { display:block; font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.02em; text-transform: none; color: var(--text-2); margin-top: 6px; }
+  .op-b .bib {
+    margin-top: 14px; padding: 14px; background: var(--surface);
+    border-left: 3px solid var(--accent);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 30px -14px rgb(0 0 0 / 0.6);
+  }
+  .op-b .bib .wave { display: flex; align-items: flex-end; gap: 3px; height: 40px; }
+  .op-b .bib .wave i { flex: 1; background: color-mix(in oklab, var(--accent) 55%, transparent); border-radius: 2px; }
+  .op-b .bib .brow { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; }
+  .op-b .bib .btime { font-family: var(--font-display); font-weight: 700; font-size: 20px; font-variant-numeric: tabular-nums; }
+  .op-b .bib .bflag { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
+  .op-b .grid2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .op-b .tile { background: var(--surface); border-radius: var(--radius-card); border: 1px solid rgb(255 255 255 / 0.06); padding: 11px; }
+  .op-b .tile.win { border: 1.5px solid transparent;
+    background: linear-gradient(var(--surface), var(--surface)) padding-box,
+      linear-gradient(135deg, color-mix(in oklab, var(--accent) 55%, transparent), transparent 60%) border-box; }
+  .op-b .tile .tl { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700;
+    color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; }
+  .op-b .tile .td { margin-top: 5px; font-family: var(--font-display); font-weight: 800; font-size: 24px;
+    line-height: 1; font-variant-numeric: tabular-nums; }
+  .op-b .tile .td small { font-size: 11px; font-weight: 600; color: var(--text-2); }
+  .op-b .tile.win .td { color: var(--accent); }
+  .op-b .prep { margin-top: 11px; background: var(--sunk); border-radius: 12px; padding: 10px 12px; }
+  .op-b .prep .prow { display: flex; justify-content: space-between; font-family: var(--font-display);
+    font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .op-b .prep .ptrack { margin-top: 7px; height: 8px; border-radius: 999px; background: rgb(255 255 255 / 0.08); overflow: hidden; }
+  .op-b .prep .pfill { height: 100%; width: 71%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), #ff8a3d); }
+  .op-b .cta {
+    margin-top: auto; margin-bottom: 24px; border-radius: var(--radius-btn);
+    font-family: var(--font-display); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em;
+    background: linear-gradient(180deg, #ff6a1f, var(--accent)); color: #14100c;
+    box-shadow: 0 8px 22px color-mix(in oklab, var(--accent) 40%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.3);
+  }
+  /* landing B */
+  .op-b .landing { background: linear-gradient(180deg, #1a1c16, var(--bg)); }
+  .op-b .landing .lp { color: var(--text-1); }
+  .op-b .landing .lbadge { color: var(--accent); }
+  .op-b .landing h5 { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; line-height: 0.98; font-size: 26px; }
+  .op-b .landing p.lsub { color: var(--text-2); }
+  .op-b .landing .lcta { background: linear-gradient(180deg, #ff6a1f, var(--accent)); color: #14100c; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+  .op-b .landing .lnote { color: var(--text-2); }
+
+  /* ============================ OPCIÓN C — La cabina ============================ */
+  .op-c {
+    --bg: #f4f5f3; --surface: #fcfcfb; --sunk: #eceded;
+    --text-1: #1b1d1b; --text-2: #767a75;
+    --accent: #0e7c86;           /* teal instrumento */
+    --accent-2: #c2410c;         /* rust: muletilla */
+    --radius-card: 12px; --radius-btn: 9px;
+    --font-display: 'Schibsted Grotesk', monospace;
+    --font-body: 'Hanken Grotesk', monospace;
+    --sh: 27 29 27;
+  }
+  .op-c .especimen .esp-display { font-family: var(--font-display); font-weight: 700; }
+  .op-c .especimen .esp-body { font-family: var(--font-body); }
+  .op-c .telefono { background: var(--bg); }
+  .op-c .pantalla { font-family: var(--font-body); color: var(--text-1); padding: 0 18px; }
+  .op-c .statusbar { color: var(--text-1); }
+  .op-c .home-indicator { background: var(--text-1); }
+  .op-c .masthead { margin-top: 10px; border-bottom: 1.5px solid var(--text-1); padding-bottom: 8px; }
+  .op-c .masthead .ed { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-2); }
+  .op-c h3.tt { font-family: var(--font-display); font-size: 19px; font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; margin-top: 5px; }
+  .op-c .datos { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .op-c .dr { padding-left: 9px; position: relative; }
+  .op-c .dr::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 2px;
+    background: linear-gradient(180deg, var(--accent), transparent); }
+  .op-c .dr .dl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-2); }
+  .op-c .dr .dv { font-family: var(--font-display); font-weight: 700; font-size: 22px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; margin-top: 3px; }
+  .op-c .dr .dv small { font-size: 10px; font-weight: 600; color: var(--text-2); }
+  .op-c .transcript {
+    margin-top: 14px; background: var(--surface); border: 1px solid color-mix(in oklab, var(--text-2) 16%, transparent);
+    border-radius: var(--radius-card); padding: 12px; font-size: 12.5px; line-height: 1.6;
+    box-shadow: 0 1px 2px rgb(var(--sh) / 0.05), 0 8px 20px -12px rgb(var(--sh) / 0.16);
+  }
+  .op-c .transcript .tl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); margin-bottom: 6px; }
+  .op-c .fill { background: color-mix(in oklab, var(--accent-2) 16%, transparent); color: var(--accent-2);
+    font-weight: 700; border-radius: 3px; padding: 0 3px; }
+  .op-c .swap { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .op-c .swap .srow { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .op-c .swap .old { text-decoration: line-through; color: var(--text-2); }
+  .op-c .swap .new { font-weight: 700; color: var(--accent); }
+  .op-c .swap svg { flex-shrink: 0; }
+  .op-c .prep { margin-top: 12px; }
+  .op-c .prep .prow { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-2); }
+  .op-c .prep .ptrack { margin-top: 6px; height: 6px; border-radius: 999px; background: var(--sunk); overflow: hidden; }
+  .op-c .prep .pfill { height: 100%; width: 71%; background: var(--accent); border-radius: 999px; }
+  .op-c .cta {
+    margin-top: auto; margin-bottom: 24px; border-radius: var(--radius-btn);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 86%, #fff), var(--accent));
+    color: #fbfdfd; font-family: var(--font-body);
+    box-shadow: 0 2px 8px color-mix(in oklab, var(--accent) 32%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.22);
+  }
+  /* landing C */
+  .op-c .landing { background: var(--bg); }
+  .op-c .landing .lp { color: var(--text-1); }
+  .op-c .landing .lbadge { color: var(--accent); }
+  .op-c .landing h5 { font-family: var(--font-display); font-weight: 700; }
+  .op-c .landing p.lsub { color: var(--text-2); }
+  .op-c .landing .lcta { background: var(--accent); color: #fbfdfd; }
+  .op-c .landing .lnote { color: var(--text-2); }
+
+  .pie { max-width: 1240px; margin: 44px auto 0; font-size: 12px; color: #7d828d;
+    border-top: 1px solid #2c313a; padding-top: 16px; line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <p class="kicker">SpeakFast · Sesión 2 · Identidad visual</p>
+  <h1>Elige la dirección visual de tu app — 3 opciones</h1>
+  <p class="sub">
+    La misma pantalla clave (el resultado justo después de una simulación) resuelta de tres formas
+    distintas, más el encabezado de la página de ventas. Ninguna es un borrador: cualquiera de las tres
+    puede ser SpeakFast. Ábrelo con conexión a internet para que carguen las tipografías.
+  </p>
+  <div class="salidas" role="list">
+    <span role="listitem"><b>1 · Elegir</b>&nbsp;A, B o C</span>
+    <span role="listitem"><b>2 · Combinar</b>&nbsp;(«la B con la tipografía de la A»)</span>
+    <span role="listitem"><b>3 · Pedir otras 3</b>&nbsp;direcciones</span>
+    <span role="listitem"><b>4 · Ajustar un detalle</b>&nbsp;(«la A con el verde más profundo»)</span>
+  </div>
+</header>
+<p class="aviso-fuentes">
+  Verificación de fuentes: el nombre de cada familia (en cada panel) se muestra en su propia letra.
+  Si se ve tipo máquina de escribir, esa tipografía no cargó — avísame y la reparo antes de que elijas.
+</p>
+
+<div class="opciones">
+
+  <!-- ═══════════════ OPCIÓN A ═══════════════ -->
+  <section class="opcion op-a" aria-label="Opción A">
+    <div class="meta">
+      <h2><span class="letra">A</span> El entrenador claro</h2>
+      <p class="direccion">
+        Fusión: <b>calidez de Headspace</b> + <b>hábito/racha de Duolingo</b> + <b>dato grande de Cal AI</b>.
+        Fondo crema cálido, verde “ya estás listo”, titulares en serif suave que respeta al adulto. Layout:
+        número héroe + tarjetas apiladas. Detalle propio: subrayado marcador en la palabra que importa.
+      </p>
+      <p class="hipotesis"><strong>Por qué convertiría:</strong> Carlos llega ansioso y con algo de
+        vergüenza — el verde “aprobado” y la calidez editorial le dan permiso y foco sin infantilizarlo;
+        el número grande ancla su progreso al resultado (el trabajo en dólares).</p>
+      <ul class="tokens">
+        <li>--bg #FAF6EC · --surface #FFFDF7 · --accent #1F7A5A · --accent-2 #E08A2B</li>
+        <li>radius 18/13 · serif display + sans humanista · motion sereno 300ms</li>
+      </ul>
+      <div class="paleta" aria-hidden="true">
+        <i style="background:#FAF6EC"></i><i style="background:#FFFDF7"></i><i style="background:#241F1A"></i>
+        <i style="background:#7C7568"></i><i style="background:#1F7A5A"></i><i style="background:#E08A2B"></i>
+      </div>
+      <div class="especimen">
+        <p class="esp-display" style="font-family:'Fraunces',monospace">Fraunces — AaBbÑñ 0123</p>
+        <p class="esp-body" style="font-family:'Figtree',monospace">Figtree — El veloz zorro salta sobre el perro perezoso.</p>
+      </div>
+    </div>
+
+    <div class="marco-par">
+      <span class="etq-frame">La app — resultado de la simulación</span>
+      <div class="telefono">
+        <div class="isla"></div>
+        <div class="statusbar"><span>9:41</span><span class="der">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="4.5" y="5" width="3" height="6" rx="0.8"/><rect x="9" y="3" width="3" height="8" rx="0.8"/><rect x="13.5" y="0.5" width="3" height="10.5" rx="0.8"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M3.8 6.6a6.2 6.2 0 0 1 8.4 0"/><path d="M6.2 9a2.8 2.8 0 0 1 3.6 0"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor"/><rect x="22.5" y="3.8" width="2" height="4.4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+        </span></div>
+        <div class="pantalla">
+          <p class="eyebrow">Frontend Developer · Simulación 9</p>
+          <h3 class="tt">Tu fluidez subió a <span class="marcador">72%</span></h3>
+
+          <div class="heroe">
+            <p class="label">Fluidez</p>
+            <p class="dato">72<small>/100</small></p>
+            <p class="insight">↑ 11 puntos desde tu primera vez</p>
+          </div>
+
+          <div class="card">
+            <span class="chip-icono">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1f7a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+            </span>
+            <div><h4>Muletillas: “ehm” ×4 · “like” ×2</h4>
+              <p><span class="tag-ok">Bajaste de 8 a 6</span> respecto a ayer.</p></div>
+          </div>
+          <div class="card">
+            <span class="chip-icono">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1f7a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <div><h4>Ritmo: 168 palabras/min en el minuto 2</h4>
+              <p> Vas muy rápido en la parte del medio. Apunta a ~140.</p></div>
+          </div>
+          <div class="card">
+            <span class="chip-icono">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1f7a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 4 3 3-11 11-4 1 1-4Z"/></svg>
+            </span>
+            <div><h4>Cambia 2 palabras</h4>
+              <p>“thing” → <b>component</b> · “make” → <b>implement</b></p></div>
+          </div>
+
+          <div class="prep">
+            <div class="prow"><span>Listo para tu entrevista</span><span>71%</span></div>
+            <div class="ptrack"><div class="pfill"></div></div>
+          </div>
+
+          <div class="cta">Ver mi respuesta reescrita</div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <span class="etq-frame">La página de ventas — encabezado</span>
+      <div class="landing">
+        <div class="lp">
+          <span class="lbadge">Para profesionales de LATAM</span>
+          <h5>Entiendes inglés. Pero te <span class="marcador">congelas</span> en la entrevista.</h5>
+          <p class="lsub">Simula entrevistas reales de tu puesto, con cronómetro. Feedback al instante de fluidez, muletillas y ritmo.</p>
+          <div class="lcta">Probar mi primera simulación gratis</div>
+          <p class="lnote">7 días gratis · sin tarjeta para empezar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ OPCIÓN B ═══════════════ -->
+  <section class="opcion op-b" aria-label="Opción B">
+    <div class="meta">
+      <h2><span class="letra">B</span> Sala de sparring</h2>
+      <p class="direccion">
+        Fusión: <b>nicho vecino fitness/entrenamiento</b> + <b>racha de Duolingo</b> + <b>número héroe de Cal AI</b>.
+        Oscuro cálido, naranja de pista de atletismo (energía, no neón), tipografía condensada de estadio.
+        Layout: cronómetro + rejilla 2×2. Detalle propio: esquina recortada tipo dorsal de competencia.
+      </p>
+      <p class="hipotesis"><strong>Por qué convertiría:</strong> Carlos pidió “entrenamiento de combate
+        directo a la yugular” — el oscuro cálido + naranja pista + tipografía de estadio dicen
+        “preparación seria bajo presión”, el opuesto exacto de un juego para niños.</p>
+      <ul class="tokens">
+        <li>--bg #111310 · --surface #1B1E18 · --accent #E8590C · --accent-2 #5DBB7E</li>
+        <li>radius 14/11 · grotesca condensada + sans · motion 200ms, 1 spring al completar</li>
+      </ul>
+      <div class="paleta" aria-hidden="true">
+        <i style="background:#111310"></i><i style="background:#1B1E18"></i><i style="background:#F1EDE4"></i>
+        <i style="background:#8F9689"></i><i style="background:#E8590C"></i><i style="background:#5DBB7E"></i>
+      </div>
+      <div class="especimen">
+        <p class="esp-display" style="font-family:'Big Shoulders Text',monospace">Big Shoulders — AaBbÑñ 0123</p>
+        <p class="esp-body" style="font-family:'Barlow',monospace">Barlow — El veloz zorro salta sobre el perro perezoso.</p>
+      </div>
+    </div>
+
+    <div class="marco-par">
+      <span class="etq-frame">La app — resultado de la simulación</span>
+      <div class="telefono">
+        <div class="isla"></div>
+        <div class="statusbar"><span>9:41</span><span class="der">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="4.5" y="5" width="3" height="6" rx="0.8"/><rect x="9" y="3" width="3" height="8" rx="0.8"/><rect x="13.5" y="0.5" width="3" height="10.5" rx="0.8"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M3.8 6.6a6.2 6.2 0 0 1 8.4 0"/><path d="M6.2 9a2.8 2.8 0 0 1 3.6 0"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor"/><rect x="22.5" y="3.8" width="2" height="4.4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+        </span></div>
+        <div class="pantalla">
+          <p class="eyebrow">Modo presión · Ronda 3</p>
+          <h3 class="tt">Fluidez 72%<small>“Tell me about a challenge you faced.”</small></h3>
+
+          <div class="bib">
+            <div class="wave">
+              <i style="height:30%"></i><i style="height:55%"></i><i style="height:80%"></i><i style="height:45%"></i>
+              <i style="height:65%"></i><i style="height:95%"></i><i style="height:50%"></i><i style="height:70%"></i>
+              <i style="height:35%"></i><i style="height:60%"></i><i style="height:85%"></i><i style="height:40%"></i>
+              <i style="height:75%"></i><i style="height:50%"></i><i style="height:25%"></i>
+            </div>
+            <div class="brow"><span class="btime">0:58</span><span class="bflag">“ehm” ×4 detectadas</span></div>
+          </div>
+
+          <div class="grid2x2">
+            <div class="tile win">
+              <p class="tl"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#e8590c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Fluidez</p>
+              <p class="td">72<small>%</small></p>
+            </div>
+            <div class="tile">
+              <p class="tl"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg> Muletillas</p>
+              <p class="td">6</p>
+            </div>
+            <div class="tile">
+              <p class="tl"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9Z"/></svg> Ritmo</p>
+              <p class="td">168<small>wpm</small></p>
+            </div>
+            <div class="tile">
+              <p class="tl"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#5dbb7e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12l-1 8 5-3 5 3-1-8a7 7 0 0 0-4-12Z"/></svg> Racha</p>
+              <p class="td">8<small>días</small></p>
+            </div>
+          </div>
+
+          <div class="prep">
+            <div class="prow"><span>Listo</span><span>71%</span></div>
+            <div class="ptrack"><div class="pfill"></div></div>
+          </div>
+
+          <div class="cta">Siguiente pregunta</div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <span class="etq-frame">La página de ventas — encabezado</span>
+      <div class="landing">
+        <div class="lp">
+          <span class="lbadge">Entrenamiento de entrevista</span>
+          <h5>Deja de perder ofertas en dólares por trabarte al hablar</h5>
+          <p class="lsub">10 minutos al día de simulación bajo presión real. El día de la entrevista, tu respuesta sale en automático.</p>
+          <div class="lcta">Empezar mi primer round</div>
+          <p class="lnote">7 días gratis · cancela cuando quieras</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ OPCIÓN C ═══════════════ -->
+  <section class="opcion op-c" aria-label="Opción C">
+    <div class="meta">
+      <h2><span class="letra">C</span> La cabina</h2>
+      <p class="direccion">
+        Fusión: <b>minimalismo de Cal AI</b> + <b>precisión de Linear</b> + <b>claridad de Elsa Speak</b>.
+        Claro frío tipo instrumento, teal preciso, grotesca sobria. Layout: transcripción con muletillas
+        marcadas + métricas en columna. Detalle propio: cada dato cuelga de una regla vertical, cifras tabulares.
+      </p>
+      <p class="hipotesis"><strong>Por qué convertiría:</strong> Carlos es técnico y valora la precisión —
+        la cabina clara + teal instrumento + datos tabulares dicen “esto te mide de verdad, sin adornos”,
+        y responden a la objeción “ninguna IA puede evaluarme bien”.</p>
+      <ul class="tokens">
+        <li>--bg #F4F5F3 · --surface #FCFCFB · --accent #0E7C86 · --accent-2 #C2410C</li>
+        <li>radius 12/9 · grotesca sobria, una familia · motion exacto 220ms, sin rebote</li>
+      </ul>
+      <div class="paleta" aria-hidden="true">
+        <i style="background:#F4F5F3"></i><i style="background:#FCFCFB"></i><i style="background:#1B1D1B"></i>
+        <i style="background:#767A75"></i><i style="background:#0E7C86"></i><i style="background:#C2410C"></i>
+      </div>
+      <div class="especimen">
+        <p class="esp-display" style="font-family:'Schibsted Grotesk',monospace">Schibsted Grotesk — AaBbÑñ 0123</p>
+        <p class="esp-body" style="font-family:'Hanken Grotesk',monospace">Hanken Grotesk — El veloz zorro salta sobre el perro perezoso.</p>
+      </div>
+    </div>
+
+    <div class="marco-par">
+      <span class="etq-frame">La app — resultado de la simulación</span>
+      <div class="telefono">
+        <div class="isla"></div>
+        <div class="statusbar"><span>9:41</span><span class="der">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="4.5" y="5" width="3" height="6" rx="0.8"/><rect x="9" y="3" width="3" height="8" rx="0.8"/><rect x="13.5" y="0.5" width="3" height="10.5" rx="0.8"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M3.8 6.6a6.2 6.2 0 0 1 8.4 0"/><path d="M6.2 9a2.8 2.8 0 0 1 3.6 0"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor"/><rect x="22.5" y="3.8" width="2" height="4.4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+        </span></div>
+        <div class="pantalla">
+          <div class="masthead">
+            <p class="ed">Análisis · Frontend Developer</p>
+            <h3 class="tt">“Tell me about a challenge you faced.”</h3>
+          </div>
+
+          <div class="datos">
+            <div class="dr"><p class="dl">Fluidez</p><p class="dv">72</p></div>
+            <div class="dr"><p class="dl">Ritmo</p><p class="dv">168<small> wpm</small></p></div>
+            <div class="dr"><p class="dl">Claridad</p><p class="dv">84</p></div>
+          </div>
+
+          <div class="transcript">
+            <p class="tl">Tu respuesta · fragmento</p>
+            <p>“So <span class="fill">ehm</span> <span class="fill">basically</span> I had to <span class="fill">like</span> refactor the whole <span class="fill">thing</span> and <span class="fill">ehm</span> make it work before the release…”</p>
+            <div class="swap">
+              <div class="srow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e7c86" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <span class="old">the thing</span><span class="new">the component</span>
+              </div>
+              <div class="srow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0e7c86" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <span class="old">make it work</span><span class="new">ship it</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="prep">
+            <div class="prow"><span>Preparación</span><span>71%</span></div>
+            <div class="ptrack"><div class="pfill"></div></div>
+          </div>
+
+          <div class="cta">Ver respuesta optimizada</div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <span class="etq-frame">La página de ventas — encabezado</span>
+      <div class="landing">
+        <div class="lp">
+          <span class="lbadge">Simulador de entrevista</span>
+          <h5>La única app que te mide al hablar, segundo a segundo</h5>
+          <p class="lsub">Responde en voz alta. Te señala en qué momento usaste una muletilla, hablaste rápido o sonaste básico.</p>
+          <div class="lcta">Probar mi primera simulación gratis</div>
+          <p class="lnote">7 días gratis · privado: tu voz no se guarda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="pie">
+  SpeakFast · Sesión 2. Las 3 direcciones se archivan aquí (incluidas las descartadas) como evidencia de
+  decisión. La elegida (o la combinación) se vuelca en FICHA-ARTE.md y ESTADO.md, y desde ahí la dirección
+  es cosa juzgada: no se renegocia pantalla a pantalla.
+</footer>
+
+</body>
+</html>

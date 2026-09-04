@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcciones de arte D/E/F — SpeakFast (ronda 2)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Sora:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Onest:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background:
+      radial-gradient(1200px 500px at 15% -10%, #24303a 0%, transparent 60%),
+      radial-gradient(1000px 460px at 100% 0%, #2b2530 0%, transparent 55%),
+      #14161a;
+    color: #e9e9ee;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    padding: 40px 22px 72px;
+  }
+  .cabecera { max-width: 1240px; margin: 0 auto 6px; }
+  .cabecera .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8a94a2; }
+  .cabecera h1 { font-size: 27px; font-weight: 700; letter-spacing: -0.015em; margin-top: 8px; color: #f4f4f7; }
+  .cabecera p.sub { margin-top: 8px; font-size: 14px; color: #9aa0ab; max-width: 76ch; line-height: 1.55; }
+  .salidas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .salidas span { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #343841; border-radius: 999px;
+    padding: 7px 13px; font-size: 12.5px; font-weight: 600; color: #b9bec8; background: #1c1f25; }
+  .salidas b { color: #f0f0f3; }
+  .aviso-fuentes { max-width: 1240px; margin: 12px auto 32px; font-size: 12.5px; color: #7d828d; line-height: 1.5; }
+
+  .opciones { max-width: 1240px; margin: 0 auto; display: grid; gap: 44px;
+              grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+  .opcion { display: flex; flex-direction: column; gap: 18px; }
+
+  .meta { background: #1b1e24; border: 1px solid #2c313a; border-radius: 16px; padding: 20px; }
+  .meta .letra { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
+    border-radius: 9px; font-weight: 800; font-size: 16px; color: #14161a; background: #f4f4f7; margin-right: 9px; }
+  .meta h2 { display: flex; align-items: center; font-size: 18px; font-weight: 700; color: #f4f4f7; }
+  .meta .direccion { margin-top: 8px; font-size: 12.5px; color: #9aa0ab; line-height: 1.5; }
+  .meta .direccion b { color: #cfd3da; font-weight: 600; }
+  .hipotesis { margin-top: 12px; font-size: 12.5px; line-height: 1.55; color: #b9bec8; border-left: 2px solid #3a3f49; padding-left: 10px; }
+  .hipotesis strong { color: #e9e9ee; }
+  ul.tokens { margin-top: 12px; list-style: none; font-size: 11.5px; color: #7d828d; font-family: ui-monospace, monospace; line-height: 1.8; }
+  .paleta { display: flex; gap: 6px; margin-top: 12px; }
+  .paleta i { width: 26px; height: 26px; border-radius: 7px; display: block; border: 1px solid rgb(255 255 255 / 0.14); }
+  .especimen { margin-top: 14px; border-top: 1px solid #2c313a; padding-top: 12px; }
+  .especimen .esp-display { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: #f0f0f3; }
+  .especimen .esp-body { margin-top: 5px; font-size: 13px; color: #b9bec8; }
+
+  .marco-par { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .telefono { width: 300px; aspect-ratio: 9 / 19.5; border: 10px solid #0c0d10; border-radius: 44px;
+    box-shadow: 0 30px 70px rgb(0 0 0 / 0.45), inset 0 0 0 2px #23252c; overflow: hidden; position: relative;
+    display: flex; flex-direction: column; }
+  .isla { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 84px; height: 22px;
+    background: #0c0d10; border-radius: 999px; z-index: 5; }
+  .statusbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 4px;
+    font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .statusbar .der { display: flex; align-items: center; gap: 5px; }
+  .home-indicator { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); width: 108px; height: 5px;
+    border-radius: 999px; opacity: 0.78; }
+  .pantalla { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .etq-frame { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7d828d; }
+  .chip-icono { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
+  .cta { display: flex; align-items: center; justify-content: center; height: 46px; font-size: 14.5px; font-weight: 700; letter-spacing: 0.01em; }
+  .landing { width: 300px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 44px rgb(0 0 0 / 0.34); position: relative; }
+  .landing .lp { padding: 22px 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .landing .lbadge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .landing h5 { font-size: 22px; line-height: 1.16; letter-spacing: -0.015em; }
+  .landing p.lsub { font-size: 12.5px; line-height: 1.5; }
+  .landing .lcta { height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+  .landing .lnote { font-size: 10.5px; text-align: center; opacity: 0.8; }
+
+  /* ============================ OPCIÓN D — Diario de progreso ============================ */
+  .op-d {
+    --bg: #f5f3ec; --surface: #fcfbf6; --sunk: #ede9dd;
+    --text-1: #201d17; --text-2: #726c60;
+    --accent: #2b4c8c;             /* azul tinta */
+    --accent-2: #b0392e;           /* lacre: muletilla */
+    --radius-card: 12px; --radius-btn: 10px;
+    --font-display: 'DM Sans', monospace;
+    --font-body: 'DM Sans', monospace;
+    --sh: 40 37 28;
+  }
+  .op-d .especimen .esp-display, .op-d .especimen .esp-body { font-family: 'DM Sans', monospace; }
+  .op-d .telefono { background: var(--bg); }
+  .op-d .pantalla { font-family: var(--font-body); color: var(--text-1); padding: 0 18px; }
+  .op-d .statusbar { color: var(--text-1); }
+  .op-d .home-indicator { background: var(--text-1); }
+  .op-d .masthead { margin-top: 10px; border-bottom: 2px solid var(--text-1); padding-bottom: 7px; position: relative; }
+  .op-d .masthead::after { content: ''; position: absolute; left: 0; right: 0; bottom: -5px; border-bottom: 1px solid var(--text-1); }
+  .op-d .masthead .ed { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-2); }
+  .op-d h3.tt { font-family: var(--font-display); font-size: 21px; font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; margin-top: 5px; }
+  .op-d .heroe { margin-top: 14px; background: var(--surface); border-radius: var(--radius-card);
+    border: 1px solid color-mix(in oklab, var(--text-2) 20%, transparent); padding: 14px 15px;
+    box-shadow: 0 1px 2px rgb(var(--sh) / 0.05), 0 10px 24px -12px rgb(var(--sh) / 0.16); }
+  .op-d .heroe .label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-2); }
+  .op-d .heroe .dato { font-size: 40px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; margin-top: 4px; letter-spacing: -0.03em; }
+  .op-d .heroe .dato small { font-size: 14px; font-weight: 600; color: var(--text-2); }
+  .op-d .heroe .insight { margin-top: 6px; font-size: 12px; color: var(--accent); font-weight: 700; }
+  .op-d .log { margin-top: 12px; display: flex; flex-direction: column; }
+  .op-d .entry { display: grid; grid-template-columns: 46px 1fr; gap: 0 10px; padding: 10px 0;
+    border-top: 1px solid color-mix(in oklab, var(--text-2) 16%, transparent); }
+  .op-d .entry .d { font-size: 11px; font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .op-d .entry h4 { font-size: 13px; font-weight: 700; line-height: 1.3; }
+  .op-d .entry p { margin-top: 2px; font-size: 11.5px; color: var(--text-2); line-height: 1.45; }
+  .op-d .entry .mk { color: var(--accent-2); font-weight: 700; }
+  .op-d .entry .ok { color: var(--accent); font-weight: 700; }
+  .op-d .prep { margin-top: 12px; background: var(--sunk); border-radius: 11px; padding: 10px 13px; }
+  .op-d .prep .prow { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-2); }
+  .op-d .prep .ptrack { margin-top: 6px; height: 7px; border-radius: 999px; background: color-mix(in oklab, var(--text-2) 18%, transparent); overflow: hidden; }
+  .op-d .prep .pfill { height: 100%; width: 71%; background: var(--accent); border-radius: 999px; }
+  .op-d .cta { margin-top: auto; margin-bottom: 24px; border-radius: var(--radius-btn);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 88%, #fff), var(--accent)); color: #f7f8fb;
+    box-shadow: 0 2px 8px color-mix(in oklab, var(--accent) 34%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.22); }
+  .op-d .landing { background: var(--bg); }
+  .op-d .landing .lp { color: var(--text-1); }
+  .op-d .landing .lbadge { color: var(--accent); }
+  .op-d .landing h5 { font-family: var(--font-display); font-weight: 700; }
+  .op-d .landing p.lsub { color: var(--text-2); }
+  .op-d .landing .lcta { background: var(--accent); color: #f7f8fb; }
+  .op-d .landing .lnote { color: var(--text-2); }
+
+  /* ============================ OPCIÓN E — Consola de voz ============================ */
+  .op-e {
+    --bg: #0e1114; --surface: #161a20; --sunk: #0a0c0f;
+    --text-1: #eef1f5; --text-2: #8b93a1;
+    --accent: #4c8dff;            /* azul eléctrico */
+    --accent-2: #33d6c8;         /* cian onda */
+    --radius-card: 16px; --radius-btn: 12px;
+    --font-display: 'Sora', monospace;
+    --font-body: 'Sora', monospace;
+    --sh: 0 0 0;
+  }
+  .op-e .especimen .esp-display, .op-e .especimen .esp-body { font-family: 'Sora', monospace; }
+  .op-e .telefono { background: var(--bg); }
+  .op-e .pantalla { font-family: var(--font-body); color: var(--text-1); padding: 0 16px; position: relative; }
+  .op-e .pantalla::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgb(255 255 255 / 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.028) 1px, transparent 1px);
+    background-size: 26px 26px; }
+  .op-e .statusbar { color: var(--text-1); }
+  .op-e .home-indicator { background: var(--text-1); }
+  .op-e .eyebrow { margin-top: 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); position: relative; }
+  .op-e h3.tt { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin-top: 5px; position: relative; }
+  .op-e .console {
+    margin-top: 14px; border-radius: var(--radius-card); padding: 16px 15px; position: relative;
+    background: linear-gradient(180deg, #1a1f27, var(--surface));
+    border: 1px solid rgb(255 255 255 / 0.07);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 18px 40px -18px rgb(76 141 255 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  }
+  .op-e .console .big { font-family: var(--font-display); font-size: 44px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+  .op-e .console .big small { font-size: 15px; font-weight: 600; color: var(--text-2); }
+  .op-e .console .cap { font-size: 10.5px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; }
+  .op-e .console .wave { display: flex; align-items: center; gap: 3px; height: 44px; margin-top: 12px; }
+  .op-e .console .wave i { flex: 1; border-radius: 2px; background: color-mix(in oklab, var(--accent-2) 60%, transparent); }
+  .op-e .console .meter { margin-top: 10px; height: 4px; border-radius: 999px; background: rgb(255 255 255 / 0.08); overflow: hidden; }
+  .op-e .console .meter b { display: block; height: 100%; width: 71%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow: 0 0 10px color-mix(in oklab, var(--accent) 60%, transparent); }
+  .op-e .console .mrow { display: flex; justify-content: space-between; margin-top: 6px; font-size: 10px; font-weight: 600; color: var(--text-2); }
+  .op-e .rows { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; position: relative; }
+  .op-e .row { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid rgb(255 255 255 / 0.06);
+    border-radius: 12px; padding: 10px 12px; }
+  .op-e .row .chip-icono { width: 30px; height: 30px; border-radius: 9px; background: color-mix(in oklab, var(--accent) 14%, transparent); }
+  .op-e .row .rl { font-size: 12px; font-weight: 600; }
+  .op-e .row .rv { margin-left: auto; font-family: var(--font-display); font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .op-e .cta { margin-top: auto; margin-bottom: 24px; border-radius: var(--radius-btn); position: relative;
+    background: linear-gradient(180deg, #62a0ff, var(--accent)); color: #08101f;
+    box-shadow: 0 10px 26px color-mix(in oklab, var(--accent) 45%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35); }
+  .op-e .landing { background: linear-gradient(180deg, #171c24, var(--bg)); }
+  .op-e .landing .lp { color: var(--text-1); }
+  .op-e .landing .lbadge { color: var(--accent); }
+  .op-e .landing h5 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+  .op-e .landing p.lsub { color: var(--text-2); }
+  .op-e .landing .lcta { background: linear-gradient(180deg, #62a0ff, var(--accent)); color: #08101f; }
+  .op-e .landing .lnote { color: var(--text-2); }
+
+  /* ============================ OPCIÓN F — Editorial cálida con bloque de color ============================ */
+  .op-f {
+    --bg: #faf5ec; --surface: #fffdf6; --block: #b5502f; --sunk: #f1e8d8;
+    --text-1: #241c14; --text-2: #7b6f5e;
+    --accent: #b5502f;            /* terracota */
+    --accent-2: #2f6d52;         /* verde dominada */
+    --radius-card: 20px; --radius-btn: 14px;
+    --font-display: 'Bricolage Grotesque', monospace;
+    --font-body: 'Onest', monospace;
+    --sh: 46 34 22;
+  }
+  .op-f .especimen .esp-display { font-family: 'Bricolage Grotesque', monospace; }
+  .op-f .especimen .esp-body { font-family: 'Onest', monospace; }
+  .op-f .telefono { background: var(--bg); }
+  .op-f .pantalla { font-family: var(--font-body); color: var(--text-1); padding: 0; }
+  .op-f .statusbar { color: #fdf3ea; background: var(--block); padding-top: 12px; }
+  .op-f .home-indicator { background: var(--text-1); }
+  .op-f .bloque {
+    background: var(--block); color: #fdf3ea; padding: 6px 20px 20px;
+  }
+  .op-f .bloque .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+  .op-f .bloque h3.tt { font-family: var(--font-display); font-size: 21px; font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; margin-top: 6px; }
+  .op-f .bloque .num { font-family: var(--font-display); font-size: 58px; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; margin-top: 12px; font-variant-numeric: tabular-nums; }
+  .op-f .bloque .num small { font-size: 16px; font-weight: 600; opacity: 0.8; }
+  .op-f .bloque .sub { font-size: 11.5px; opacity: 0.9; margin-top: 4px; font-weight: 600; }
+  .op-f .cuerpo { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 9px; }
+  .op-f .card { background: var(--surface); border-radius: var(--radius-card);
+    border: 1px solid color-mix(in oklab, var(--text-2) 16%, transparent); padding: 12px 13px; display: flex; gap: 11px; align-items: flex-start;
+    box-shadow: 0 1px 2px rgb(var(--sh) / 0.05), 0 12px 26px -14px rgb(var(--sh) / 0.18); }
+  .op-f .chip-icono { width: 38px; height: 38px; border-radius: 12px; background: color-mix(in oklab, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent); }
+  .op-f .card h4 { font-size: 13.5px; font-weight: 700; }
+  .op-f .card p { margin-top: 2px; font-size: 12px; color: var(--text-2); line-height: 1.45; }
+  .op-f .card p b { color: var(--text-1); }
+  .op-f .card .ok { color: var(--accent-2); font-weight: 700; }
+  .op-f .prep { margin-top: 2px; background: var(--sunk); border-radius: 14px; padding: 11px 13px; }
+  .op-f .prep .prow { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; }
+  .op-f .prep .ptrack { margin-top: 7px; height: 8px; border-radius: 999px; background: color-mix(in oklab, var(--text-2) 20%, transparent); overflow: hidden; }
+  .op-f .prep .pfill { height: 100%; width: 71%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), #d98b4a); }
+  .op-f .cta { margin: 12px 20px 24px; border-radius: var(--radius-btn); font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 88%, #fff), var(--accent)); color: #fdf3ea;
+    box-shadow: 0 8px 22px color-mix(in oklab, var(--accent) 38%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.28); }
+  .op-f .landing { background: var(--bg); }
+  .op-f .landing .lp { padding: 0; color: var(--text-1); }
+  .op-f .landing .lblock { background: var(--block); color: #fdf3ea; padding: 20px; }
+  .op-f .landing .lbadge { opacity: 0.85; }
+  .op-f .landing h5 { font-family: var(--font-display); font-weight: 700; }
+  .op-f .landing .lbot { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .op-f .landing p.lsub { color: var(--text-2); }
+  .op-f .landing .lcta { background: var(--accent); color: #fdf3ea; font-family: var(--font-display); font-weight: 700; }
+  .op-f .landing .lnote { color: var(--text-2); }
+
+  .pie { max-width: 1240px; margin: 44px auto 0; font-size: 12px; color: #7d828d; border-top: 1px solid #2c313a; padding-top: 16px; line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <p class="kicker">SpeakFast · Sesión 2 · Identidad visual · Ronda 2</p>
+  <h1>Otras 3 direcciones — D, E, F</h1>
+  <p class="sub">
+    Distintas a las 3 primeras. Todas evitan a propósito el aire de “anuncio de curso para hacerse rico”
+    (nada de negro y dorado, mayúsculas gritonas ni cuentas regresivas falsas): la página de ventas se ve
+    como un producto serio, no como una promo. Ábrelo con conexión para que carguen las tipografías.
+  </p>
+  <div class="salidas" role="list">
+    <span role="listitem"><b>1 · Elegir</b>&nbsp;D, E o F (o A/B/C de la ronda 1)</span>
+    <span role="listitem"><b>2 · Combinar</b></span>
+    <span role="listitem"><b>3 · Pedir otras 3</b></span>
+    <span role="listitem"><b>4 · Ajustar un detalle</b></span>
+  </div>
+</header>
+<p class="aviso-fuentes">Verificación de fuentes: cada familia se muestra en su propia letra. Si se ve tipo máquina de escribir, no cargó — avísame.</p>
+
+<div class="opciones">
+
+  <!-- ═══════════════ OPCIÓN D ═══════════════ -->
+  <section class="opcion op-d" aria-label="Opción D">
+    <div class="meta">
+      <h2><span class="letra">D</span> Diario de progreso</h2>
+      <p class="direccion">
+        Fusión: <b>hábito de Duolingo</b> + <b>sobriedad editorial</b> + <b>dato de Cal AI</b>.
+        Papel cálido, azul tinta, una sola tipografía humanista en varios pesos (como Revolut / Linear).
+        Layout: registro con fechas, tipo bitácora de entrenamiento. Detalle propio: doble regla editorial en el encabezado.
+      </p>
+      <p class="hipotesis"><strong>Por qué convertiría:</strong> se siente como el cuaderno personal de
+        Carlos — reflexivo y creíble, cero hype. El azul tinta transmite “estudio serio”, y la bitácora
+        con fechas hace visible que el progreso se acumula (razón para volver).</p>
+      <ul class="tokens">
+        <li>--bg #F5F3EC · --surface #FCFBF6 · --accent #2B4C8C · --accent-2 #B0392E</li>
+        <li>radius 12/10 · DM Sans (una familia, 400–700) · motion exacto 220ms</li>
+      </ul>
+      <div class="paleta" aria-hidden="true">
+        <i style="background:#F5F3EC"></i><i style="background:#FCFBF6"></i><i style="background:#201D17"></i>
+        <i style="background:#726C60"></i><i style="background:#2B4C8C"></i><i style="background:#B0392E"></i>
+      </div>
+      <div class="especimen">
+        <p class="esp-display" style="font-family:'DM Sans',monospace">DM Sans — AaBbÑñ 0123</p>
+        <p class="esp-body" style="font-family:'DM Sans',monospace">DM Sans — El veloz zorro salta sobre el perro perezoso.</p>
+      </div>
+    </div>
+
+    <div class="marco-par">
+      <span class="etq-frame">La app — resultado de la simulación</span>
+      <div class="telefono">
+        <div class="isla"></div>
+        <div class="statusbar"><span>9:41</span><span class="der">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="4.5" y="5" width="3" height="6" rx="0.8"/><rect x="9" y="3" width="3" height="8" rx="0.8"/><rect x="13.5" y="0.5" width="3" height="10.5" rx="0.8"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M3.8 6.6a6.2 6.2 0 0 1 8.4 0"/><path d="M6.2 9a2.8 2.8 0 0 1 3.6 0"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor"/><rect x="22.5" y="3.8" width="2" height="4.4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+        </span></div>
+        <div class="pantalla">
+          <div class="masthead">
+            <p class="ed">Bitácora · Frontend Developer · Día 9</p>
+            <h3 class="tt">Simulación de hoy</h3>
+          </div>
+          <div class="heroe">
+            <p class="label">Fluidez</p>
+            <p class="dato">72<small>/100</small></p>
+            <p class="insight">↑ 11 puntos desde el día 1</p>
+          </div>
+          <div class="log">
+            <div class="entry"><span class="d">min 0</span><div><h4>Arranque sólido</h4><p>Respondiste sin traducir los primeros 20 segundos.</p></div></div>
+            <div class="entry"><span class="d">min 2</span><div><h4>Muletillas: <span class="mk">“ehm” ×4 · “like” ×2</span></h4><p>Bajaste de 8 a 6 respecto a ayer.</p></div></div>
+            <div class="entry"><span class="d">min 2</span><div><h4>Ritmo: 168 palabras/min</h4><p>Aceleraste al explicar el problema técnico. Apunta a ~140.</p></div></div>
+            <div class="entry"><span class="d">cierre</span><div><h4>Cambia 2 palabras</h4><p><span class="ok">thing → component</span> · <span class="ok">make → implement</span></p></div></div>
+          </div>
+          <div class="prep">
+            <div class="prow"><span>Listo para tu entrevista</span><span>71%</span></div>
+            <div class="ptrack"><div class="pfill"></div></div>
+          </div>
+          <div class="cta">Ver mi respuesta reescrita</div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <span class="etq-frame">La página de ventas — encabezado</span>
+      <div class="landing">
+        <div class="lp">
+          <span class="lbadge">Para profesionales de LATAM y España</span>
+          <h5>Practica tu entrevista en inglés como quien lleva una bitácora</h5>
+          <p class="lsub">10 minutos al día. Cada simulación queda registrada y ves exactamente cuánto mejoraste.</p>
+          <div class="lcta">Probar mi primera simulación</div>
+          <p class="lnote">7 días gratis · tu voz no se guarda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ OPCIÓN E ═══════════════ -->
+  <section class="opcion op-e" aria-label="Opción E">
+    <div class="meta">
+      <h2><span class="letra">E</span> Consola de voz</h2>
+      <p class="direccion">
+        Fusión: <b>número héroe de Cal AI</b> + <b>precisión de Linear</b> + estética de herramienta de audio
+        (Descript, Otter). Casi-negro frío, azul eléctrico, tipografía geométrica “de producto”. Layout:
+        panel de consola con onda de voz y medidor en vivo. Detalle propio: rejilla técnica + línea de medidor con luz.
+      </p>
+      <p class="hipotesis"><strong>Por qué convertiría:</strong> parece un instrumento serio de grabación,
+        no un curso — responde de frente a la objeción “ninguna IA puede evaluarme bien”. El azul eléctrico
+        dice “software premium” sin caer en el neón morado genérico.</p>
+      <ul class="tokens">
+        <li>--bg #0E1114 · --surface #161A20 · --accent #4C8DFF · --accent-2 #33D6C8</li>
+        <li>radius 16/12 · Sora (una familia) · motion 200ms, sin rebote</li>
+      </ul>
+      <div class="paleta" aria-hidden="true">
+        <i style="background:#0E1114"></i><i style="background:#161A20"></i><i style="background:#EEF1F5"></i>
+        <i style="background:#8B93A1"></i><i style="background:#4C8DFF"></i><i style="background:#33D6C8"></i>
+      </div>
+      <div class="especimen">
+        <p class="esp-display" style="font-family:'Sora',monospace">Sora — AaBbÑñ 0123</p>
+        <p class="esp-body" style="font-family:'Sora',monospace">Sora — El veloz zorro salta sobre el perro perezoso.</p>
+      </div>
+    </div>
+
+    <div class="marco-par">
+      <span class="etq-frame">La app — resultado de la simulación</span>
+      <div class="telefono">
+        <div class="isla"></div>
+        <div class="statusbar"><span>9:41</span><span class="der">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="4.5" y="5" width="3" height="6" rx="0.8"/><rect x="9" y="3" width="3" height="8" rx="0.8"/><rect x="13.5" y="0.5" width="3" height="10.5" rx="0.8"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M3.8 6.6a6.2 6.2 0 0 1 8.4 0"/><path d="M6.2 9a2.8 2.8 0 0 1 3.6 0"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor"/><rect x="22.5" y="3.8" width="2" height="4.4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+        </span></div>
+        <div class="pantalla">
+          <p class="eyebrow">Análisis de voz · Frontend Developer</p>
+          <h3 class="tt">“Tell me about a challenge you faced.”</h3>
+
+          <div class="console">
+            <p class="cap">Fluidez</p>
+            <p class="big">72<small>/100</small></p>
+            <div class="wave">
+              <i style="height:24%"></i><i style="height:48%"></i><i style="height:72%"></i><i style="height:38%"></i>
+              <i style="height:60%"></i><i style="height:92%"></i><i style="height:44%"></i><i style="height:66%"></i>
+              <i style="height:30%"></i><i style="height:54%"></i><i style="height:80%"></i><i style="height:36%"></i>
+              <i style="height:70%"></i><i style="height:46%"></i><i style="height:22%"></i><i style="height:58%"></i>
+            </div>
+            <div class="meter"><b></b></div>
+            <div class="mrow"><span>0:00</span><span>ritmo 168 wpm en el min 2</span><span>0:58</span></div>
+          </div>
+
+          <div class="rows">
+            <div class="row">
+              <span class="chip-icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4c8dff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M6 6a8 8 0 1 0 12 0M12 18v4"/></svg></span>
+              <span class="rl">Muletillas detectadas</span><span class="rv">6</span>
+            </div>
+            <div class="row">
+              <span class="chip-icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4c8dff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 4 3 3-11 11-4 1 1-4Z"/></svg></span>
+              <span class="rl">thing → component · make → implement</span><span class="rv">2</span>
+            </div>
+          </div>
+
+          <div class="cta">Ver respuesta optimizada</div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <span class="etq-frame">La página de ventas — encabezado</span>
+      <div class="landing">
+        <div class="lp">
+          <span class="lbadge">Simulador de entrevista con análisis de voz</span>
+          <h5>Grábate respondiendo. Sabrás en qué segundo fallaste.</h5>
+          <p class="lsub">Mide tu fluidez, tus muletillas y tu ritmo al hablar. Preguntas reales de tu puesto, no vocabulario de libro.</p>
+          <div class="lcta">Probar una simulación gratis</div>
+          <p class="lnote">7 días gratis · privado, tu voz no se guarda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ OPCIÓN F ═══════════════ -->
+  <section class="opcion op-f" aria-label="Opción F">
+    <div class="meta">
+      <h2><span class="letra">F</span> Editorial con bloque de color</h2>
+      <p class="direccion">
+        Fusión: <b>color valiente de Duolingo</b> (usado como bloque, no regado) + <b>calidez de Headspace</b>
+        + <b>número héroe de Cal AI</b>. Crema cálido con un bloque terracota potente detrás del titular y un
+        número gigante. Tipografía grotesca expresiva. Detalle propio: el bloque de color + la cifra sobredimensionada.
+      </p>
+      <p class="hipotesis"><strong>Por qué convertiría:</strong> la terracota es cálida y humana — lo
+        contrario del negro/dorado del “anuncio de trading”. El bloque de color da personalidad y energía
+        sin gritar, y el número enorme hace del progreso el protagonista.</p>
+      <ul class="tokens">
+        <li>--bg #FAF5EC · bloque #B5502F · --accent-2 #2F6D52</li>
+        <li>radius 20/14 · Bricolage Grotesque + Onest · motion 240ms, 1 spring al dominar pregunta</li>
+      </ul>
+      <div class="paleta" aria-hidden="true">
+        <i style="background:#FAF5EC"></i><i style="background:#FFFDF6"></i><i style="background:#241C14"></i>
+        <i style="background:#7B6F5E"></i><i style="background:#B5502F"></i><i style="background:#2F6D52"></i>
+      </div>
+      <div class="especimen">
+        <p class="esp-display" style="font-family:'Bricolage Grotesque',monospace">Bricolage Grotesque — AaBbÑñ 0123</p>
+        <p class="esp-body" style="font-family:'Onest',monospace">Onest — El veloz zorro salta sobre el perro perezoso.</p>
+      </div>
+    </div>
+
+    <div class="marco-par">
+      <span class="etq-frame">La app — resultado de la simulación</span>
+      <div class="telefono">
+        <div class="isla"></div>
+        <div class="statusbar"><span>9:41</span><span class="der">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="4.5" y="5" width="3" height="6" rx="0.8"/><rect x="9" y="3" width="3" height="8" rx="0.8"/><rect x="13.5" y="0.5" width="3" height="10.5" rx="0.8"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a9.5 9.5 0 0 1 13 0"/><path d="M3.8 6.6a6.2 6.2 0 0 1 8.4 0"/><path d="M6.2 9a2.8 2.8 0 0 1 3.6 0"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor"/><rect x="22.5" y="3.8" width="2" height="4.4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+        </span></div>
+        <div class="pantalla">
+          <div class="bloque">
+            <p class="eyebrow">Frontend Developer · Simulación 9</p>
+            <h3 class="tt">Tu fluidez</h3>
+            <p class="num">72<small>/100</small></p>
+            <p class="sub">↑ 11 puntos desde tu primera vez</p>
+          </div>
+          <div class="cuerpo">
+            <div class="card">
+              <span class="chip-icono"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b5502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
+              <div><h4>Muletillas: “ehm” ×4 · “like” ×2</h4><p><span class="ok">Bajaste de 8 a 6</span> respecto a ayer.</p></div>
+            </div>
+            <div class="card">
+              <span class="chip-icono"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b5502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <div><h4>Ritmo: 168 palabras/min</h4><p>Muy rápido en el minuto 2. Apunta a ~140.</p></div>
+            </div>
+            <div class="card">
+              <span class="chip-icono"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b5502f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 4 3 3-11 11-4 1 1-4Z"/></svg></span>
+              <div><h4>Cambia 2 palabras</h4><p>“thing” → <b>component</b> · “make” → <b>implement</b></p></div>
+            </div>
+            <div class="prep">
+              <div class="prow"><span>Listo para tu entrevista</span><span>71%</span></div>
+              <div class="ptrack"><div class="pfill"></div></div>
+            </div>
+          </div>
+          <div class="cta">Ver mi respuesta reescrita</div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <span class="etq-frame">La página de ventas — encabezado</span>
+      <div class="landing">
+        <div class="lblock">
+          <span class="lbadge">Entrevistas de trabajo en inglés</span>
+          <h5>Entiendes inglés. Te congelas al hablarlo en la entrevista.</h5>
+        </div>
+        <div class="lbot">
+          <p class="lsub">SpeakFast te hace simular esas preguntas bajo presión, hasta que la respuesta te sale sola.</p>
+          <div class="lcta">Probar mi primera simulación</div>
+          <p class="lnote">7 días gratis · cancela cuando quieras</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="pie">
+  SpeakFast · Sesión 2 · ronda 2. Direcciones D/E/F — distintas a A/B/C de la ronda 1. Todas se archivan
+  como evidencia de decisión. La elegida (o la combinación) se vuelca en FICHA-ARTE.md y ESTADO.md.
+</footer>
+
+</body>
+</html>

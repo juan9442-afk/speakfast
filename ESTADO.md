@@ -151,7 +151,8 @@ El usuario planteó: "una app que solo te da una pregunta escrita y la respondes
 - [ ] Dar los 3 datos del responsable legal para `/privacidad` y `/terminos`: nombre o razón social, país desde el que opera, email de contacto legal
 - [ ] Confirmar si `soporte@speakfast.app` es un correo/dominio real o hay que reemplazarlo
 - [x] Sesión 6: crear cuentas GitHub + Supabase + Vercel y pegar las claves de Supabase en Vercel — HECHO 2026-09-05. Falta Resend, Hotmart, dominio.
-- [ ] Sesión 6 EN CURSO: en Supabase → Authentication → URL Configuration, poner Site URL `https://speakfast.vercel.app` + Redirect URLs `https://speakfast.vercel.app/**` y `http://localhost:3000/**` (sin esto el login por correo no funciona en producción)
+- [ ] Sesión 6 EN CURSO: en Supabase → Authentication → URL Configuration, poner Site URL `https://speakfast.vercel.app` + Redirect URLs `https://speakfast.vercel.app/**` y `http://localhost:3000/**` (sin esto el login por correo no funciona en producción) — HECHO
+- [ ] ⚠️ ROTAR la primera API key de Resend: se mostró en una captura de pantalla durante el setup (2026-09-05). Riesgo actual bajo (key de "sending access" en modo test, solo envía al propio correo del dueño), pero cambiarla en resend.com → API Keys antes de verificar un dominio o lanzar. Al rotarla, actualizar la Password del SMTP en Supabase → Authentication → Emails.
 - [ ] Más adelante (clave de IA): el usuario pega la clave del proveedor de STT/LLM en Vercel (variables ambientales) para probar la primera victoria con una generación REAL (no mock) — se guía cuando lleguemos
 - [ ] Más adelante (Sesión 6): crear cuentas Resend y Hotmart, comprar dominio (~$10-15/año) — se guía clic por clic
 

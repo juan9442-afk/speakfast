@@ -6,6 +6,7 @@
 
 import { motion } from 'motion/react';
 import { Flame } from 'lucide-react';
+import { Isotipo } from '@/components/brand';
 import { AppScreen, BotonAccion, IndiceRing, StatCard } from '@/components/app/ui';
 import {
   INDICE_PREPARACION,
@@ -31,9 +32,14 @@ export default function PracticarScreen() {
     <AppScreen>
       <motion.div variants={stagger} initial="hidden" animate="visible" className="flex flex-col gap-4">
         <motion.header variants={item} className="flex items-center justify-between">
-          <div>
-            <p className="text-[13px] text-[var(--text-secondary)]">Tu entrenamiento</p>
-            <p className="text-[20px] font-semibold leading-tight text-[var(--text-primary)]">{PERFIL.rol}</p>
+          <div className="flex items-center gap-2.5">
+            <Isotipo size={26} />
+            <div>
+              <p className="text-[13px] text-[var(--text-secondary)]">Tu entrenamiento</p>
+              <p className="text-[18px] font-semibold leading-tight text-[var(--text-primary)] [font-family:var(--font-display)]">
+                {PERFIL.rol}
+              </p>
+            </div>
           </div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[color-mix(in_oklab,var(--accent-2)_12%,transparent)] px-3 py-1.5 text-[13px] font-bold text-[var(--accent-2)]">
             <Flame size={15} aria-hidden="true" />

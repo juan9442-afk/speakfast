@@ -9,6 +9,7 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { Lock, Mail } from 'lucide-react';
+import { Logo } from '@/components/brand';
 import { StepCta } from '@/components/onboarding/ui';
 
 type Estado = 'idle' | 'enviando' | 'enviado' | 'error';
@@ -43,9 +44,8 @@ export function EntrarScreen() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col px-4 [font-family:var(--font-body)] text-[var(--text-primary)]">
       <div className="flex h-14 items-center">
-        <a href="/" className="flex items-center gap-2 text-[15px] font-semibold">
-          <span aria-hidden="true" className="size-5 rounded-[var(--radius-button)] bg-[var(--accent)]" />
-          SpeakFast
+        <a href="/" aria-label="Ir al inicio">
+          <Logo size={22} textClass="text-[16px]" />
         </a>
       </div>
 

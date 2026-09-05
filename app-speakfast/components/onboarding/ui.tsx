@@ -9,6 +9,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Check, ChevronLeft, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { Isotipo } from '../brand';
 
 /* ── <FunnelHeader> — logo + nombre (siempre vuelve a "/") + atrás/cierre opcional.
    Regla de marca de 50: SIEMPRE visible en onboarding/paywall/login. onBack (chevron,
@@ -49,9 +50,9 @@ export function FunnelHeader({
       )}
       <a
         href="/"
-        className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2 text-[15px] font-semibold text-[var(--text-primary)]"
+        className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2 text-[15px] font-semibold text-[var(--text-primary)] [font-family:var(--font-display)]"
       >
-        <span aria-hidden="true" className="size-5 rounded-[var(--radius-button)] bg-[var(--accent)]" />
+        <Isotipo size={20} />
         {appName}
       </a>
       <span className="size-11" aria-hidden="true" />

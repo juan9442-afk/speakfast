@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SpeakFast">
+  <rect width="32" height="32" rx="8" fill="#1F7A5A"/>
+  <!-- Onda de voz que asciende, con leve inclinación hacia adelante (velocidad).
+       Última barra en la 2ª nota cálida: el pico que entrenas. -->
+  <g transform="translate(1.6,0) skewX(-7)">
+    <rect x="6"    y="16"  width="3.4" height="8"    rx="1.7" fill="#FFFDF7"/>
+    <rect x="11.3" y="13"  width="3.4" height="11"   rx="1.7" fill="#FFFDF7"/>
+    <rect x="16.6" y="10"  width="3.4" height="14"   rx="1.7" fill="#FFFDF7"/>
+    <rect x="21.9" y="6.5" width="3.4" height="17.5" rx="1.7" fill="#EBA98F"/>
+  </g>
+</svg>

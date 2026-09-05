@@ -8,6 +8,7 @@
 // Server component: sin hooks ni motion — no necesita 'use client'.
 
 import type { ReactNode } from 'react';
+import { Isotipo } from '../brand';
 
 export interface EnlaceLegal {
   label: string;
@@ -32,8 +33,8 @@ export function FooterLegal({ appName, logo, enlaces, soporteEmail, anio }: Foot
       <div className="mx-auto w-full max-w-[1140px] px-5">
         {/* Fila 1: marca chica + enlaces legales */}
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex items-center gap-2 text-[14px] font-semibold text-[var(--text-secondary)]">
-            {logo ?? <span aria-hidden="true" className="size-5 rounded-[var(--radius-button)] bg-[var(--accent)]" />}
+          <p className="flex items-center gap-2 text-[14px] font-semibold text-[var(--text-secondary)] [font-family:var(--font-display)]">
+            {logo ?? <Isotipo size={20} />}
             {appName}
           </p>
           <nav aria-label="Enlaces legales">

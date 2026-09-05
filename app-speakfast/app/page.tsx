@@ -15,7 +15,8 @@ import { Garantia } from "@/components/landing/Garantia";
 import { Faq } from "@/components/landing/Faq";
 import { CtaFinal } from "@/components/landing/CtaFinal";
 import { FooterLegal } from "@/components/landing/FooterLegal";
-import { CountUpNumber, StickyCtaMobile } from "@/components/landing/ui";
+import { StickyCtaMobile } from "@/components/landing/ui";
+import { HeroDemo } from "@/components/landing/HeroDemo";
 
 // Modelo 2 anónimo (onboarding-first, default B2C de 02C — ver ESTADO.md):
 // el CTA lleva directo a /onboarding, sin registro previo. El checkout de
@@ -37,26 +38,7 @@ export default function LandingSpeakFast() {
         ctaLabel={CTA_LABEL}
         ctaHref={CTA_HREF}
         socialProof={<span>Garantía Hotmart de 15 días — sin preguntas</span>}
-        visual={
-          <div className="flex flex-col items-center gap-4 bg-[color-mix(in_oklab,var(--accent)_5%,var(--surface))] px-6 py-8">
-            <img
-              src="/mockups/resultado.svg"
-              alt="Resultado de una entrevista: 72/100 de fluidez, muletillas detectadas, pausa por traducción y tu chuleta de frases nuevas"
-              width={250}
-              height={542}
-              className="h-auto w-[220px] rounded-[20px] border-[3px] shadow-[var(--shadow-2)]"
-              style={{ borderColor: "color-mix(in oklab, var(--text-primary) 88%, var(--accent))" }}
-            />
-            <p className="text-[13px] text-[var(--text-secondary)]">
-              Así se ve tu resultado:{" "}
-              <span className="text-[17px] font-bold [font-family:var(--font-display)] text-[var(--text-primary)]">
-                <CountUpNumber to={72} />
-                /100
-              </span>{" "}
-              de fluidez + tu chuleta
-            </p>
-          </div>
-        }
+        visual={<HeroDemo />}
         visualPlaceholderSugerencia="captura de la pantalla de resultado con tu puntaje de fluidez y las muletillas detectadas"
       />
 

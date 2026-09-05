@@ -9,6 +9,7 @@
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { Camera } from 'lucide-react';
+import { Isotipo } from '../brand';
 import { CtaButton } from './ui';
 import { MarkedCopy, truncarMarcado, warnCopy } from './MarkedCopy';
 
@@ -69,8 +70,8 @@ export function Hero({
       <div className="mx-auto w-full max-w-[1140px] px-5">
         {/* Header 64px: marca a la izquierda, SOLO "Entrar" terciario a la derecha (19) */}
         <header className="flex h-16 items-center justify-between">
-          <a href="/" className="flex items-center gap-2 text-[16px] font-semibold text-[var(--text-primary)]">
-            {logo ?? <span aria-hidden="true" className="size-6 rounded-[var(--radius-button)] bg-[var(--accent)]" />}
+          <a href="/" className="flex items-center gap-2 text-[16px] font-semibold text-[var(--text-primary)] [font-family:var(--font-display)]">
+            {logo ?? <Isotipo size={24} />}
             {appName}
           </a>
           {loginHref && (

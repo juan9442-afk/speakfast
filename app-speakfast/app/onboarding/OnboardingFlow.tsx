@@ -357,8 +357,11 @@ export function OnboardingFlow({ plan }: { plan?: string }) {
                   Tu primera práctica
                 </p>
                 <h1 className="mt-2 text-balance text-[26px] font-bold leading-[1.2] [font-family:var(--font-display)]">
-                  Responde en voz alta, <span className="text-[var(--accent)]">60 segundos</span>
+                  Una pregunta de muestra, <span className="text-[var(--accent)]">60 segundos</span>
                 </h1>
+                <p className="mt-2 text-[14px] text-[var(--text-secondary)]">
+                  En la app completa, una voz te hace la entrevista entera y sales con tu chuleta. Esto es solo el primer sabor.
+                </p>
               </div>
               <div className="rounded-[var(--radius-card)] border border-[color-mix(in_oklab,var(--text-tertiary)_22%,transparent)] bg-[var(--surface)] p-5">
                 <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[var(--text-tertiary)]">
@@ -530,12 +533,12 @@ function ResultadoDemo({
         </ul>
       </div>
 
-      {/* La "respuesta reescrita" ya prometida en la landing (docs/copy/landing.md)
-          — mostrarla aquí, con ejemplo REAL de la pregunta de práctica, es la
-          primera prueba tangible del mecanismo (no una promesa, un ejemplo). */}
+      {/* Primer vistazo de la "chuleta": una frase mejorada real de la pregunta de
+          práctica. En la app completa, cada entrevista deja la chuleta entera
+          (frases anti-bloqueo + upgrades de vocabulario). */}
       <div className="rounded-[var(--radius-card)] bg-[color-mix(in_oklab,var(--accent)_6%,transparent)] p-5">
         <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[var(--text-tertiary)]">
-          Así suena mejor
+          Un vistazo a tu chuleta
         </p>
         <p className="mt-2 text-[14px] text-[var(--text-secondary)] line-through decoration-[color-mix(in_oklab,var(--text-tertiary)_50%,transparent)]">
           &ldquo;I made a website for the challenge.&rdquo;

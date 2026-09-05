@@ -33,7 +33,7 @@ export default function LandingSpeakFast() {
         appName="SpeakFast"
         loginHref="/entrar"
         h1Marked="Entiendes inglés. Te [acento]congelas[/acento] en la entrevista."
-        subtitleMarked="El [b]Simulacro de Presión[/b]: tu entrevista real, con cronómetro."
+        subtitleMarked="El [b]Simulacro de Presión[/b]: una entrevista completa, con voz y cronómetro."
         ctaLabel={CTA_LABEL}
         ctaHref={CTA_HREF}
         socialProof={<span>Garantía Hotmart de 15 días — sin preguntas</span>}
@@ -41,7 +41,7 @@ export default function LandingSpeakFast() {
           <div className="flex flex-col items-center gap-4 bg-[color-mix(in_oklab,var(--accent)_5%,var(--surface))] px-6 py-8">
             <img
               src="/mockups/resultado.svg"
-              alt="Resultado de una simulación: 72/100 de fluidez, muletillas detectadas y palabras a corregir"
+              alt="Resultado de una entrevista: 72/100 de fluidez, muletillas detectadas, pausa por traducción y tu chuleta de frases nuevas"
               width={250}
               height={542}
               className="h-auto w-[220px] rounded-[20px] border-[3px] shadow-[var(--shadow-2)]"
@@ -53,7 +53,7 @@ export default function LandingSpeakFast() {
                 <CountUpNumber to={72} />
                 /100
               </span>{" "}
-              de fluidez
+              de fluidez + tu chuleta
             </p>
           </div>
         }
@@ -90,11 +90,11 @@ export default function LandingSpeakFast() {
       <Solucion
         tituloMarked="Entrena la presión [acento]antes de vivirla[/acento]"
         mecanismo="el Simulacro de Presión"
-        bigIdeaMarked="No te falta vocabulario — te falta entrenar bajo presión real. El Simulacro de Presión [b]te la pone hoy[/b], con las preguntas de tu rol."
+        bigIdeaMarked="No te falta vocabulario — te falta entrenar bajo presión real. El Simulacro de Presión [b]te entrevista hoy[/b], con las preguntas de tu rol."
         pasos={[
           { titulo: "Eliges tu rol", detalle: "Frontend, marketing, ventas — preguntas de tu profesión." },
-          { titulo: "Respondes bajo cronómetro", detalle: "60 segundos, en voz alta — la presión real del reclutador." },
-          { titulo: "Recibes tu puntaje", detalle: "Fluidez, muletillas y tu respuesta reescrita, en segundos." },
+          { titulo: "Una voz te entrevista", detalle: "4 a 6 preguntas seguidas, con cronómetro — como el día real." },
+          { titulo: "Sales con tu chuleta", detalle: "Fluidez, muletillas y tus frases anti-bloqueo, listas para usar." },
         ]}
         antesDespues={{
           labelAntes: "Antes",
@@ -111,8 +111,8 @@ export default function LandingSpeakFast() {
         tituloMarked="Así se ve tu [acento]Simulacro de Presión[/acento]"
         frames={[
           { src: "/mockups/onboarding.svg", label: "Elige tu rol y cuándo es tu entrevista", nombrePantalla: "Onboarding" },
-          { src: "/mockups/simulacion.svg", label: "Responde bajo presión, con cronómetro", nombrePantalla: "Simulación" },
-          { src: "/mockups/resultado.svg", label: "Tu puntaje y tu respuesta reescrita", nombrePantalla: "Resultado" },
+          { src: "/mockups/simulacion.svg", label: "Una voz te entrevista, pregunta tras pregunta", nombrePantalla: "Simulación" },
+          { src: "/mockups/resultado.svg", label: "Tu puntaje + tu chuleta de frases para el día real", nombrePantalla: "Resultado" },
           { src: "/mockups/progreso.svg", label: "Tu Índice de Preparación, día a día", nombrePantalla: "Mi progreso" },
         ]}
         ctaLabel={CTA_LABEL}
@@ -127,10 +127,11 @@ export default function LandingSpeakFast() {
           lineas: [
             { resultado: "SpeakFast Pro con el Simulacro de Presión (12 meses)", valor: "$180" },
             { resultado: "Banco de preguntas de tu rol (Tecnología, Marketing, Ventas, Finanzas)", valor: "$37" },
+            { resultado: "Kit de frases anti-bloqueo + tu chuleta para el día de la entrevista", valor: "$29" },
             { resultado: "Reporte de mejora y racha de entrenamiento", valor: "$27" },
           ],
-          totalTachado: "$244",
-          nota: "Ahorras $199 al año · Garantía de 15 días",
+          totalTachado: "$273",
+          nota: "Ahorras $228 al año · Garantía de 15 días",
         }}
         garantiaTexto="15 días de garantía · cancelas cuando quieras"
         anual={{
@@ -143,10 +144,10 @@ export default function LandingSpeakFast() {
           ctaLabel: "Empezar mis 7 días gratis",
           ctaHref: `${CTA_HREF}?plan=anual`,
           features: [
-            "Simulaciones de tu rol, todos los días",
-            "Tu Índice de Preparación siempre actualizado",
-            "Historial y récords de tu fluidez",
-            "Respuesta reescrita en cada simulación",
+            "Entrevistas completas de tu rol, todos los días",
+            "Kit de frases anti-bloqueo + tu chuleta, cada vez",
+            "Tu diccionario de 'sonar profesional' que crece contigo",
+            "Índice de Preparación, historial y récords de fluidez",
           ],
         }}
         mensual={{
@@ -155,9 +156,9 @@ export default function LandingSpeakFast() {
           ctaLabel: "Empezar plan mensual",
           ctaHref: `${CTA_HREF}?plan=mensual`,
           features: [
-            "Simulaciones de tu rol, todos los días",
-            "Tu Índice de Preparación siempre actualizado",
-            "Historial y récords de tu fluidez",
+            "Entrevistas completas de tu rol, todos los días",
+            "Kit de frases anti-bloqueo + tu chuleta, cada vez",
+            "Tu diccionario de 'sonar profesional' que crece contigo",
             "Cancelas cuando quieras",
           ],
         }}
@@ -189,7 +190,7 @@ export default function LandingSpeakFast() {
           {
             pregunta: "¿Una IA puede simular la presión de un reclutador real?",
             respuestaMarked:
-              "El Simulacro pone cronómetro estricto y [b]marca tus silencios y muletillas[/b] — no solo transcribe.",
+              "Una voz te hace [b]pregunta tras pregunta con cronómetro[/b] y marca tus silencios y muletillas — se siente como el día real.",
           },
           {
             pregunta: "¿Por qué cuesta tan poco comparado con un profesor?",
@@ -212,7 +213,7 @@ export default function LandingSpeakFast() {
       {/* 9. CTA FINAL — invertido, mismo verbo del hero, PS al cierre */}
       <CtaFinal
         h2Marked="Vive la presión [acento]antes de la entrevista real[/acento]"
-        futurePacingMarked="Te sientas, eliges tu rol, respondes bajo cronómetro — y en minutos sabes qué corregir."
+        futurePacingMarked="Una voz te entrevista pregunta tras pregunta — y sales con tu chuleta lista para el día real."
         ctaLabel={CTA_LABEL}
         ctaHref={CTA_HREF}
         recap="7 días gratis para probar · después, 15 días de Garantía de tu Primera Mejora"

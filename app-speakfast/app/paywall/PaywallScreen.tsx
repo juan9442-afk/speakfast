@@ -120,7 +120,7 @@ export function PaywallScreen() {
               </span>
               <div>
                 <p className="text-[15px] font-semibold">Hoy — acceso completo</p>
-                <p className="text-[13px] text-[var(--text-secondary)]">Todo tu banco de preguntas de {rol}, sin límites</p>
+                <p className="text-[13px] text-[var(--text-secondary)]">Entrevistas completas de {rol}, sin límites, con tu chuleta cada vez</p>
               </div>
             </li>
             <li className="flex gap-3">
@@ -160,18 +160,18 @@ export function PaywallScreen() {
         >
           <li className="flex items-start gap-3 text-[15px]">
             <CheckCustom />
-            <span>Preguntas ilimitadas de tu rol ({rol})</span>
+            <span>Kit de frases anti-bloqueo + tu chuleta, después de cada entrevista</span>
           </li>
           <li className="flex items-start gap-3 text-[15px]">
             <CheckCustom />
-            <span>Tu Índice de Preparación actualizado en cada práctica</span>
+            <span>Tu diccionario de &ldquo;sonar profesional&rdquo; que crece contigo</span>
           </li>
           <li className="flex items-start gap-3 text-[15px]">
             <CheckCustom />
             <span>
               {ritmo && RITMO_LABEL[ritmo]
                 ? `Tu ritmo elegido: ${RITMO_LABEL[ritmo]}`
-                : 'Respuesta optimizada completa en cada simulación'}
+                : 'Tu Índice de Preparación actualizado en cada práctica'}
             </span>
           </li>
         </motion.ul>

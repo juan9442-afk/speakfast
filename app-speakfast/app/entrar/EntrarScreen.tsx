@@ -25,7 +25,8 @@ export function EntrarScreen() {
   const [reenviarEn, setReenviarEn] = useState(0);
 
   const emailValido = /\S+@\S+\.\S+/.test(email);
-  const codigoValido = /^\d{6}$/.test(codigo.trim());
+  // Supabase permite OTP de 6 a 10 dígitos (configurable); aceptamos ese rango.
+  const codigoValido = /^\d{6,10}$/.test(codigo.trim());
 
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('error') === 'enlace') {
@@ -132,11 +133,11 @@ export function EntrarScreen() {
                   id="codigo"
                   inputMode="numeric"
                   autoComplete="one-time-code"
-                  maxLength={6}
+                  maxLength={10}
                   value={codigo}
-                  onChange={(ev) => setCodigo(ev.target.value.replace(/\D/g, ''))}
-                  placeholder="123456"
-                  className="h-14 w-full rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_30%,transparent)] bg-[var(--surface)] pl-11 pr-4 text-[18px] tracking-[0.3em] tabular-nums outline-none focus:border-[var(--accent)]"
+                  onChange={(ev) => setCodigo(ev.target.value.replace(/\D/g, '').slice(0, 10))}
+                  placeholder="Código del correo"
+                  className="h-14 w-full rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_30%,transparent)] bg-[var(--surface)] pl-11 pr-4 text-[18px] tracking-[0.2em] tabular-nums outline-none focus:border-[var(--accent)]"
                 />
               </div>
               <StepCta onClick={() => verificarCodigo()} disabled={!codigoValido || verificando}>

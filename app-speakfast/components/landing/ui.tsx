@@ -11,25 +11,12 @@ import { AnimatePresence, animate, motion, useInView, useReducedMotion, type Var
 import { Check, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-/* ── <Accent> — la palabra que vende: texto en el acento principal (verde) +
-   subrayado marcador en la 2ª nota (terracota, --accent-2 — dispositivo
-   ownable de FICHA-ARTE, banco 54 dir. 1: "color del subrayado marcador").
+/* ── <Accent> — la palabra que vende: texto en el acento principal (verde),
+   sin marcador de fondo (quitado a pedido del usuario — ver ESTADO.md).
    En este kit [acento] solo se usa en titulares de sección (H1/H2), nunca en
-   párrafos de cuerpo — por eso el marcador puede ir SIEMPRE en <Accent> sin
-   sobrecargar la vista. */
+   párrafos de cuerpo. */
 export function Accent({ children }: { children: ReactNode }) {
-  return (
-    <span
-      className="text-[var(--accent)] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] px-[0.08em]"
-      style={{
-        backgroundImage:
-          'linear-gradient(transparent 50%, color-mix(in oklab, var(--accent-2) 58%, transparent) 50%)',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      {children}
-    </span>
-  );
+  return <span className="text-[var(--accent)]">{children}</span>;
 }
 
 /* ── <CountUpNumber> — número héroe que cuenta de 0 al valor real al entrar en

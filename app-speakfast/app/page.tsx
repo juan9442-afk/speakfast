@@ -31,7 +31,7 @@ export default function LandingSpeakFast() {
         appName="SpeakFast"
         loginHref="/entrar"
         h1Marked="Entiendes inglés. Te [acento]congelas[/acento] en la entrevista."
-        subtitleMarked="El [b]Simulacro de Presión[/b] te hace practicar tu entrevista real, con cronómetro."
+        subtitleMarked="El [b]Simulacro de Presión[/b]: tu entrevista real, con cronómetro."
         ctaLabel={CTA_LABEL}
         ctaHref={CTA_HREF}
         socialProof={<span>Garantía Hotmart de 15 días — sin preguntas</span>}
@@ -72,15 +72,15 @@ export default function LandingSpeakFast() {
       {/* 3. AGITACIÓN — mismo fondo elevado que 2 */}
       <Agitacion
         frases={[
-          "Cada mes que sigues igual, tu sueldo se queda [acento]lejos[/acento] de lo que pagan los roles remotos.",
-          "En un año, son [b]12 meses más[/b] postulando y congelándote en la misma llamada.",
-          "El espejo y los cursos de gramática no arreglan esto: nunca sintieron la presión real.",
+          "Cada mes igual, tu sueldo se queda [acento]lejos[/acento] de lo remoto.",
+          "En un año, son [b]12 meses más[/b] estancado.",
+          "El espejo y la gramática no entrenan la presión real.",
         ]}
         contraste={{
           labelHoy: "Hoy",
-          hoy: "Ganas en tu moneda local mientras ves vacantes remotas pagadas en dólares.",
+          hoy: "Ganas en tu moneda local; lo remoto paga en dólares.",
           labelFuturo: "En 6 meses, si nada cambia",
-          futuro: "Sigues aplicando, sigues congelándote en la llamada, y sigues igual.",
+          futuro: "Sigues postulando, sigues congelándote, sigues igual.",
         }}
       />
 
@@ -88,10 +88,10 @@ export default function LandingSpeakFast() {
       <Solucion
         tituloMarked="Entrena la presión [acento]antes de vivirla[/acento]"
         mecanismo="el Simulacro de Presión"
-        bigIdeaMarked="No te falta vocabulario — te falta haber entrenado bajo presión real. El Simulacro de Presión [b]te pone esa presión hoy[/b], con las preguntas exactas de tu puesto."
+        bigIdeaMarked="No te falta vocabulario — te falta entrenar bajo presión real. El Simulacro de Presión [b]te la pone hoy[/b], con las preguntas de tu rol."
         pasos={[
-          { titulo: "Eliges tu rol", detalle: "Frontend, marketing, ventas — el banco de preguntas es de tu profesión." },
-          { titulo: "Respondes bajo cronómetro", detalle: "60 segundos, en voz alta, la presión real de una llamada de HR." },
+          { titulo: "Eliges tu rol", detalle: "Frontend, marketing, ventas — preguntas de tu profesión." },
+          { titulo: "Respondes bajo cronómetro", detalle: "60 segundos, en voz alta — la presión real de HR." },
           { titulo: "Recibes tu puntaje", detalle: "Fluidez, muletillas y tu respuesta reescrita, en segundos." },
         ]}
         antesDespues={{
@@ -162,7 +162,7 @@ export default function LandingSpeakFast() {
       {/* 7. GARANTÍA — 15 días (Hotmart no admite 7 con trial de 7: garantía > prueba) */}
       <Garantia
         nombre="la Garantía de tu Primera Mejora"
-        condicionMarked="Si en 15 días el Simulacro no te muestra una mejora real en tu fluidez, escribes un correo y [b]te devolvemos todo[/b]. Sin preguntas."
+        condicionMarked="Si en 15 días no mejora tu fluidez, escribes un correo y [b]te devolvemos todo[/b]. Sin preguntas."
         pisoLegal="Respaldada por la garantía Hotmart de 15 días"
       />
 
@@ -173,32 +173,32 @@ export default function LandingSpeakFast() {
           {
             pregunta: "¿Puedo simplemente practicar frente al espejo, gratis?",
             respuestaMarked:
-              "El espejo no te corrige la gramática ni las muletillas. Y aquí [b]nadie te escucha[/b]: tu voz se convierte a texto y se borra al instante.",
+              "El espejo no corrige gramática ni muletillas. Y aquí [b]nadie te escucha[/b]: tu voz se borra al instante.",
           },
           {
             pregunta: "¿No es lo mismo que Duolingo o Elsa Speak?",
             respuestaMarked:
-              "No. Ellas enseñan vocabulario con lecciones; SpeakFast [b]simula tu entrevista real bajo presión[/b], con las preguntas de tu puesto.",
+              "No. Ellas enseñan lecciones; SpeakFast [b]simula tu entrevista real bajo presión[/b], con preguntas de tu puesto.",
           },
           {
             pregunta: "¿Una IA puede simular la presión de un reclutador real?",
             respuestaMarked:
-              "El Simulacro de Presión pone cronómetro estricto y [b]te marca si te quedas en silencio o repites muletillas[/b] — no solo transcribe.",
+              "El Simulacro pone cronómetro estricto y [b]marca tus silencios y muletillas[/b] — no solo transcribe.",
           },
           {
             pregunta: "¿Por qué cuesta tan poco comparado con un profesor?",
             respuestaMarked:
-              "Un profesor cobra $15-20 la hora; SpeakFast te da [b]práctica diaria por $3.75/mes[/b], todo el año.",
+              "Un profesor cobra $15-20 la hora; tú pagas [b]$3.75/mes por práctica diaria[/b].",
           },
           {
             pregunta: "¿Es seguro pagar con mi tarjeta?",
             respuestaMarked:
-              "Sí. El pago lo procesa [b]Hotmart[/b] (no nosotros), con tarjeta, PayPal y métodos locales de tu país.",
+              "Sí. Lo procesa [b]Hotmart[/b], con tarjeta, PayPal y métodos locales de tu país.",
           },
           {
             pregunta: "¿Por qué no practico gratis con ChatGPT o mi celular?",
             respuestaMarked:
-              "Ninguno mide tu tiempo de respuesta en voz alta ni te marca el segundo exacto de cada muletilla — [b]el Simulacro de Presión sí[/b].",
+              "Ninguno mide tu tiempo de respuesta ni marca cada muletilla — [b]el Simulacro sí[/b].",
           },
         ]}
       />
@@ -206,11 +206,11 @@ export default function LandingSpeakFast() {
       {/* 9. CTA FINAL — invertido, mismo verbo del hero, PS al cierre */}
       <CtaFinal
         h2Marked="Vive la presión [acento]antes de la entrevista real[/acento]"
-        futurePacingMarked="Te sientas, eliges tu rol, respondes bajo cronómetro — y en minutos ya sabes exactamente qué corregir."
+        futurePacingMarked="Te sientas, eliges tu rol, respondes bajo cronómetro — y en minutos sabes qué corregir."
         ctaLabel={CTA_LABEL}
         ctaHref={CTA_HREF}
         recap="la Garantía de tu Primera Mejora · 7 días gratis"
-        psMarked="PS: SpeakFast te hace entrenar bajo presión real con el Simulacro de Presión antes de tu entrevista de verdad. Hoy entras con 7 días gratis y la Garantía de tu Primera Mejora — tu voz nunca se guarda."
+        psMarked="PS: entrena bajo presión real antes de tu entrevista de verdad. Hoy: 7 días gratis + Garantía de tu Primera Mejora — tu voz nunca se guarda."
       />
 
       {/* 10. FOOTER LEGAL — todas las páginas enlazadas existen (47) */}

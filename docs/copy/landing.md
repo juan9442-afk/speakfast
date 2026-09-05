@@ -227,3 +227,9 @@ Veredicto 4ª ronda: NO LISTA — Usabilidad 34/40 (subió de 32), **Craft 17/20
 4. `CtaButton` ahora also atenúa opacidad al tap (`whileTap: {scale 0.97, opacity 0.85}`) — feedback más visible en conexiones lentas, sin construir un estado de carga completo (se deja para Sesión 7, Pulido/Performance).
 5. Cards de contraste "Hoy / En 6 meses" (`Agitacion.tsx`) ahora llevan `shadow-[var(--shadow-1)]` — antes eran las únicas superficies sin sombra de la página.
 
+## AJUSTES POST-APROBACIÓN (pedido directo del dueño del producto, 2026-09-04)
+
+La landing ya estaba LISTA (6ª ronda); estos cambios son gusto/preferencia del usuario, no defectos del revisor:
+1. **Dispositivo ownable (subrayado marcador) ELIMINADO por completo.** Al usuario no le gustó ni siquiera en su versión más sutil (probamos 58%→22% de mezcla primero). `<Accent>` en `ui.tsx` ahora solo pinta el texto en `--accent` (verde), sin franja de fondo. Esto afecta el REGISTRO ANTI-REPETICIÓN de FICHA-ARTE.md (el "dispositivo ownable" documentado ahí ya no aplica — pendiente de revisar si se define uno nuevo en una sesión futura, o si el proyecto sigue sin dispositivo ownable).
+2. **Copy recortado en toda la página** ("menos texto, más fácil de leer a golpe de vista"): Hero (subtítulo), Agitación (3 frases + contraste), Solución (Big Idea + 2 de los 3 pasos), Garantía (condición), las 6 respuestas de FAQ, y CTA Final (future pacing + PS). Ningún corte cambia el significado ni quita una objeción de la ficha — solo se acortan las frases. Los conteos de palabras siguen dentro de los presupuestos de 52 (verificado: cero warnings de `warnCopy` en consola tras el cambio).
+

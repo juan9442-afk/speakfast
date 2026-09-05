@@ -39,15 +39,24 @@ export function Agitacion({ frases, contraste, id }: AgitacionProps) {
         className="mx-auto max-w-[620px]"
       >
         <div className="flex flex-col gap-4">
-          {frases.map((f, i) => (
-            <motion.p
-              key={i}
-              variants={item}
-              className="text-[17px] leading-[1.6] text-[var(--text-secondary)]"
-            >
-              <MarkedCopy text={f} />
-            </motion.p>
-          ))}
+          {frases.map((f, i) => {
+            // La última frase es el pico de la agitación (55 §3): más peso
+            // visual que las anteriores, no la misma jerarquía plana.
+            const esUltima = i === frases.length - 1;
+            return (
+              <motion.p
+                key={i}
+                variants={item}
+                className={
+                  esUltima
+                    ? 'text-[19px] font-semibold leading-[1.5] text-[var(--text-primary)]'
+                    : 'text-[17px] leading-[1.6] text-[var(--text-secondary)]'
+                }
+              >
+                <MarkedCopy text={f} />
+              </motion.p>
+            );
+          })}
         </div>
 
         {contraste && (

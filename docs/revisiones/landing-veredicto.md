@@ -1,14 +1,23 @@
 # VEREDICTO revisor-visual — landing
-Fecha: 2026-09-04 15:30
-Screenshot: docs/revisiones/landing-375.png
-Usabilidad: 36/40
-Craft: 18/20
+Fecha: 2026-09-04 00:00
+Screenshot: audit\s00.png, s01.png, s03.png, s06b.png, s08b.png, s10b.png + audit2\agitacion.png, mecanismo-cta.png, carrusel2.png, garantia-cta.png, cta-final.png + audit3\apppordentro-cta.png (NUEVA — set completo de 12 capturas a 375px)
+Usabilidad: 31/40
+Craft: 13/20
 Copy (si vende): 19/20
 Fidelidad (si hubo referencia): N-A
-Veredicto: LISTA
-Top defectos:
-1. [ui.tsx → StickyCtaMobile, botón X] El descarte de la barra sticky no tiene forma de recuperarse en la misma sesión (`descartada` queda en `true` para siempre) → fix: resetear `descartada` a `false` al entrar a #oferta o #cta-final, o no perder el acceso a precios tras un tap accidental.
-2. [Oferta.tsx / Hero.tsx / CtaFinal.tsx, labels de CTA] El verbo de los 3 CTA de compra varía ("Probar mi primera simulación" / "Empezar mis 7 días gratis" / "Elegir mensual") → unificar la raíz del verbo entre los 3 para reforzar que es LA MISMA acción repetida.
-3. [Oferta.tsx, card Anual] Doble badge simultáneo ("MÁS POPULAR" + "7 DÍAS GRATIS") sobre la misma card compite visualmente con el precio → fusionar en un solo mensaje o quitar uno.
-4. [Evidencia] landing-375.png (full page) muestra huecos en blanco extensos entre secciones — artefacto de captura por scroll automatizado que no dispara el `whileInView` de cada sección a tiempo (las capturas 01-09 por sección confirman que el contenido SÍ renderiza completo) → recapturar el full-page con scroll incremental para evidencia limpia en la próxima ronda.
-5. [Evidencia] Todas las capturas muestran el indicador circular "N" de Next.js Dev Tools superpuesto → recapturar desde build de producción (`next build && next start`) para que la evidencia de QA no quede contaminada por chrome de desarrollo.
+Veredicto: NO LISTA
+
+Verificación de los 5 defectos de la ronda anterior:
+1. Barra sticky duplicada en AppPorDentro → CORREGIDO. `id="apppordentro-cta"` en AppPorDentro.tsx:158 y sumado a `extraHideIds` en app/page.tsx:236. Confirmado en audit3/apppordentro-cta.png: sin barra sticky visible bajo el CTA del carrusel.
+2. Plan (`?plan=`) perdido en onboarding → CORREGIDO (parcial, honesto). `PlanCapture.tsx` guarda `plan` en sessionStorage vía `searchParams.plan` leído en `onboarding/page.tsx` (async). El onboarding real sigue siendo un stub "Próximamente" — correcto para el alcance de esta sesión, documentado.
+3 y 5. Marco de teléfono del carrusel con terracota casi indistinguible del verde → CORREGIDO revirtiendo a `var(--accent)` verde, misma fórmula que el Hero (`color-mix(in oklab, var(--text-primary) 90%, var(--accent))` vs 88% del Hero) → una sola lógica de color en ambos marcos, consistencia heurística 4 restaurada.
+4. "la presión real de HR" → "la presión real del reclutador" — CORREGIDO en app/page.tsx:94 (verificado en código; la captura s03.png reusada es vieja y todavía muestra "de HR", pero el código manda y ya no hay inglés crudo suelto).
+
+Ningún defecto nuevo de los 5 quedó sin resolver. Se encontró evidencia NUEVA (no reportada en rondas previas) al revisar el screenshot audit3/apppordentro-cta.png con ojos frescos: un vacío muerto de ~300-350px de fondo liso entre el CTA del carrusel y el inicio visible de "La oferta", causado por el umbral de reveal-on-scroll (`VIEWPORT_ONCE = { amount: 0.2 }` en ui.tsx, usado igual en las 8 secciones) exigiendo que ~20% de una sección alta esté visible antes de animar su entrada — ver Top defectos #1.
+
+TOP DEFECTOS:
+1. [Entre "Así se ve por dentro" y "La oferta", justo tras el CTA del carrusel] Vacío muerto de fondo liso (~300-350px, casi la mitad del viewport en audit3/apppordentro-cta.png) mientras se hace scroll, antes de que aparezca el kicker "LA OFERTA" — `VIEWPORT_ONCE = { once: true, amount: 0.2 }` (ui.tsx) exige que 20% de la sección Oferta (alta: kicker+título+stack+2 cards+garantía) esté visible antes de disparar la animación de entrada, dejando la pantalla en blanco durante ese tramo de scroll → fix: bajar `amount` a ~0.05-0.1 o usar `margin` negativo en el `viewport` de framer-motion para que el contenido empiece a aparecer apenas la sección asoma, no cuando ya lleva 20% adentro.
+2. [Alternancia de fondo entre TODAS las secciones, ej. Hero→Problema, Solución→AppPorDentro] `--bg` (#FAF6EC) y `--surface` (#FFFDF7) son casi idénticos a simple vista en los 12 screenshots — la alternancia base/elevado documentada en FICHA-ARTE (los "3 niveles de profundidad") no se percibe como tal, toda la landing se lee como un único plano crema continuo → fix: aumentar el contraste tonal entre `--bg` y `--surface`, o marcar el límite de sección con una sombra/borde sutil.
+3. [Identidad visual global — kit "papel cálido + tinta verde"] La lógica de paleta final (crema dominante + verde como único acento funcional) coincide conceptualmente con la combinación vetada del banco anti-clon ("papel cálido + tinta verde"), aunque la tipografía (Fraunces/Figtree) difiere de la prohibida (Petrona/Karla) — el dispositivo ownable propio (filo terracota) casi no se experimenta en vivo: solo aparece horneado en 1 SVG estático del mockup del Hero, en ningún componente interactivo real de la página → fix: sumar la nota terracota a 1-2 puntos más de la interfaz viva (no solo el mockup) para que la identidad no dependa de un solo asset.
+4. [CTAs a lo largo del funnel: Hero/Solución/AppPorDentro/Garantía/CtaFinal vs StickyCtaMobile pre-oferta vs cards de Oferta] Conviven 4 textos de CTA distintos — "Probar mi primera simulación" (el principal, repetido), "Ver plan y precios" (sticky antes de ver la oferta), "Empezar mis 7 días gratis" (plan anual) y "Elegir mensual" (plan mensual) — fragmenta la dirección a una sola acción/promesa → fix: unificar a máximo 2 variantes con el mismo verbo raíz.
+5. [Oferta.tsx, card Mensual, líneas 198-212] El CTA de la card mensual es un `<a>` manual con estilos y estado "navegando" reimplementados a mano en vez de reutilizar `<CtaButton>` (que ya soporta variante y estado de espera) — riesgo de deriva de consistencia: un cambio futuro al estilo/estado del CTA vivo del kit no se replicará aquí automáticamente → fix: extraer una variante `outline` de `CtaButton` en ui.tsx y usarla en ambos lugares.

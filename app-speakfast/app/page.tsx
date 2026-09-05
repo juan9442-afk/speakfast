@@ -72,9 +72,9 @@ export default function LandingSpeakFast() {
       {/* 3. AGITACIÓN — mismo fondo elevado que 2 */}
       <Agitacion
         frases={[
+          "El espejo y la gramática no entrenan la presión real.",
           "Cada mes igual, tu sueldo se queda [acento]lejos[/acento] de lo remoto.",
           "En un año, son [b]12 meses más[/b] estancado.",
-          "El espejo y la gramática no entrenan la presión real.",
         ]}
         contraste={{
           labelHoy: "Hoy",
@@ -91,7 +91,7 @@ export default function LandingSpeakFast() {
         bigIdeaMarked="No te falta vocabulario — te falta entrenar bajo presión real. El Simulacro de Presión [b]te la pone hoy[/b], con las preguntas de tu rol."
         pasos={[
           { titulo: "Eliges tu rol", detalle: "Frontend, marketing, ventas — preguntas de tu profesión." },
-          { titulo: "Respondes bajo cronómetro", detalle: "60 segundos, en voz alta — la presión real de HR." },
+          { titulo: "Respondes bajo cronómetro", detalle: "60 segundos, en voz alta — la presión real del reclutador." },
           { titulo: "Recibes tu puntaje", detalle: "Fluidez, muletillas y tu respuesta reescrita, en segundos." },
         ]}
         antesDespues={{
@@ -100,6 +100,8 @@ export default function LandingSpeakFast() {
           labelDespues: "Después",
           despues: "Respondes en automático, sin traducir, con dos muletillas menos.",
         }}
+        ctaLabel={CTA_LABEL}
+        ctaHref={CTA_HREF}
       />
 
       {/* 5. LA APP POR DENTRO — placeholders honestos (app interna: Sesión 5) */}
@@ -137,7 +139,7 @@ export default function LandingSpeakFast() {
           ahorro: "4 meses gratis",
           descomposicionDia: "menos de $0.12 al día",
           ctaLabel: "Empezar mis 7 días gratis",
-          ctaHref: CTA_HREF,
+          ctaHref: `${CTA_HREF}?plan=anual`,
           features: [
             "Simulaciones de tu rol, todos los días",
             "Tu Índice de Preparación siempre actualizado",
@@ -149,7 +151,7 @@ export default function LandingSpeakFast() {
           nombre: "Mensual",
           precioMes: "$5.99",
           ctaLabel: "Elegir mensual",
-          ctaHref: CTA_HREF,
+          ctaHref: `${CTA_HREF}?plan=mensual`,
           features: [
             "Simulaciones de tu rol, todos los días",
             "Tu Índice de Preparación siempre actualizado",
@@ -164,6 +166,8 @@ export default function LandingSpeakFast() {
         nombre="la Garantía de tu Primera Mejora"
         condicionMarked="Si en 15 días no mejora tu fluidez, escribes un correo y [b]te devolvemos todo[/b]. Sin preguntas."
         pisoLegal="Respaldada por la garantía Hotmart de 15 días"
+        ctaLabel={CTA_LABEL}
+        ctaHref={CTA_HREF}
       />
 
       {/* 8. FAQ — las 6 objeciones reales de FICHA-AVATAR.md, en su orden de fuerza */}
@@ -209,8 +213,8 @@ export default function LandingSpeakFast() {
         futurePacingMarked="Te sientas, eliges tu rol, respondes bajo cronómetro — y en minutos sabes qué corregir."
         ctaLabel={CTA_LABEL}
         ctaHref={CTA_HREF}
-        recap="la Garantía de tu Primera Mejora · 7 días gratis"
-        psMarked="PS: entrena bajo presión real antes de tu entrevista de verdad. Hoy: 7 días gratis + Garantía de tu Primera Mejora — tu voz nunca se guarda."
+        recap="7 días gratis para probar · después, 15 días de Garantía de tu Primera Mejora"
+        psMarked="PS: entrena bajo presión real antes de tu entrevista de verdad. Hoy empiezas con 7 días gratis; si sigues, quedas cubierto 15 días por la Garantía de tu Primera Mejora — tu voz nunca se guarda."
       />
 
       {/* 10. FOOTER LEGAL — todas las páginas enlazadas existen (47) */}
@@ -226,7 +230,11 @@ export default function LandingSpeakFast() {
       />
 
       {/* Transversal T2: sticky CTA mobile */}
-      <StickyCtaMobile labelComercial={CTA_LABEL} href={CTA_HREF} />
+      <StickyCtaMobile
+        labelComercial={CTA_LABEL}
+        href={CTA_HREF}
+        extraHideIds={["mecanismo-cta", "apppordentro-cta", "garantia-cta"]}
+      />
     </div>
   );
 }

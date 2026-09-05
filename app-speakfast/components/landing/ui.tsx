@@ -180,8 +180,11 @@ export function useReveal(stagger = 0.07): { contenedor: Variants; item: Variant
   };
 }
 
-/* Props estándar para el contenedor con reveal — evita repetir en cada sección. */
-export const VIEWPORT_ONCE = { once: true, amount: 0.2 } as const;
+/* Props estándar para el contenedor con reveal — evita repetir en cada sección.
+   amount bajo (no 0.2): en secciones altas (Oferta, Solución) exigir 20% de su
+   propia altura visible retrasa la entrada y deja un tramo en blanco mientras
+   se hace scroll — 0.1 dispara la animación apenas asoma la sección. */
+export const VIEWPORT_ONCE = { once: true, amount: 0.1 } as const;
 
 /* ── <CtaButton> — el CTA vivo del kit: ≥52px, whileTap 0.97, sombra tintada.
    El texto sobre acento usa --bg: si tu FICHA-ARTE rompe el contraste AA ahí,
@@ -223,10 +226,12 @@ export function CtaButton({
 }
 
 /* ── <StickyCtaMobile> — barra fija inferior SOLO mobile (55 T2).
-   Aparece cuando el hero sale del viewport; se oculta frente a la oferta y al
-   CTA final; safe-area respetada. DOS estados (T2): antes de ver la oferta el
-   botón hace scroll a #oferta ("ver precios"); después de verla, cambia al CTA
-   comercial — nunca saltar una oferta que la persona todavía no vio. */
+   Aparece cuando el hero sale del viewport; se oculta frente a la oferta, al
+   CTA final y frente a cualquier CTA propio de sección (extraHideIds — evita
+   mostrar dos botones "Probar mi primera simulación" apilados, ej. tras
+   Solución/Garantía). DOS estados (T2): antes de ver la oferta el botón hace
+   scroll a #oferta ("ver precios"); después de verla, cambia al CTA comercial
+   — nunca saltar una oferta que la persona todavía no vio. */
 export function StickyCtaMobile({
   labelComercial,
   href,
@@ -234,6 +239,7 @@ export function StickyCtaMobile({
   heroId = 'hero',
   ofertaId = 'oferta',
   ctaFinalId = 'cta-final',
+  extraHideIds = [],
 }: {
   labelComercial: string;
   href: string;
@@ -241,12 +247,15 @@ export function StickyCtaMobile({
   heroId?: string;
   ofertaId?: string;
   ctaFinalId?: string;
+  /** IDs de otras secciones con su propio CTA visible — la barra se oculta ahí. */
+  extraHideIds?: string[];
 }) {
   const reduce = useReducedMotion();
   const [heroVisible, setHeroVisible] = useState(true);
   const [ofertaVisible, setOfertaVisible] = useState(false);
   const [ofertaVista, setOfertaVista] = useState(false);
   const [finalVisible, setFinalVisible] = useState(false);
+  const [extraVisible, setExtraVisible] = useState(false);
   // Control del usuario (heurística Nielsen 3): la barra se puede descartar por
   // el resto de la sesión — no es obligatoria, solo una ayuda de scroll.
   const [descartada, setDescartada] = useState(false);
@@ -254,6 +263,7 @@ export function StickyCtaMobile({
   // ya es una navegación real a `href` (tras ver la oferta); antes de eso es
   // un scroll-to-anchor local que no necesita spinner.
   const [navegando, setNavegando] = useState(false);
+  const extraHideKey = extraHideIds.join(',');
 
   useEffect(() => {
     const observar = (id: string, onChange: (visible: boolean) => void): IntersectionObserver | null => {
@@ -275,14 +285,26 @@ export function StickyCtaMobile({
       if (v) setOfertaVista(true);
     });
     const c = observar(ctaFinalId, setFinalVisible);
+    const visibles = new Set<string>();
+    const extras = extraHideKey
+      .split(',')
+      .filter(Boolean)
+      .map((eid) =>
+        observar(eid, (v) => {
+          if (v) visibles.add(eid);
+          else visibles.delete(eid);
+          setExtraVisible(visibles.size > 0);
+        })
+      );
     return () => {
       a?.disconnect();
       b?.disconnect();
       c?.disconnect();
+      extras.forEach((o) => o?.disconnect());
     };
-  }, [heroId, ofertaId, ctaFinalId]);
+  }, [heroId, ofertaId, ctaFinalId, extraHideKey]);
 
-  const visible = !heroVisible && !ofertaVisible && !finalVisible && !descartada;
+  const visible = !heroVisible && !ofertaVisible && !finalVisible && !extraVisible && !descartada;
 
   return (
     <AnimatePresence>

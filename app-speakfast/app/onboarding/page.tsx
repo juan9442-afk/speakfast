@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PlanCapture } from "./PlanCapture";
 
 export const metadata: Metadata = {
   title: "Onboarding — SpeakFast",
@@ -7,9 +8,15 @@ export const metadata: Metadata = {
 // Placeholder de ruta: el onboarding real (elegir rol, primera simulación) se
 // construye en la Sesión 4 (02B/50). Este stub evita un CTA que lleve a un 404
 // mientras la landing (Sesión 3) se cierra y se revisa.
-export default function OnboardingPage() {
+export default async function OnboardingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ plan?: string }>;
+}) {
+  const { plan } = await searchParams;
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-6 text-center [font-family:var(--font-body)] text-[var(--text-primary)]">
+      <PlanCapture plan={plan} />
       <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--accent)]">
         Próximamente
       </p>

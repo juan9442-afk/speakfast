@@ -8,7 +8,7 @@
 // escalonados (whileInView + stagger, reduced-motion respetado).
 
 import { motion } from 'motion/react';
-import { Accent, Hairline, Kicker, SectionShell, useReveal, VIEWPORT_ONCE } from './ui';
+import { Accent, CtaButton, Hairline, Kicker, SectionShell, useReveal, VIEWPORT_ONCE } from './ui';
 import { MarkedCopy, warnCopy } from './MarkedCopy';
 
 export interface PasoMecanismo {
@@ -36,6 +36,9 @@ export interface SolucionProps {
     labelDespues: string;
     despues: string;
   };
+  /** CTA repetido tras el mecanismo (19 §CTAs a lo largo del scroll) — opcional. */
+  ctaLabel?: string;
+  ctaHref?: string;
   id?: string;
 }
 
@@ -46,6 +49,8 @@ export function Solucion({
   bigIdeaMarked,
   pasos,
   antesDespues,
+  ctaLabel,
+  ctaHref,
   id,
 }: SolucionProps) {
   warnCopy('Solución → título', tituloMarked, 8);
@@ -117,6 +122,12 @@ export function Solucion({
                 {antesDespues.despues}
               </p>
             </div>
+          </motion.div>
+        )}
+
+        {ctaLabel && ctaHref && (
+          <motion.div id="mecanismo-cta" variants={item} className="mt-10 flex justify-center">
+            <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
           </motion.div>
         )}
       </motion.div>

@@ -10,7 +10,7 @@
 import { motion } from 'motion/react';
 import { Lock, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { Accent, Hairline, SectionShell, useReveal, VIEWPORT_ONCE } from './ui';
+import { Accent, CtaButton, Hairline, SectionShell, useReveal, VIEWPORT_ONCE } from './ui';
 import { MarkedCopy, warnCopy } from './MarkedCopy';
 
 export interface GarantiaProps {
@@ -22,10 +22,21 @@ export interface GarantiaProps {
   pisoLegal?: string;
   /** default ShieldCheck (Lucide) — siempre SVG. */
   icon?: LucideIcon;
+  /** CTA repetido tras la garantía (19 §CTAs a lo largo del scroll) — opcional. */
+  ctaLabel?: string;
+  ctaHref?: string;
   id?: string;
 }
 
-export function Garantia({ nombre, condicionMarked, pisoLegal, icon: Icono = ShieldCheck, id }: GarantiaProps) {
+export function Garantia({
+  nombre,
+  condicionMarked,
+  pisoLegal,
+  icon: Icono = ShieldCheck,
+  ctaLabel,
+  ctaHref,
+  id,
+}: GarantiaProps) {
   warnCopy('Garantía → condición', condicionMarked, 30);
   const { contenedor, item } = useReveal();
 
@@ -59,6 +70,11 @@ export function Garantia({ nombre, condicionMarked, pisoLegal, icon: Icono = Shi
                   <Lock size={14} aria-hidden="true" />
                   {pisoLegal}
                 </p>
+              )}
+              {ctaLabel && ctaHref && (
+                <div id="garantia-cta" className="mt-2">
+                  <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
+                </div>
               )}
             </div>
           </Hairline>

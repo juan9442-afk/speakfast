@@ -155,7 +155,7 @@ export function AppPorDentro({
         </motion.div>
 
         {/* CTA mid-page (reglas de CTA de 19): tras la prueba visual, cuando la confianza es alta */}
-        <motion.div variants={item} className="mt-10 flex justify-center">
+        <motion.div id="apppordentro-cta" variants={item} className="mt-10 flex justify-center">
           <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
         </motion.div>
       </motion.div>

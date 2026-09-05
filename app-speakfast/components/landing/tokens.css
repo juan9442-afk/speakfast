@@ -25,10 +25,14 @@
   --surface: #fffdf7;
   --surface-2: #e7dbbe;
 
-  /* ── TEXTO (casi-negro CON tinte, familia única de neutros) ── */
+  /* ── TEXTO (casi-negro CON tinte, familia única de neutros).
+     Reabierto 2026-09-05: al oscurecer --bg/--surface-2 (arriba), --text-secondary
+     quedó en ~3.87:1 contra ambos — bajo el AA de 4.5:1 (revisor-visual, medido).
+     Se oscurecen los dos tonos un escalón, MISMA familia, para que --text-secondary
+     pase AA contra --bg Y --surface-2 (el peor caso, no solo contra --surface). ── */
   --text-primary: #241f1a;
-  --text-secondary: #7c7568;
-  --text-tertiary: #665f52;   /* más oscuro que secondary a propósito: ≥4.5:1 en footer/labels 13px */
+  --text-secondary: #665f52;   /* antes #7c7568 — ahora ≥4.5:1 contra bg/surface-2 */
+  --text-tertiary: #4a4438;    /* antes #665f52 — más oscuro que secondary a propósito: ≥4.5:1 en footer/labels 13px */
 
   /* ── MARCA — verde "listo/aprobado" manda; terracota es la 2ª nota (solo mesh del hero) ── */
   --accent: #1f7a5a;

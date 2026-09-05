@@ -17,10 +17,13 @@
    ============================================================================ */
 
 :root {
-  /* ── SUPERFICIES (3 niveles: base / elevada / hundida) — FICHA-ARTE "El entrenador editorial" ── */
-  --bg: #faf6ec;
+  /* ── SUPERFICIES (3 niveles: base / elevada / hundida) — FICHA-ARTE "El entrenador editorial".
+     Reabierto 2026-09-04: el revisor-visual señaló que bg/surface eran casi indistinguibles
+     (delta de solo ~5-11 en RGB) — se separan los 3 niveles manteniendo la misma familia
+     cálida (nunca #fff puro), sin cambiar el hue ni la dirección aprobada. ── */
+  --bg: #f3ecda;
   --surface: #fffdf7;
-  --surface-2: #f2ebda;
+  --surface-2: #e7dbbe;
 
   /* ── TEXTO (casi-negro CON tinte, familia única de neutros) ── */
   --text-primary: #241f1a;
@@ -43,8 +46,12 @@
   --shadow-1: 0 1px 2px rgb(46 34 22 / 0.06);
   --shadow-2: 0 12px 32px -12px rgb(46 34 22 / 0.18);
 
-  /* ── DERIVADOS (no se tocan: se recalculan solos desde --accent) ── */
+  /* ── DERIVADOS (no se tocan: se recalculan solos desde --accent/--accent-2) ── */
   --chip-bg: color-mix(in oklab, var(--accent) 10%, transparent);
+  /* Uso permitido de FICHA-ARTE: "fondo de los chips de ícono (10-12%)" — el único
+     chip que la usa hoy es el de Garantía (Garantia.tsx), a propósito: es el punto
+     de la página donde la nota cálida/humana de la 2ª marca tiene más sentido. */
+  --chip-bg-2: color-mix(in oklab, var(--accent-2) 11%, transparent);
 }
 
 /* ============================================================================

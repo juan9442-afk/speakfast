@@ -53,11 +53,14 @@ export function Garantia({
           {/* La card de garantía: uno de los 1-3 usos de hairline permitidos por vista */}
           <Hairline surface="surface" className="shadow-[var(--shadow-1)]">
             <div className="flex flex-col items-center gap-4 px-6 py-10 text-center">
+              {/* Único chip de ícono en 2ª nota (terracota) de toda la landing — uso
+                  permitido por FICHA-ARTE ("fondo de los chips de ícono"), a propósito
+                  aquí: la garantía es el momento de calidez/confianza, no de progreso. */}
               <span
                 aria-hidden="true"
-                className="flex size-15 items-center justify-center rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--accent)_22%,transparent)] bg-[var(--chip-bg)]"
+                className="flex size-15 items-center justify-center rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--accent-2)_25%,transparent)] bg-[var(--chip-bg-2)]"
               >
-                <Icono size={32} strokeWidth={1.8} color="var(--accent)" aria-hidden="true" />
+                <Icono size={32} strokeWidth={1.8} color="var(--accent-2)" aria-hidden="true" />
               </span>
               <h2 className="text-balance text-[22px] font-bold leading-tight [font-family:var(--font-display)]">
                 <Accent>{nombre}</Accent>

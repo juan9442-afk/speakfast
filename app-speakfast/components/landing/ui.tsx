@@ -188,36 +188,45 @@ export const VIEWPORT_ONCE = { once: true, amount: 0.1 } as const;
 
 /* ── <CtaButton> — el CTA vivo del kit: ≥52px, whileTap 0.97, sombra tintada.
    El texto sobre acento usa --bg: si tu FICHA-ARTE rompe el contraste AA ahí,
-   ajusta los tokens, no el componente. ── */
+   ajusta los tokens, no el componente. variant 'outline' = el CTA secundario
+   (ej. plan Mensual junto al Anual recomendado) — MISMO componente, mismo
+   estado de carga, para no reimplementarlo a mano en cada sección. ── */
 export function CtaButton({
   href,
   children,
   alto = 52,
   fullMobile = true,
+  variant = 'solid',
 }: {
   href: string;
   children: ReactNode;
   alto?: 52 | 56;
   fullMobile?: boolean;
+  variant?: 'solid' | 'outline';
 }) {
   // Estado de espera real (no solo el whileTap): la navegación es un <a href>
   // de recarga completa — en redes lentas de LATAM el tap puede no dar señal
   // durante 1-2s. Mostrar un spinner inline evita el "¿le di o no le di?".
   const [navegando, setNavegando] = useState(false);
+  const esOutline = variant === 'outline';
   return (
     <motion.a
       whileTap={{ scale: 0.97, opacity: 0.85 }}
       href={href}
       aria-busy={navegando}
       onClick={() => setNavegando(true)}
-      className={`inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] bg-[var(--accent)] px-8 text-[17px] font-semibold text-[var(--bg)] shadow-[0_8px_30px_color-mix(in_oklab,var(--accent)_25%,transparent)] transition-colors duration-150 hover:bg-[color-mix(in_oklab,var(--accent)_88%,var(--text-primary))] [touch-action:manipulation] ${
-        navegando ? 'opacity-80' : ''
+      className={`inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] px-8 text-[17px] font-semibold transition-colors duration-150 [touch-action:manipulation] ${
+        esOutline
+          ? `border border-[color-mix(in_oklab,var(--accent)_45%,transparent)] text-[var(--accent)] hover:bg-[var(--chip-bg)] ${navegando ? 'opacity-80' : ''}`
+          : `bg-[var(--accent)] text-[var(--bg)] shadow-[0_8px_30px_color-mix(in_oklab,var(--accent)_25%,transparent)] hover:bg-[color-mix(in_oklab,var(--accent)_88%,var(--text-primary))] ${navegando ? 'opacity-80' : ''}`
       } ${alto === 56 ? 'h-14' : 'h-[52px]'} ${fullMobile ? 'w-full sm:w-auto' : ''}`}
     >
       {navegando && (
         <span
           aria-hidden="true"
-          className="size-4 shrink-0 animate-spin rounded-full border-2 border-[var(--bg)] border-t-transparent"
+          className={`size-4 shrink-0 animate-spin rounded-full border-2 border-t-transparent ${
+            esOutline ? 'border-[var(--accent)]' : 'border-[var(--bg)]'
+          }`}
         />
       )}
       {children}

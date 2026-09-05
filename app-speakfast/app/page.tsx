@@ -21,7 +21,9 @@ import { CountUpNumber, StickyCtaMobile } from "@/components/landing/ui";
 // el CTA lleva directo a /onboarding, sin registro previo. El checkout de
 // Hotmart aparece después, en el paywall in-app (Sesión 4).
 const CTA_HREF = "/onboarding";
-const CTA_LABEL = "Probar mi primera simulación";
+// Un solo verbo raíz ("Empezar") en TODOS los CTA de compra del scroll (52/19):
+// evita que "Probar/Empezar/Elegir" convivan como si fueran 3 acciones distintas.
+const CTA_LABEL = "Empezar mi primera simulación";
 
 export default function LandingSpeakFast() {
   return (
@@ -124,11 +126,11 @@ export default function LandingSpeakFast() {
         stack={{
           lineas: [
             { resultado: "SpeakFast Pro con el Simulacro de Presión (12 meses)", valor: "$180" },
-            { resultado: "Banco de preguntas de tu rol (Tech, Marketing, Ventas, Finanzas)", valor: "$37" },
+            { resultado: "Banco de preguntas de tu rol (Tecnología, Marketing, Ventas, Finanzas)", valor: "$37" },
             { resultado: "Reporte de mejora y racha de entrenamiento", valor: "$27" },
           ],
           totalTachado: "$244",
-          nota: "Hoy: $3.75/mes (se cobra $44.99/año) · Garantía de 15 días",
+          nota: "Ahorras $199 al año · Garantía de 15 días",
         }}
         garantiaTexto="15 días de garantía · cancelas cuando quieras"
         anual={{
@@ -150,7 +152,7 @@ export default function LandingSpeakFast() {
         mensual={{
           nombre: "Mensual",
           precioMes: "$5.99",
-          ctaLabel: "Elegir mensual",
+          ctaLabel: "Empezar plan mensual",
           ctaHref: `${CTA_HREF}?plan=mensual`,
           features: [
             "Simulaciones de tu rol, todos los días",

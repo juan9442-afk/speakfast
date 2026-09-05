@@ -2,15 +2,15 @@
 
 // KIT DE LANDING — §6 OFERTA (blueprint: 55 §6 · mecánica: 02C · estructura: 19 §6)
 // Reglas embebidas: el ANUAL va PRIMERO en el DOM (recomendado, mobile arriba) ·
-// badge de trial en AMBAS cards SOLO si trialDias existe (02C decide N; sin
-// esquema de trial NO se pinta — prohibido inventarlo) · total anual SIEMPRE
-// visible ("Se cobra $X/año") · ahorro en MESES, no en % · hairline degradada en
-// la card recomendada (el uso canónico de la técnica) · checkmarks custom.
-// El destino de los CTAs sigue al MODELO de 02C (checkout vs /onboarding).
+// trial en AMBAS cards SOLO si trialDias existe (02C decide N; sin esquema de
+// trial NO se pinta — prohibido inventarlo), como texto junto al precio (no un
+// 2º badge — la card Anual ya tiene "MÁS POPULAR", una sola señal dominante) ·
+// total anual SIEMPRE visible ("Se cobra $X/año") · ahorro en MESES, no en % ·
+// hairline degradada en la card recomendada (el uso canónico de la técnica) ·
+// checkmarks custom. El destino de los CTAs sigue al MODELO de 02C.
 
-import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Lock, Star } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { CheckCustom, CtaButton, Hairline, Kicker, SectionShell, useReveal, VIEWPORT_ONCE } from './ui';
 import { MarkedCopy, warnCopy, warnRango } from './MarkedCopy';
 
@@ -56,23 +56,25 @@ export interface OfertaProps {
   id?: string;
 }
 
-function TrialBadge({ dias }: { dias: number }) {
-  return (
-    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[color-mix(in_oklab,var(--accent)_13%,transparent)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--accent)]">
-      <Star size={12} strokeWidth={2.5} aria-hidden="true" />
-      {dias} días gratis
-    </span>
-  );
-}
-
-function Precio({ plan }: { plan: PlanOferta }) {
+function Precio({ plan, trialDias }: { plan: PlanOferta; trialDias?: number }) {
+  // El trial vive JUNTO al precio (no como un 2º badge compitiendo con "MÁS
+  // POPULAR"): mismo tamaño que el sufijo "/mes", solo el color cambia a la
+  // 2ª nota (terracota) — un regalo/calidez, no un dato de progreso (verde).
   return (
     <div>
       <p className="flex items-baseline gap-1">
         <span className="text-[36px] font-bold leading-none tabular-nums text-[var(--text-primary)] [font-family:var(--font-display)]">
           {plan.precioMes}
         </span>
-        <span className="text-[14px] text-[var(--text-secondary)]">{plan.sufijo ?? '/mes'}</span>
+        <span className="text-[14px] text-[var(--text-secondary)]">
+          {plan.sufijo ?? '/mes'}
+          {trialDias !== undefined && (
+            <>
+              {' · '}
+              <span className="font-semibold text-[var(--accent-2)]">{trialDias} días gratis</span>
+            </>
+          )}
+        </span>
       </p>
       {plan.descomposicionDia && (
         <p className="mt-1 text-[13px] text-[var(--text-secondary)]">{plan.descomposicionDia}</p>
@@ -108,9 +110,6 @@ export function Oferta({
 }: OfertaProps) {
   warnCopy('Oferta → título', tituloMarked, 8);
   const { contenedor, item } = useReveal();
-  // Mismo estado de espera del CtaButton (55 h1): el outline de "Mensual" es
-  // un <a href> de recarga completa y necesita la misma señal de navegación.
-  const [navegandoMensual, setNavegandoMensual] = useState(false);
 
   return (
     <SectionShell id={id} elevacion="base" ariaLabel="Planes y precios">
@@ -162,12 +161,9 @@ export function Oferta({
             )}
             <Hairline emphasis surface="surface" className="shadow-[0_12px_36px_color-mix(in_oklab,var(--accent)_16%,transparent)]">
               <div className="rounded-[var(--radius-card)] bg-[color-mix(in_oklab,var(--accent)_5%,transparent)] p-6 md:p-7">
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-[18px] font-semibold text-[var(--text-primary)]">{anual.nombre}</h3>
-                  {trialDias !== undefined && <TrialBadge dias={trialDias} />}
-                </div>
+                <h3 className="text-[18px] font-semibold text-[var(--text-primary)]">{anual.nombre}</h3>
                 <div className="mt-4">
-                  <Precio plan={anual} />
+                  <Precio plan={anual} trialDias={trialDias} />
                   {/* El total anual SIEMPRE visible — regla de oro de 02C */}
                   <p className="mt-1 text-[12px] text-[var(--text-secondary)]">{anual.totalAnual}</p>
                   <p className="mt-2 text-[15px] font-semibold text-[var(--accent)]">{anual.ahorro}</p>
@@ -187,29 +183,16 @@ export function Oferta({
             variants={item}
             className="rounded-[var(--radius-card)] border border-[color-mix(in_oklab,var(--text-tertiary)_28%,transparent)] bg-[var(--surface)] p-6 shadow-[var(--shadow-1)] md:p-7"
           >
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-[18px] font-semibold text-[var(--text-primary)]">{mensual.nombre}</h3>
-              {trialDias !== undefined && <TrialBadge dias={trialDias} />}
-            </div>
+            <h3 className="text-[18px] font-semibold text-[var(--text-primary)]">{mensual.nombre}</h3>
             <div className="mt-4">
-              <Precio plan={mensual} />
+              <Precio plan={mensual} trialDias={trialDias} />
             </div>
             <Features items={mensual.features} origen="Oferta → mensual" />
-            <motion.a
-              whileTap={{ scale: 0.97, opacity: 0.85 }}
-              href={mensual.ctaHref}
-              aria-busy={navegandoMensual}
-              onClick={() => setNavegandoMensual(true)}
-              className={`mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--accent)_45%,transparent)] text-[16px] font-semibold text-[var(--accent)] transition-colors duration-150 hover:bg-[var(--chip-bg)] [touch-action:manipulation] ${navegandoMensual ? 'opacity-80' : ''}`}
-            >
-              {navegandoMensual && (
-                <span
-                  aria-hidden="true"
-                  className="size-4 shrink-0 animate-spin rounded-full border-2 border-[var(--accent)] border-t-transparent"
-                />
-              )}
-              {mensual.ctaLabel}
-            </motion.a>
+            <div className="mt-6">
+              <CtaButton href={mensual.ctaHref} variant="outline" fullMobile>
+                {mensual.ctaLabel}
+              </CtaButton>
+            </div>
           </motion.div>
         </div>
 

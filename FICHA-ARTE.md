@@ -23,9 +23,9 @@ Nombre de la dirección: **"El entrenador editorial"** (combinación A + F, ajus
 - Compilación (tabla del 11): spring bounce **0.1** (SOLO en la celebración de "pregunta dominada" y hitos de racha 7/30/100) · duración base **280ms** · exclamaciones máx **1 por pantalla** (tono adulto, cero hype) · celebración nivel **contenido/medio** (sobrio, sin confeti infantil, sin mascota) · radio tendencial **18px**.
 
 ## Brand kit final (valores para globals.css / @theme)
-- Fondo: `#FAF6EC` (crema cálido) · Superficie: `#FFFDF7` · Hundido: `#F2EBDA` · Texto 1º/2º: `#241F1A` / `#7C7568`
+- Fondo: ~~`#FAF6EC`~~ → **`#F3ECDA`** (crema cálido, un punto más profundo — ver "Reapertura 2026-09-04") · Superficie: `#FFFDF7` · Hundido: ~~`#F2EBDA`~~ → **`#E7DBBE`** · Texto 1º/2º: `#241F1A` / `#7C7568`
 - Acento principal: `#1F7A5A` (verde "listo/aprobado") — SOLO en: botón primario (CTA), barra "listo para tu entrevista", deltas positivos ("bajaste de 8 a 6", "↑ 11 puntos"), estado "dominada", racha.
-- 2ª nota: `#B5502F` (terracota) — porqué: calidez humana + energía + carácter LATAM sin leerse corporativo frío (banco 54 dir. 7); USO ESTRICTO como acento puntual: filo del recuadro del dato héroe, fondo de los chips de ícono (10-12%). ~~color del subrayado marcador~~ (revocado — ver Trazabilidad). NUNCA como bloque grande, barra de estado ni botón.
+- 2ª nota: `#B5502F` (terracota) — porqué: calidez humana + energía + carácter LATAM sin leerse corporativo frío (banco 54 dir. 7); USO ESTRICTO como acento puntual: filo del recuadro del dato héroe, fondo de los chips de ícono (10-12% — en vivo: el chip del ícono de Garantía, único de la landing, ver "Reapertura"). ~~color del subrayado marcador~~ (revocado — ver Trazabilidad). NUNCA como bloque grande, barra de estado ni botón.
 - Semánticos: éxito `#1F7A5A` (coincide con el acento — verde) · error `#B23B2E` (rojo lacre, con ícono siempre) · aviso `#C9821E` (ámbar)
 - Display: **Fraunces** (opsz variable; pesos 500/600, titulares 600) · Body: **Figtree** (pesos 400/500/600/700) · Escala: display 46-58px (número héroe) / title 22-24px / body 15-16px / label 11-13px. Salto display↔body ≥3×. Tracking titulares −0.01 a −0.02em; labels/mayúsculas +0.05em.
 - Radio: 18px cards · 13px botón · 12px chips de ícono. Profundidad: sombras suaves tintadas cálidas (2 capas: `0 1px 2px rgb(46 34 22 / .05)` + `0 14px 30px -16px rgb(46 34 22 / .2)`) — no bordes duros grises. Espaciado base: escala 4·8·12·16·24·32·48·64.
@@ -42,3 +42,9 @@ Nombre de la dirección: **"El entrenador editorial"** (combinación A + F, ajus
 
 ## Ajuste post-aprobación (2026-09-04)
 Con la landing ya construida y aprobada (Sesión 3), el usuario vio el subrayado marcador en pantalla y no le gustó — ni en su versión original (58% de mezcla) ni en una versión mucho más sutil (22%) que se probó primero. Se eliminó del todo (`Accent` en `ui.tsx` ahora es solo texto en color de acento, sin fondo). El proyecto queda SIN dispositivo ownable de tipo "subrayado"; si en una sesión futura se quiere uno nuevo, se vuelve a pasar por el banco 54 con el usuario.
+
+## Reapertura de color/identidad (2026-09-04 — autorizada explícitamente por el usuario)
+El revisor-visual (contexto limpio, tercera pasada tras elevar la landing) señaló 2 puntos de craft: (1) `--bg` y `--surface` casi indistinguibles (delta de ~5-11 en RGB) — la "profundidad de 3 niveles" no se percibía; (2) la nota terracota casi no se experimentaba en vivo, solo dentro de un SVG estático del mockup del Hero. El usuario autorizó reabrir esto (no es un "no tocar sin permiso" — se pidió expresamente). Cambios:
+- `--bg` `#FAF6EC`→`#F3ECDA` y `--surface-2` `#F2EBDA`→`#E7DBBE`: mismo hue cálido, más separación perceptual entre los 3 niveles. `--surface` no cambia (ya funcionaba como el nivel más claro).
+- Nuevo token derivado `--chip-bg-2` (`color-mix(--accent-2 11%)`), aplicado SOLO al chip de ícono de la sección Garantía (`Garantia.tsx`) — el único uso en vivo (no dentro de una imagen) de la 2ª nota en toda la landing, dentro del uso ya permitido por esta ficha ("fondo de los chips de ícono"). No se tocó el resto (nunca bloque/barra/botón, sigue vetado).
+- NO se reabrió el par tipográfico ni el acento principal — el usuario autorizó "el color", no toda la identidad de cero.

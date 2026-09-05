@@ -1,23 +1,14 @@
 # VEREDICTO revisor-visual — landing
-Fecha: 2026-09-04 00:00
-Screenshot: audit\s00.png, s01.png, s03.png, s06b.png, s08b.png, s10b.png + audit2\agitacion.png, mecanismo-cta.png, carrusel2.png, garantia-cta.png, cta-final.png + audit3\apppordentro-cta.png (NUEVA — set completo de 12 capturas a 375px)
-Usabilidad: 31/40
-Craft: 13/20
-Copy (si vende): 19/20
+Fecha: 2026-09-05 00:00
+Screenshot: C:\Users\juan9\CLAUDE\CLAUDE\speakfast\audit8\s00.png (+ s01..s10, scroll completo 375px)
+Usabilidad: 29/40
+Craft: 12/20
+Copy (si vende): 18/20
 Fidelidad (si hubo referencia): N-A
 Veredicto: NO LISTA
-
-Verificación de los 5 defectos de la ronda anterior:
-1. Barra sticky duplicada en AppPorDentro → CORREGIDO. `id="apppordentro-cta"` en AppPorDentro.tsx:158 y sumado a `extraHideIds` en app/page.tsx:236. Confirmado en audit3/apppordentro-cta.png: sin barra sticky visible bajo el CTA del carrusel.
-2. Plan (`?plan=`) perdido en onboarding → CORREGIDO (parcial, honesto). `PlanCapture.tsx` guarda `plan` en sessionStorage vía `searchParams.plan` leído en `onboarding/page.tsx` (async). El onboarding real sigue siendo un stub "Próximamente" — correcto para el alcance de esta sesión, documentado.
-3 y 5. Marco de teléfono del carrusel con terracota casi indistinguible del verde → CORREGIDO revirtiendo a `var(--accent)` verde, misma fórmula que el Hero (`color-mix(in oklab, var(--text-primary) 90%, var(--accent))` vs 88% del Hero) → una sola lógica de color en ambos marcos, consistencia heurística 4 restaurada.
-4. "la presión real de HR" → "la presión real del reclutador" — CORREGIDO en app/page.tsx:94 (verificado en código; la captura s03.png reusada es vieja y todavía muestra "de HR", pero el código manda y ya no hay inglés crudo suelto).
-
-Ningún defecto nuevo de los 5 quedó sin resolver. Se encontró evidencia NUEVA (no reportada en rondas previas) al revisar el screenshot audit3/apppordentro-cta.png con ojos frescos: un vacío muerto de ~300-350px de fondo liso entre el CTA del carrusel y el inicio visible de "La oferta", causado por el umbral de reveal-on-scroll (`VIEWPORT_ONCE = { amount: 0.2 }` en ui.tsx, usado igual en las 8 secciones) exigiendo que ~20% de una sección alta esté visible antes de animar su entrada — ver Top defectos #1.
-
-TOP DEFECTOS:
-1. [Entre "Así se ve por dentro" y "La oferta", justo tras el CTA del carrusel] Vacío muerto de fondo liso (~300-350px, casi la mitad del viewport en audit3/apppordentro-cta.png) mientras se hace scroll, antes de que aparezca el kicker "LA OFERTA" — `VIEWPORT_ONCE = { once: true, amount: 0.2 }` (ui.tsx) exige que 20% de la sección Oferta (alta: kicker+título+stack+2 cards+garantía) esté visible antes de disparar la animación de entrada, dejando la pantalla en blanco durante ese tramo de scroll → fix: bajar `amount` a ~0.05-0.1 o usar `margin` negativo en el `viewport` de framer-motion para que el contenido empiece a aparecer apenas la sección asoma, no cuando ya lleva 20% adentro.
-2. [Alternancia de fondo entre TODAS las secciones, ej. Hero→Problema, Solución→AppPorDentro] `--bg` (#FAF6EC) y `--surface` (#FFFDF7) son casi idénticos a simple vista en los 12 screenshots — la alternancia base/elevado documentada en FICHA-ARTE (los "3 niveles de profundidad") no se percibe como tal, toda la landing se lee como un único plano crema continuo → fix: aumentar el contraste tonal entre `--bg` y `--surface`, o marcar el límite de sección con una sombra/borde sutil.
-3. [Identidad visual global — kit "papel cálido + tinta verde"] La lógica de paleta final (crema dominante + verde como único acento funcional) coincide conceptualmente con la combinación vetada del banco anti-clon ("papel cálido + tinta verde"), aunque la tipografía (Fraunces/Figtree) difiere de la prohibida (Petrona/Karla) — el dispositivo ownable propio (filo terracota) casi no se experimenta en vivo: solo aparece horneado en 1 SVG estático del mockup del Hero, en ningún componente interactivo real de la página → fix: sumar la nota terracota a 1-2 puntos más de la interfaz viva (no solo el mockup) para que la identidad no dependa de un solo asset.
-4. [CTAs a lo largo del funnel: Hero/Solución/AppPorDentro/Garantía/CtaFinal vs StickyCtaMobile pre-oferta vs cards de Oferta] Conviven 4 textos de CTA distintos — "Probar mi primera simulación" (el principal, repetido), "Ver plan y precios" (sticky antes de ver la oferta), "Empezar mis 7 días gratis" (plan anual) y "Elegir mensual" (plan mensual) — fragmenta la dirección a una sola acción/promesa → fix: unificar a máximo 2 variantes con el mismo verbo raíz.
-5. [Oferta.tsx, card Mensual, líneas 198-212] El CTA de la card mensual es un `<a>` manual con estilos y estado "navegando" reimplementados a mano en vez de reutilizar `<CtaButton>` (que ya soporta variante y estado de espera) — riesgo de deriva de consistencia: un cambio futuro al estilo/estado del CTA vivo del kit no se replicará aquí automáticamente → fix: extraer una variante `outline` de `CtaButton` en ui.tsx y usarla en ambos lugares.
+Top defectos:
+1. [Identidad] Paleta crema+verde+Fraunces/Figtree funciona pero es intercambiable con cualquier app de bienestar/educación estilo Headspace/Duolingo; el único toque ownable (filo terracota) vive escondido en el chip de ícono de Garantía, una sola vez en todo el scroll. Fix: sumar la nota terracota en 1-2 puntos más de alto tráfico visual (ej. borde del badge "MÁS POPULAR" o un acento en el mockup del hero) para que se registre antes de llegar a Garantía.
+2. [Hero, visual del mockup] El número "72/100" aparece DOS veces seguidas: grande y estático dentro del SVG del mockup, y chico (17px) animado con CountUpNumber en la leyenda de abajo — la única instancia que realmente cuenta en vivo no es el número héroe real, sino su duplicado. Fix: mover el conteo animado al número grande real (componente vivo, no imagen) o eliminar la leyenda duplicada.
+3. [Oferta] El precio "$3.75/mes (se cobra $44.99/año)" se repite en la nota del stack Hormozi y de inmediato otra vez en la card Anual, a menos de 2 scrolls de distancia — se siente redundante. Fix: en la nota del stack, resumir el ahorro ("Ahorras $199/año") sin repetir el precio exacto que ya muestra la card de abajo.
+4. [Oferta, plan Mensual] El texto del CTA "Empezar con el plan mensual" envuelve a 2 líneas mientras el CTA Anual ("Empezar mis 7 días gratis") queda en 1 línea — las alturas de ambos botones no calzan entre sí en pantallas adyacentes. Fix: acortar el label mensual a algo que quepa en 1 línea a 375px (ej. "Elegir el plan mensual").
+5. [Copy, sección Oferta] "Banco de preguntas de tu rol (Tech, Marketing, Ventas, Finanzas)" mezcla "Tech" en inglés crudo dentro de una lista en español — rompe la regla de 0 inglés no traducido en la UI. Fix: usar "Tecnología" o el nombre de rol equivalente en español.

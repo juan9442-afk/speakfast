@@ -61,14 +61,17 @@ export function Agitacion({ frases, contraste, id }: AgitacionProps) {
 
         {contraste && (
           <motion.div variants={item} className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="rounded-[var(--radius-card)] bg-[var(--bg)] p-5 shadow-[var(--shadow-1)]">
+            {/* Nivel "hundido" (3er nivel de profundidad de FICHA-ARTE): sombra
+                INSET, no la shadow-1 elevada del resto de las cards — un bloque
+                recesado se lee con borde + sombra hacia adentro, no hacia afuera. */}
+            <div className="rounded-[var(--radius-card)] border border-[color-mix(in_oklab,var(--text-tertiary)_20%,transparent)] bg-[var(--bg)] p-5 shadow-[inset_0_1px_4px_rgb(46_34_22_/_0.10)]">
               <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--text-tertiary)]">
                 {contraste.labelHoy}
               </p>
               <p className="mt-2 text-[15px] leading-snug text-[var(--text-primary)]">{contraste.hoy}</p>
             </div>
             {/* "si nada cambia": más apagado/frío — el peso lo pone el copy, no el rojo */}
-            <div className="rounded-[var(--radius-card)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-1)]">
+            <div className="rounded-[var(--radius-card)] border border-[color-mix(in_oklab,var(--text-tertiary)_20%,transparent)] bg-[var(--surface-2)] p-5 shadow-[inset_0_1px_4px_rgb(46_34_22_/_0.10)]">
               <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--text-tertiary)]">
                 {contraste.labelFuturo}
               </p>

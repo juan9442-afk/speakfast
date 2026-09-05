@@ -71,7 +71,7 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Servicios externos: bloqueados hasta que las puertas anteriores estén aprobadas — orden: GitHub → Supabase → IA real (STT+LLM) → Vercel → Resend → dominio → Hotmart
 
 ## Puertas de etapa (aprobación antes de avanzar)
-- Landing: ✅ aprobada (revisor-visual — Usabilidad 36/40 · Craft 18/20 · Copy 19/20 — VEREDICTO: LISTA, 2026-09-04)
+- Landing: PENDIENTE de re-aprobación — se elevó tras la aprobación original (CTAs repetidos, plan propagado, fixes de revisor) y el veredicto vigente en docs/revisiones/landing-veredicto.md quedó en NO LISTA; ver detalle en "Problemas conocidos". Código funcional y verificado (tsc+build limpios), no es un defecto de construcción — es una decisión de diseño pendiente de que el usuario confirme.
 - Onboarding: no iniciada
 - Paywall: no iniciada
 - Login/Auth: no iniciada
@@ -113,6 +113,7 @@ Monetización: suscripción $5.99/mes · $44.99/año · prueba gratis 7 días.
 - Sesión 8: adquisición, lanzamiento, backoffice
 
 ## Problemas conocidos ⚠️
+- [veredicto:landing — pospuesto a propósito] Tras elevar la landing (CTAs repetidos, plan propagado en la URL, 10 defectos reales corregidos en 2 rondas de revisor-visual confirmadas), la 3ª pasada del revisor-visual dio VEREDICTO: NO LISTA (Usabilidad 31/40 · Craft 13/20 · Copy 19/20 — docs/revisiones/landing-veredicto.md). Los defectos de craft que quedan (bajo contraste entre `--bg`/`--surface`, identidad apoyada casi solo en 1 punto de terracota) son RE-LITIGIO de tokens que el usuario YA aprobó en FICHA-ARTE.md (Sesión 2, cosa juzgada) — no son regresiones nuevas de esta ronda, así que no se tocan sin que el usuario lo autorice explícitamente. Se le presentó el estado y las 2 opciones (aceptar como está / reabrir paleta-identidad) y se espera su respuesta. Hasta que decida, la landing NO se declara "lista"/"aprobada" en este archivo.
 - [datos legales pendientes] `/privacidad` y `/terminos` (`app-speakfast/app/`) tienen contenido real pero con `[pendiente]` en 3 datos que solo el usuario puede dar: nombre/razón social del responsable, país desde el que opera, email de contacto legal. No se puede publicar la landing con esos placeholders visibles.
 - [email de soporte placeholder] el copy usa `soporte@speakfast.app` como email de contacto — confirmar con el usuario si ese dominio/correo existe o hay que reemplazarlo antes de publicar.
 - [5 pendientes menores de pulido, aceptados por el revisor como no-bloqueantes — quedan para Sesión 7]: (1) el botón "×" de `StickyCtaMobile` no se reactiva al bajar a una sección nueva tras cerrarse, (2) los verbos de los 6 CTA no son 100% consistentes (Probar/Empezar/Elegir), (3) la card Anual en Oferta puede verse algo apretada con 2 badges a la vez, (4) el screenshot de página completa (375px) tiene un artefacto de captura menor, (5) el overlay "N" de Next.js Dev Tools aparece en las capturas de desarrollo (no aparece en producción).

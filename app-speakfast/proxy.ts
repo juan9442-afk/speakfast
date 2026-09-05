@@ -11,7 +11,10 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Todo excepto estáticos e imágenes — que el refresh no corra por cada asset.
-    '/((?!_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    // Todo excepto:
+    //  - /api/*  → las rutas de servidor validan su propia sesión (patrón BFF de 09);
+    //    además /api/health debe ser público. El proxy solo protege PÁGINAS.
+    //  - estáticos e imágenes → que el refresh no corra por cada asset.
+    '/((?!api|_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };

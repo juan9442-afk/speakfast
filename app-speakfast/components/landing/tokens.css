@@ -38,6 +38,9 @@
   --accent: #1f7a5a;
   --accent-2: #b5502f;
 
+  /* ── SEMÁNTICO — error (rojo lacre de FICHA-ARTE, siempre con ícono) ── */
+  --error: #b23b2e;
+
   /* ── FORMA (radios del brand kit — UNO por rol, toda la página) ── */
   --radius-card: 18px;
   --radius-button: 13px;

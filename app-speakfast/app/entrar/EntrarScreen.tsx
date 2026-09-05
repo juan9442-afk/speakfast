@@ -29,7 +29,7 @@ export function EntrarScreen() {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('error') === 'enlace') {
-      setError('Ese enlace ya no sirve (expiró o se usó). Pide uno nuevo.');
+      setError('Ese enlace no funcionó (expiró, ya se usó, o lo abriste en otro navegador). Escribe abajo tu correo y usa el código de 6 dígitos del email.');
     }
   }, []);
 
@@ -145,7 +145,7 @@ export function EntrarScreen() {
             </form>
 
             {error && (
-              <p role="alert" className="text-[13px] text-[var(--error,#B23B2E)]">
+              <p role="alert" className="text-[13px] text-[var(--error)]">
                 {error}
               </p>
             )}
@@ -196,7 +196,7 @@ export function EntrarScreen() {
               <motion.p
                 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
                 role="alert"
-                className="text-[13px] text-[var(--error,#B23B2E)]"
+                className="text-[13px] text-[var(--error)]"
               >
                 {error}
               </motion.p>

@@ -1,44 +1,93 @@
 'use client';
 
 // LOGIN — el último paso del funnel (blueprint: 50-DISENO-ONBOARDING-PAYWALL.md §E).
-// Sin contraseña: magic link por email (decisión de 26-AUTH-MODERNO.md, ver
-// ESTADO.md → Decisiones técnicas → Auth). El envío real via Supabase se conecta
-// en la Sesión 6 — aquí se simula el estado local (mismo criterio que el paywall)
-// para que la pantalla completa (los 3 estados) quede construida y revisada ya.
+// Sin contraseña: el usuario recibe UN correo con enlace + código de 6 dígitos
+// (26-AUTH-MODERNO.md: siempre ambos — el enlace puede abrirse en otro navegador,
+// el código se escribe donde empezó). Conectado a Supabase Auth.
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
-import { Lock, Mail } from 'lucide-react';
+import { KeyRound, Lock, Mail } from 'lucide-react';
 import { Logo } from '@/components/brand';
 import { StepCta } from '@/components/onboarding/ui';
+import { createClient } from '@/lib/supabase/client';
 
 type Estado = 'idle' | 'enviando' | 'enviado' | 'error';
 
 export function EntrarScreen() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
+  const [codigo, setCodigo] = useState('');
   const [estado, setEstado] = useState<Estado>('idle');
+  const [error, setError] = useState<string | null>(null);
+  const [verificando, setVerificando] = useState(false);
   const [reenviarEn, setReenviarEn] = useState(0);
 
   const emailValido = /\S+@\S+\.\S+/.test(email);
+  const codigoValido = /^\d{6}$/.test(codigo.trim());
 
-  const enviar = (e?: FormEvent) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('error') === 'enlace') {
+      setError('Ese enlace ya no sirve (expiró o se usó). Pide uno nuevo.');
+    }
+  }, []);
+
+  const arrancarContador = () => {
+    setReenviarEn(60);
+    const id = setInterval(() => {
+      setReenviarEn((s) => {
+        if (s <= 1) {
+          clearInterval(id);
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+  };
+
+  const enviar = async (e?: FormEvent) => {
     e?.preventDefault();
     if (!emailValido || estado === 'enviando') return;
     setEstado('enviando');
-    // Simulación local (Sesión 6 conecta Supabase Auth de verdad).
-    setTimeout(() => {
-      setEstado('enviado');
-      setReenviarEn(60);
-      const id = setInterval(() => {
-        setReenviarEn((s) => {
-          if (s <= 1) {
-            clearInterval(id);
-            return 0;
-          }
-          return s - 1;
-        });
-      }, 1000);
-    }, 900);
+    setError(null);
+
+    const supabase = createClient();
+    const { error: err } = await supabase.auth.signInWithOtp({
+      email: email.trim(),
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/confirm`,
+      },
+    });
+
+    if (err) {
+      setEstado('error');
+      setError('No pudimos enviar el correo. Revisa la dirección e inténtalo de nuevo.');
+      return;
+    }
+    setEstado('enviado');
+    arrancarContador();
+  };
+
+  const verificarCodigo = async (e?: FormEvent) => {
+    e?.preventDefault();
+    if (!codigoValido || verificando) return;
+    setVerificando(true);
+    setError(null);
+
+    const supabase = createClient();
+    const { error: err } = await supabase.auth.verifyOtp({
+      email: email.trim(),
+      token: codigo.trim(),
+      type: 'email',
+    });
+
+    if (err) {
+      setVerificando(false);
+      setError('Ese código no es correcto o ya venció. Revisa el último correo.');
+      return;
+    }
+    router.push('/app');
   };
 
   return (
@@ -67,8 +116,40 @@ export function EntrarScreen() {
               Revisa tu correo
             </h1>
             <p className="max-w-[36ch] text-[15px] leading-relaxed text-[var(--text-secondary)]">
-              Te enviamos el enlace de acceso a <strong>{email}</strong>.
+              Te enviamos el enlace de acceso a <strong>{email}</strong>. Ábrelo desde este
+              dispositivo, o escribe aquí el código de 6 dígitos del correo.
             </p>
+
+            <form onSubmit={verificarCodigo} className="flex w-full flex-col gap-3">
+              <label className="sr-only" htmlFor="codigo">Código de 6 dígitos</label>
+              <div className="relative">
+                <KeyRound
+                  size={16}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)]"
+                />
+                <input
+                  id="codigo"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  value={codigo}
+                  onChange={(ev) => setCodigo(ev.target.value.replace(/\D/g, ''))}
+                  placeholder="123456"
+                  className="h-14 w-full rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_30%,transparent)] bg-[var(--surface)] pl-11 pr-4 text-[18px] tracking-[0.3em] tabular-nums outline-none focus:border-[var(--accent)]"
+                />
+              </div>
+              <StepCta onClick={() => verificarCodigo()} disabled={!codigoValido || verificando}>
+                {verificando ? 'Comprobando…' : 'Entrar'}
+              </StepCta>
+            </form>
+
+            {error && (
+              <p role="alert" className="text-[13px] text-[var(--error,#B23B2E)]">
+                {error}
+              </p>
+            )}
+
             <button
               type="button"
               disabled={reenviarEn > 0}
@@ -77,7 +158,7 @@ export function EntrarScreen() {
                 reenviarEn > 0 ? 'text-[var(--text-tertiary)]' : 'text-[var(--accent)] underline underline-offset-4'
               }`}
             >
-              {reenviarEn > 0 ? `Reenviar en ${reenviarEn}s` : 'Reenviar enlace'}
+              {reenviarEn > 0 ? `Reenviar en ${reenviarEn}s` : 'Reenviar correo'}
             </button>
           </motion.div>
         ) : (
@@ -111,12 +192,22 @@ export function EntrarScreen() {
               </StepCta>
             </motion.form>
 
+            {error && (
+              <motion.p
+                variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                role="alert"
+                className="text-[13px] text-[var(--error,#B23B2E)]"
+              >
+                {error}
+              </motion.p>
+            )}
+
             <motion.p
               variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
               className="flex items-center justify-center gap-1.5 text-center text-[13px] text-[var(--text-tertiary)]"
             >
               <Lock size={13} aria-hidden="true" />
-              Sin contraseñas: te llegará un enlace de un solo uso
+              Sin contraseñas: te llega un enlace y un código de un solo uso
             </motion.p>
           </>
         )}

@@ -4,9 +4,11 @@
 // privacidad). El plan real y el cierre de sesión se conectan en la Sesión 6.
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChevronRight, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { AppScreen, ScreenTitle } from '@/components/app/ui';
+import { createClient } from '@/lib/supabase/client';
 import { PERFIL } from '@/lib/mock-app-data';
 
 function Toggle({
@@ -48,6 +50,16 @@ function Toggle({
 }
 
 export default function CuentaScreen() {
+  const router = useRouter();
+  const [saliendo, setSaliendo] = useState(false);
+
+  const cerrarSesion = async () => {
+    if (saliendo) return;
+    setSaliendo(true);
+    await createClient().auth.signOut();
+    router.push('/');
+  };
+
   return (
     <AppScreen>
       <ScreenTitle>Cuenta</ScreenTitle>
@@ -93,10 +105,12 @@ export default function CuentaScreen() {
 
       <button
         type="button"
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_25%,transparent)] py-3 text-[14px] font-semibold text-[var(--text-secondary)] [touch-action:manipulation]"
+        onClick={cerrarSesion}
+        disabled={saliendo}
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_25%,transparent)] py-3 text-[14px] font-semibold text-[var(--text-secondary)] [touch-action:manipulation] active:scale-[0.98] disabled:opacity-[0.65]"
       >
         <LogOut size={16} aria-hidden="true" />
-        Cerrar sesión
+        {saliendo ? 'Cerrando…' : 'Cerrar sesión'}
       </button>
 
       <p className="mt-4 text-center text-[12px] text-[var(--text-tertiary)]">

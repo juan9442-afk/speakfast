@@ -26,6 +26,15 @@ import {
 } from 'lucide-react';
 import { CheckCustom, CountUpNumber } from '@/components/landing/ui';
 import { FunnelHeader, LineaAnalisis, OptionChip, ProgressBar, RingProgress, StepCta, StepFrame, useCountdown } from '@/components/onboarding/ui';
+import { savePlan, saveOnboarding } from '@/lib/onboarding-storage';
+
+// Índice de Preparación de PARTIDA, derivado de las respuestas (no un número fijo).
+// Modesto a propósito: es el "antes". Sube con la práctica real.
+function calcularIndicePartida(intensidad: Intensidad | null, dolores: Dolor[]): number {
+  const bonoIntensidad = intensidad === 'intensivo' ? 9 : intensidad === 'estandar' ? 6 : 3;
+  const valor = 30 - dolores.length * 3 + bonoIntensidad;
+  return Math.max(12, Math.min(42, valor));
+}
 
 type Profesion = 'tech' | 'marketing' | 'ventas' | 'finanzas' | 'producto' | 'otra';
 type Timing = 'semana' | 'mes' | 'explorando';
@@ -112,13 +121,7 @@ export function OnboardingFlow({ plan }: { plan?: string }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (plan === 'anual' || plan === 'mensual') {
-      try {
-        sessionStorage.setItem('sf_selected_plan', plan);
-      } catch {
-        /* sessionStorage no disponible (modo privado) — no bloquea el flujo */
-      }
-    }
+    if (plan === 'anual' || plan === 'mensual') savePlan(plan);
   }, [plan]);
 
   const [stepIndex, setStepIndex] = useState(0);
@@ -388,14 +391,15 @@ export function OnboardingFlow({ plan }: { plan?: string }) {
               rol={rolFinal}
               dolores={dolores}
               onContinuar={() => {
-                try {
-                  sessionStorage.setItem(
-                    'sf_onboarding',
-                    JSON.stringify({ profesion, rol: rolFinal, meta, timing, dolores, intensidad, indicePreparacion: 34 })
-                  );
-                } catch {
-                  /* sin sessionStorage: el paywall usa sus propios defaults */
-                }
+                saveOnboarding({
+                  profesion,
+                  rol: rolFinal,
+                  meta,
+                  timing,
+                  dolores,
+                  intensidad,
+                  indicePreparacion: calcularIndicePartida(intensidad, dolores),
+                });
                 router.push('/paywall');
               }}
             />

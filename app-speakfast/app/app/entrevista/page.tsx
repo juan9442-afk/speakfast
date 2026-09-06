@@ -127,24 +127,30 @@ function Pregunta({ texto, vozActiva, onDone }: { texto: string; vozActiva: bool
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
-        <div className="relative flex size-28 items-center justify-center">
-          <span className="absolute inset-0 animate-pulse rounded-full bg-[color-mix(in_oklab,var(--accent-2)_14%,transparent)]" />
-          <span className="flex size-20 items-center justify-center rounded-full bg-[var(--accent-2)]">
-            <Mic size={30} color="var(--bg)" aria-hidden="true" />
-          </span>
-        </div>
+        <span
+          aria-hidden="true"
+          className="flex size-16 items-center justify-center rounded-full border border-[color-mix(in_oklab,var(--text-tertiary)_25%,transparent)] text-[var(--text-tertiary)]"
+        >
+          <Mic size={24} aria-hidden="true" />
+        </span>
         <p className="text-[32px] font-bold tabular-nums [font-family:var(--font-display)]">
           {min}:{String(seg).padStart(2, '0')}
         </p>
-        <p className="max-w-[32ch] text-[15px] text-[var(--text-secondary)]">Responde en voz alta. Termina antes si ya respondiste.</p>
+        <p className="max-w-[34ch] text-[15px] text-[var(--text-secondary)]">
+          Responde en voz alta mientras corre el tiempo.
+        </p>
+        <p className="max-w-[34ch] rounded-[var(--radius-button)] bg-[color-mix(in_oklab,var(--accent-2)_8%,transparent)] px-3 py-2 text-[12px] text-[var(--text-secondary)]">
+          Demo: la grabación y el análisis de tu voz se activan pronto. Por ahora, avanza con el botón.
+        </p>
       </div>
 
       <button
         type="button"
         onClick={onDone}
-        className="mx-auto flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--text-tertiary)_30%,transparent)] px-5 py-3 text-[14px] font-semibold [touch-action:manipulation]"
+        className="mx-auto flex items-center gap-2 rounded-full border border-[color-mix(in_oklab,var(--text-tertiary)_30%,transparent)] px-5 py-3 text-[14px] font-semibold [touch-action:manipulation] active:scale-[0.98]"
       >
-        <Square size={14} aria-hidden="true" /> Siguiente pregunta
+        <Square size={14} aria-hidden="true" /> {/* avanza sin grabar (demo) */}
+        Siguiente pregunta
       </button>
     </div>
   );

@@ -194,6 +194,20 @@ export function TrendChart({ data, height = 120 }: { data: number[]; height?: nu
   const reduce = useReducedMotion();
   const ref = useRef<SVGSVGElement>(null);
   const enVista = useInView(ref, { once: true, amount: 0.5 });
+
+  // Con menos de 2 puntos no hay tendencia que dibujar (evita Math.min([])=Infinity
+  // y división por (length-1)=0).
+  if (data.length < 2) {
+    return (
+      <div
+        style={{ height }}
+        className="flex items-center justify-center rounded-[var(--radius-button)] border border-dashed border-[color-mix(in_oklab,var(--text-tertiary)_28%,transparent)] text-[13px] text-[var(--text-tertiary)]"
+      >
+        Tu curva aparece a partir de la 2ª entrevista.
+      </div>
+    );
+  }
+
   const w = 320;
   const pad = 8;
   const min = Math.min(...data) - 6;
@@ -237,6 +251,32 @@ export function TrendChart({ data, height = 120 }: { data: number[]; height?: nu
         ) : null
       )}
     </svg>
+  );
+}
+
+/* ── <EmptyState> — hueco con mensaje + (opcional) CTA. Nunca "No hay datos". ── */
+export function EmptyState({
+  titulo,
+  detalle,
+  cta,
+}: {
+  titulo: string;
+  detalle?: string;
+  cta?: { label: string; href: string };
+}) {
+  return (
+    <div className="rounded-[var(--radius-card)] border border-dashed border-[color-mix(in_oklab,var(--text-tertiary)_28%,transparent)] px-5 py-8 text-center">
+      <p className="text-[15px] font-semibold">{titulo}</p>
+      {detalle && <p className="mt-1 text-[13px] leading-relaxed text-[var(--text-secondary)]">{detalle}</p>}
+      {cta && (
+        <Link
+          href={cta.href}
+          className="mt-4 inline-flex h-11 items-center justify-center rounded-[var(--radius-button)] bg-[var(--accent)] px-5 text-[14px] font-semibold text-[var(--bg)] [touch-action:manipulation] active:scale-[0.98]"
+        >
+          {cta.label}
+        </Link>
+      )}
+    </div>
   );
 }
 

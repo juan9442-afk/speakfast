@@ -3,7 +3,7 @@
 // MI PROGRESO — tendencia de fluidez, racha, récords, historial de entrevistas y
 // "mi diccionario" (los upgrades de vocabulario acumulados). Datos de ejemplo.
 
-import { AppScreen, NumeroContado, ScreenTitle, StatCard, TrendChart } from '@/components/app/ui';
+import { AppScreen, EmptyState, NumeroContado, ScreenTitle, StatCard, TrendChart } from '@/components/app/ui';
 import {
   FLUIDEZ_HISTORIAL,
   HISTORIAL_ENTREVISTAS,
@@ -15,7 +15,11 @@ import {
 
 export default function ProgresoScreen() {
   const dominadas = PREGUNTAS_CLAVE.filter((q) => q.estado === 'dominada').length;
-  const mejorFluidez = Math.max(...FLUIDEZ_HISTORIAL);
+  const hayHistorial = FLUIDEZ_HISTORIAL.length >= 2;
+  const mejorFluidez = FLUIDEZ_HISTORIAL.length ? Math.max(...FLUIDEZ_HISTORIAL) : 0;
+  const deltaFluidez = hayHistorial
+    ? FLUIDEZ_HISTORIAL[FLUIDEZ_HISTORIAL.length - 1] - FLUIDEZ_HISTORIAL[0]
+    : 0;
 
   return (
     <AppScreen>
@@ -24,9 +28,11 @@ export default function ProgresoScreen() {
       <section className="rounded-[var(--radius-card)] border border-[color-mix(in_oklab,var(--text-tertiary)_18%,transparent)] bg-[var(--surface)] p-5 shadow-[var(--shadow-1)]">
         <div className="flex items-baseline justify-between">
           <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[var(--text-tertiary)]">Fluidez</p>
-          <p className="text-[13px] font-semibold text-[var(--accent)]">
-            ↑ {FLUIDEZ_HISTORIAL[FLUIDEZ_HISTORIAL.length - 1] - FLUIDEZ_HISTORIAL[0]} pts en 8 entrevistas
-          </p>
+          {hayHistorial && (
+            <p className="text-[13px] font-semibold text-[var(--accent)]">
+              {deltaFluidez >= 0 ? '↑' : '↓'} {Math.abs(deltaFluidez)} pts en {FLUIDEZ_HISTORIAL.length} entrevistas
+            </p>
+          )}
         </div>
         <div className="mt-3">
           <TrendChart data={FLUIDEZ_HISTORIAL} />
@@ -56,7 +62,14 @@ export default function ProgresoScreen() {
 
       <section className="mt-6">
         <h2 className="mb-3 text-[16px] font-bold [font-family:var(--font-display)]">Historial de entrevistas</h2>
-        <ul className="flex flex-col gap-2">
+        {HISTORIAL_ENTREVISTAS.length === 0 ? (
+          <EmptyState
+            titulo="Todavía no has hecho ninguna entrevista"
+            detalle="Haz tu primera y aquí verás tu puntaje, tus muletillas y cómo evolucionas."
+            cta={{ label: 'Empezar entrevista', href: '/app/entrevista' }}
+          />
+        ) : (
+          <ul className="flex flex-col gap-2">
           {HISTORIAL_ENTREVISTAS.map((e) => (
             <li
               key={e.id}
@@ -69,7 +82,8 @@ export default function ProgresoScreen() {
               </span>
             </li>
           ))}
-        </ul>
+          </ul>
+        )}
       </section>
 
       <section className="mt-6">
@@ -77,19 +91,26 @@ export default function ProgresoScreen() {
         <p className="mb-3 text-[13px] text-[var(--text-secondary)]">
           Frases que subiste de básicas a profesionales. Crece con cada entrevista.
         </p>
-        <ul className="flex flex-col gap-2">
-          {MI_DICCIONARIO.map((v) => (
-            <li
-              key={v.basica}
-              className="rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_16%,transparent)] bg-[var(--surface)] px-4 py-3"
-            >
-              <p className="text-[13px] text-[var(--text-secondary)] line-through decoration-[color-mix(in_oklab,var(--text-tertiary)_50%,transparent)]">
-                {v.basica}
-              </p>
-              <p className="mt-0.5 text-[14px] font-semibold">{v.pro}</p>
-            </li>
-          ))}
-        </ul>
+        {MI_DICCIONARIO.length === 0 ? (
+          <EmptyState
+            titulo="Tu diccionario está vacío por ahora"
+            detalle="Cada entrevista te deja frases nuevas — de las básicas a cómo suena un profesional."
+          />
+        ) : (
+          <ul className="flex flex-col gap-2">
+            {MI_DICCIONARIO.map((v) => (
+              <li
+                key={v.basica}
+                className="rounded-[var(--radius-button)] border border-[color-mix(in_oklab,var(--text-tertiary)_16%,transparent)] bg-[var(--surface)] px-4 py-3"
+              >
+                <p className="text-[13px] text-[var(--text-secondary)] line-through decoration-[color-mix(in_oklab,var(--text-tertiary)_50%,transparent)]">
+                  {v.basica}
+                </p>
+                <p className="mt-0.5 text-[14px] font-semibold">{v.pro}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       <p className="mt-6 text-center text-[12px] text-[var(--text-tertiary)]">

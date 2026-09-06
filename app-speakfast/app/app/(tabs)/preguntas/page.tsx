@@ -5,7 +5,7 @@
 // Colección + goal-gradient atados al valor real (ver 24). Datos de ejemplo.
 
 import { useRouter } from 'next/navigation';
-import { AppScreen, EstadoBadge, ScreenTitle } from '@/components/app/ui';
+import { AppScreen, EmptyState, EstadoBadge, ScreenTitle } from '@/components/app/ui';
 import { PREGUNTAS_CLAVE } from '@/lib/mock-app-data';
 
 const ORDEN = { 'en-progreso': 0, 'sin-practicar': 1, 'dominada': 2 } as const;
@@ -21,6 +21,13 @@ export default function PreguntasScreen() {
         Preguntas clave
       </ScreenTitle>
 
+      {lista.length === 0 ? (
+        <EmptyState
+          titulo="Aún no tienes preguntas de tu rol"
+          detalle="Elige tu profesión y tu rol para cargar el banco de preguntas."
+          cta={{ label: 'Ir a mi cuenta', href: '/app/cuenta' }}
+        />
+      ) : (
       <ul className="flex flex-col gap-3">
         {lista.map((q) => (
           <li key={q.id}>
@@ -42,6 +49,7 @@ export default function PreguntasScreen() {
           </li>
         ))}
       </ul>
+      )}
     </AppScreen>
   );
 }

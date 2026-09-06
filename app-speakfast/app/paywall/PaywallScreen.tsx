@@ -14,6 +14,7 @@ import { motion } from 'motion/react';
 import { Lock, ShieldCheck } from 'lucide-react';
 import { CheckCustom, CountUpNumber, Hairline } from '@/components/landing/ui';
 import { FunnelHeader, StepCta } from '@/components/onboarding/ui';
+import { readOnboarding, readPlan } from '@/lib/onboarding-storage';
 
 type PlanId = 'anual' | 'mensual';
 
@@ -51,22 +52,13 @@ export function PaywallScreen() {
   };
 
   useEffect(() => {
-    try {
-      const guardado = sessionStorage.getItem('sf_selected_plan');
-      if (guardado === 'anual' || guardado === 'mensual') setPlan(guardado);
-      const onboarding = sessionStorage.getItem('sf_onboarding');
-      if (onboarding) {
-        const datos = JSON.parse(onboarding) as {
-          rol?: string;
-          indicePreparacion?: number;
-          intensidad?: string;
-        };
-        if (datos.rol) setRol(datos.rol);
-        if (typeof datos.indicePreparacion === 'number') setIndice(datos.indicePreparacion);
-        if (datos.intensidad) setRitmo(datos.intensidad);
-      }
-    } catch {
-      /* sin datos previos: se usan los valores por defecto */
+    const guardado = readPlan();
+    if (guardado === 'anual' || guardado === 'mensual') setPlan(guardado);
+    const datos = readOnboarding();
+    if (datos) {
+      if (datos.rol) setRol(datos.rol);
+      if (typeof datos.indicePreparacion === 'number') setIndice(datos.indicePreparacion);
+      if (datos.intensidad) setRitmo(datos.intensidad);
     }
   }, []);
 

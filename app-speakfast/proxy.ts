@@ -14,7 +14,8 @@ export const config = {
     // Todo excepto:
     //  - /api/*  → las rutas de servidor validan su propia sesión (patrón BFF de 09);
     //    además /api/health debe ser público. El proxy solo protege PÁGINAS.
-    //  - estáticos e imágenes → que el refresh no corra por cada asset.
-    '/((?!api|_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    //  - estáticos, imágenes y los metadata files (robots/sitemap/favicon/icon) →
+    //    si el proxy los toca, un visitante anónimo los ve redirigidos a /entrar.
+    '/((?!api|_next/static|_next/image|favicon.ico|icon.svg|robots.txt|sitemap.xml|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };

@@ -11,7 +11,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
-import { Lock, ShieldCheck } from 'lucide-react';
+import { Check, Lock, ShieldCheck } from 'lucide-react';
 import { CheckCustom, CountUpNumber, Hairline } from '@/components/landing/ui';
 import { FunnelHeader, StepCta } from '@/components/onboarding/ui';
 import { readOnboarding, readPlan } from '@/lib/onboarding-storage';
@@ -177,11 +177,14 @@ export function PaywallScreen() {
               <motion.button
                 key={id}
                 type="button"
+                role="radio"
+                aria-checked={seleccionado}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setPlan(id)}
-                className={`relative rounded-[var(--radius-card)] border p-4 text-left transition-colors [touch-action:manipulation] ${
+                // Borde SIEMPRE de 2px (cambia solo el color) → sin salto de layout al seleccionar.
+                className={`relative rounded-[var(--radius-card)] border-2 p-4 pr-11 text-left transition-colors [touch-action:manipulation] ${
                   seleccionado
-                    ? 'border-[2px] border-[var(--accent)] bg-[color-mix(in_oklab,var(--accent)_6%,transparent)]'
+                    ? 'border-[var(--accent)] bg-[color-mix(in_oklab,var(--accent)_6%,transparent)]'
                     : 'border-[color-mix(in_oklab,var(--text-tertiary)_28%,transparent)] bg-[var(--surface)]'
                 }`}
               >
@@ -190,6 +193,17 @@ export function PaywallScreen() {
                     {p.badge}
                   </span>
                 )}
+                {/* Indicador de selección (radio) — no basta el color de borde */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute right-4 top-1/2 flex size-5 -translate-y-1/2 items-center justify-center rounded-full border-2 ${
+                    seleccionado
+                      ? 'border-[var(--accent)] bg-[var(--accent)]'
+                      : 'border-[color-mix(in_oklab,var(--text-tertiary)_35%,transparent)]'
+                  }`}
+                >
+                  {seleccionado && <Check size={12} strokeWidth={3} color="var(--bg)" />}
+                </span>
                 <div className="flex items-center justify-between">
                   <span className="text-[16px] font-semibold">{p.nombre}</span>
                   <span className="text-[20px] font-bold tabular-nums [font-family:var(--font-display)]">

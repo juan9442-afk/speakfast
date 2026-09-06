@@ -7,19 +7,13 @@ import 'server-only';
 // Ver 09-SEGURIDAD.md y 25-BASE-DE-DATOS.md.
 
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { publicEnv, serverEnv } from '@/lib/env';
 
 export function createAdminClient() {
-  const url = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const secret = process.env.SUPABASE_SECRET_KEY;
+  const { SUPABASE_URL, SUPABASE_SECRET_KEY } = serverEnv();
+  const url = SUPABASE_URL ?? publicEnv().NEXT_PUBLIC_SUPABASE_URL;
 
-  if (!url || !secret) {
-    throw new Error(
-      'Faltan SUPABASE_URL o SUPABASE_SECRET_KEY. La secret key va SOLO en el ' +
-        'entorno del servidor (sin prefijo NEXT_PUBLIC_), nunca en el navegador.'
-    );
-  }
-
-  return createSupabaseClient(url, secret, {
+  return createSupabaseClient(url, SUPABASE_SECRET_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }

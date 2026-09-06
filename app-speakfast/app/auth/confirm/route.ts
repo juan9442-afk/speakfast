@@ -9,12 +9,19 @@ import { type EmailOtpType } from '@supabase/supabase-js';
 import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
+// Solo se permite redirigir a rutas internas: empieza por "/" pero no por "//"
+// ni "/\" (eso apuntaría a otro dominio). Cierra el open-redirect.
+function rutaInternaSegura(v: string | null): string {
+  if (!v || !v.startsWith('/') || v.startsWith('//') || v.startsWith('/\\')) return '/app';
+  return v;
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get('token_hash');
   const type = (searchParams.get('type') as EmailOtpType | null) ?? 'email';
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/app';
+  const next = rutaInternaSegura(searchParams.get('next'));
 
   const supabase = await createClient();
 
